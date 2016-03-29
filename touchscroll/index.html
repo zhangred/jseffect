@@ -7,27 +7,27 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>商品码</title>
+    <title>移动端小插件</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <div class="html modal-open">
     <div class="touch" id="dom">
-        <p class="l">01</p>
-        <p class="l">02</p>
-        <p class="l">03</p>
-        <p class="l">04</p>
-        <p class="l">05</p>
-        <p class="l">06</p>
-        <p class="l">07</p>
-        <p class="l">08</p>
-        <p class="l">09</p>
-        <p class="l">10</p>
-        <p class="l">11</p>
-        <p class="l">12</p>
-        <p class="l">13</p>
-        <p class="l">14</p>
-        <p class="l">15</p>
+        <p class="t">文本内容01</p>
+        <p class="t">文本内容02</p>
+        <p class="t">文本内容03</p>
+        <p class="t">文本内容04</p>
+        <p class="t">文本内容05</p>
+        <p class="t">文本内容06</p>
+        <p class="t">文本内容07</p>
+        <p class="t">文本内容08</p>
+        <p class="t">文本内容09</p>
+        <p class="t">文本内容10</p>
+        <p class="t">文本内容11</p>
+        <p class="t">文本内容12</p>
+        <p class="t">文本内容13</p>
+        <p class="t">文本内容14</p>
+        <p class="t">文本内容15</p>
     </div>
     <div class="touch" id="doma">
         <p class="l">01</p>
@@ -47,33 +47,10 @@
         <p class="l">15</p>
     </div>
 </div>
+<script type="text/javascript" src="main.js"></script>
 <script>
-var divScroll = function(option){
-    var _this = this;
-    this.elm = option.elm;
-    this.fy = this.ly = this.ofy = 0;
-
-    this.elm.addEventListener('touchstart',function(event){
-        var touches = event.targetTouches;
-        _this.fy = touches[0].pageY;
-    },false);
-    this.elm.addEventListener('touchmove',function(event){
-        var touches = event.targetTouches;
-         _this.ly = touches[0].pageY;
-        var cy =  _this.fy -  _this.ly;
-        _this.elm.scrollTop =  _this.ofy+cy;
-        event.preventDefault();
-    },false)
-    this.elm.addEventListener('touchend',function(event){
-        _this.ofy = _this.elm.scrollTop;
-         _this.fy =  _this.ly = 0;
-    },false)
-}
-
-    new divScroll({"elm":document.getElementById('dom'),"inh":600,"h":200});
-    new divScroll({"elm":document.getElementById('doma'),"inh":600,"h":200});
-
-
+    new touchScroll({"elm":document.getElementById('dom')});
+    new touchScroll({"elm":document.getElementById('doma')});
 </script>
 </body>
 </html>

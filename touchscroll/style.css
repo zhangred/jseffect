@@ -11,8 +11,7 @@ select.input{border:none;-webkit-appearance:none;}
 
 
 .html{max-width:640px;height:100%;margin:auto;}
-.hide{display:none !important;}
-.stage{position:relative;min-height:100%;overflow:hidden;-webkit-transition:-webkit-transform .8s;}
-.touch{ height: 200px; width: 100px; margin-left: 20px; margin-top: 30px; background: #aaa; overflow: hidden; float: left;}
-.l{ height: 40px; line-height: 39px; border-bottom: 1px solid #999; color: #111; text-align: center; margin: 0 auto;}
 
+.touch{ height: 200px; width: 100px; margin-left: 20px; margin-top: 30px; background: #eee;  border-radius: 4px; overflow: hidden; float: left; box-shadow: 0 0 2px 1px #ddd;}
+.l{ height: 40px; line-height: 39px; border-bottom: 1px solid #ddd; color: #111; text-align: center; margin: 0 auto;}
+.t{ padding: 5px 0 5px 5px;}
