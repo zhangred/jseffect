@@ -1,0 +1,18 @@
+*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+html{background:#f6f6f6;height:100%;}
+body{height:100%;margin:0;font-size:12px;line-height:20px;font-family:arial,"\5FAE\8F6F\96C5\9ED1";-webkit-text-size-adjust:none;color:#333;}
+img{border:0;-ms-interpolation-mode:bicubic;vertical-align:middle;display:inline-block;}
+a{text-decoration:none;color:#333;}
+input,button{ font-family:arial,"\5FAE\8F6F\96C5\9ED1";}
+input,
+input:focus{outline:none;}
+input{-webkit-appearance:none;}
+select.input{border:none;-webkit-appearance:none;}
+
+
+.html{max-width:640px;height:100%;margin:auto;}
+.hide{display:none !important;}
+.stage{position:relative;min-height:100%;overflow:hidden;-webkit-transition:-webkit-transform .8s;}
+.touch{ height: 200px; width: 100px; margin-left: 20px; margin-top: 30px; background: #aaa; overflow: hidden; float: left;}
+.l{ height: 40px; line-height: 39px; border-bottom: 1px solid #999; color: #111; text-align: center; margin: 0 auto;}
+
