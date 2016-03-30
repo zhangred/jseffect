@@ -1,0 +1,98 @@
+@charset "utf-8";
+/* CSS Document */
+body{padding:0; margin:0;font-family:"微软雅黑",Arial, Helvetica, sans-serif; background: #fafafa;}
+div, p, form, label,  textarea, img, span{margin:0; padding:0; border:none;}
+a{ text-decoration:none; color: #222;}
+a:hover{ color: #72db96; transition:color 0.2s,background 0.2s; -moz-transition:color 0.2s,background 0.2s; -webkit-transition:color 0.2s,background 0.2s;}
+ul{ margin:0;   padding:0;  list-style-type:none;}
+div{font-size:12px;line-height:20px; color: #333;}
+html, body { height: 100%}
+img {vertical-align: middle;border: none; -ms-interpolation-mode: bicubic;}
+div,p,span,a,ul,li,nav,input{ -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;}
+
+.tippop{ position: fixed; z-index: 99; left: 0; top: 50%;transform:translateY(-50%); -webkit-transform:translateY(-50%); font-size: 12px; text-align: center; width: 100%; padding: 0 30px;}
+.tippop .text{ padding:20px; display: inline-block; font-size: 12px; border-radius: 4px; }
+.tippop .text i{ font-size: 36px; margin-right: 10px;  vertical-align: middle;}
+.tippop .danger{ background: #f2dede; border: 1px solid #ebccd1;color: #a94442;}
+.tippop .success{ background: #dff0d8; border: 1px solid #d6e9c6;color: #3c763d;}
+.tippop .info{ background: #d9edf7; border: 1px solid #bce8f1;color: #31708f;}
+.tippop .warning{ background: #fcf8e3; border: 1px solid #faebcc;color: #8a6d3b;}
+
+.tippop_bg{position: fixed; left: 0; top: 0; height: 100%; width: 100%; background: rgba(0,0,0,.6); z-index: 98;}
+.tippop_alert{ position: fixed; z-index: 99; left: 50%; top: 50%;transform:translate(-50%,-50%); -webkit-transform:translate(-50%,-50%); font-size: 12px; text-align: center; min-width: 150px; max-width: 80%; border-radius: 5px; overflow: hidden;}
+.tippop_alert_t{padding: 25px 15px; background: #fff; border-bottom: 1px solid #e8e8e8; text-align: center; font-size: 12px; color: #666; line-height: 20px;}
+.tippop_alert_b{ display: block; height: 36px; line-height: 36px; text-align: center; font-size: 12px; color: #333; background: #fff; }
+.tippop_confirm_btn{ display: block; float: left; width: 50%; height: 36px; line-height: 36px;}
+.tippop_confirm_btn:nth-child(1){ border-right:1px solid #e8e8e8;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

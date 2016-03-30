@@ -1,0 +1,46 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="main.js"></script>
+	<title>js小效果</title>
+</head>
+<body>
+	<button onclick="funa()">tip提示框</button><br><br>
+	<button onclick="funb()">alert提示框</button><br><br>
+	<button onclick="funi()">confirm提示框</button>
+	<script type="text/javascript">
+		function funa(){
+			CUES.tip({
+				"msg":"这是提示文字", // 必填
+				"type":"danger", // 默认info    info warning  success danger
+				"time":1000, //停留时间  默认1000毫秒
+				"callback":function(){
+				console.log('回调函数，可有可无')
+			}})
+		}
+		function funb(){
+			CUES.alert({'msg':'这是要显示的文字这是要的文字','callback':function(){
+				console.log('回调函数，可有可无')
+			}});
+		}
+
+		function funi(){
+			CUES.confirm({
+				'msg':'是否删除？',
+				'callback':function(){
+					console.log('回调函数，可有可无')
+				}
+			});
+		}
+	
+	</script>
+</body>
+</html>
