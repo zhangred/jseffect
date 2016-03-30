@@ -1,4 +1,12 @@
-﻿function imgfly(option){
+﻿/**
+ * A simple, efficent mobile slider solution
+ * @file main.js
+ * @author zhangred
+ * @email 577056210@qq.com（low）
+ *
+ * @LICENSE https://github.com/zhangred/jseffect
+ */
+function imgfly(option){
     var elm = option.elm;
     var tag = option.tag;
     var px = option.px?option.px:0;

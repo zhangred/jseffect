@@ -1,0 +1,83 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="main.css" rel="stylesheet" type="text/css" />
+	<title>and</title>
+</head>
+<body>
+	<div class="item"><canvas id="canvasd"></canvas></div>
+	<div class="item"><canvas id="canvasa"></canvas></div>
+	<div class="item"><canvas id="canvasb"></canvas></div>
+	<div class="item"><canvas id="canvasc"></canvas></div>
+	
+	<script language="javascript" type="text/javascript" src="main.js"></script>
+	<script type="text/javascript">
+
+		var mm = new chart('canvasa',{
+			type:'pie',
+			dataset:{
+				bgcolor : ['#91c124','#e4749e','#9c74e4','#74c8e4','#74e4ae','#c8e474','#dddddd'],
+				values : [300,200,423,652,410,100,325]
+			}
+		});
+
+		var mm = new chart('canvasb',{
+			type:'parea',
+			dataset:{
+				bgcolor : ['#91c124','#e4749e','#9c74e4','#74c8e4','#000','#c8e474','#9c74e4','#74c8e4','#e4749e'],
+				values : [500,200,523,700,650,200,293,500,400],
+				scale : [100,150,300,450,600,750]
+				}
+		});
+
+		var mm = new chart('canvasc',{
+			type:'doughnut',
+			dhw:70,
+			dataset:{
+				bgcolor : ['#91c124','#e4749e','#9c74e4','#74c8e4','#74e4ae','#c8e474'],
+				values : [300,200,423,652,410,100]
+			}
+		});
+
+		var mm = new chart('canvasd',{
+			type:'bar',
+			lebels:["January","February","三月","April","五月","六月","七月","八月","九月"],
+			dataset:[
+				{
+					bgcolor: "rgba(220,220,220,0.5)",
+					bdcolor: "rgba(220,220,220,1)",
+					data: [50,50,80,140,65,148,52,121,58]
+				},
+				{
+					bgcolor: "rgba(151,187,205,0.5)",
+					bdcolor: "rgba(151,187,205,1)",
+					data: [28,48,40,19,96,27,100,50,50]
+				}
+				// {
+				// 	bgcolor: "rgba(175,17,17,0.5)",
+				// 	bdcolor: "rgba(175,17,17,1)",
+				// 	data: [128,48,40,119,96,27,150,50,150]
+				// },
+				// {
+				// 	bgcolor: "rgba(17,175,117,0.5)",
+				// 	bdcolor: "rgba(17,175,117,1)",
+				// 	data: [128,48,140,19,96,27,100,50,150]
+				// }
+			],
+			longsp:25,
+			degrees:40,
+			unit:'万'
+		})
+
+
+		
+	</script>
+</body>
+</html>
