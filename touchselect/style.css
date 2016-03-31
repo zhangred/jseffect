@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS Document */
+body{padding:0; margin:0;font-family:"微软雅黑",Arial, Helvetica, sans-serif; background: #fafafa;}
+div, p, form, label,  textarea, img, span{margin:0; padding:0; border:none;}
+a{ text-decoration:none; color: #222;}
+a:hover{ color: #72db96; transition:color 0.2s,background 0.2s; -moz-transition:color 0.2s,background 0.2s; -webkit-transition:color 0.2s,background 0.2s;}
+ul{ margin:0;   padding:0;  list-style-type:none;}
+div{font-size:12px;line-height:20px; color: #333;}
+html, body { height: 100%}
+img {vertical-align: middle;border: none; -ms-interpolation-mode: bicubic;}
+div,p,span,a,ul,li,nav,input{ -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;}
+
+
+.html{max-width:640px;height:100%;margin:auto;}
+
+.t_select{  width: 100px; margin-left: 20px; margin-top: 30px; overflow: hidden; float: left; text-align: center; font-size: 12px; position: relative;}
+.t_select .coa,.t_select .cob{ display: block; position: absolute; left: 0; top: 0; width: 100%; background: rgba(255,255,255,.5); z-index: 2; border-bottom: 1px solid #ddd;}
+.t_select .cob{ top: auto; bottom: 0; border-top: 1px solid #ddd; border-bottom: none;}
+.t_select_ul{ width: 100%; position: absolute; left: 0; z-index: 1;}

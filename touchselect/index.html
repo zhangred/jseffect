@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>移动端小插件</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="html modal-open">
+    <div class="t_select" id="dom"></div>
+    <div class="t_select" id="doma"></div>
+</div>
+<script type="text/javascript" src="main.js"></script>
+<script>
+    
+    var data01 = [
+        {"value":1,"name":"文本内容01"},
+        {"value":2,"name":"文本内容02"},
+        {"value":3,"name":"文本内容03"},
+        {"value":4,"name":"文本内容04"},
+        {"value":5,"name":"文本内容05"},
+        {"value":6,"name":"文本内容06"},
+        {"value":7,"name":"文本内容07"}
+    ];
+    var data02 = [
+        {"value":1,"name":"内容01"},
+        {"value":2,"name":"内容02"},
+        {"value":3,"name":"内容03"},
+        {"value":4,"name":"内容04"},
+        {"value":5,"name":"内容05"},
+        {"value":6,"name":"内容06"},
+        {"value":7,"name":"内容07"},
+        {"value":8,"name":"内容08"},
+        {"value":9,"name":"内容09"},
+        {"value":10,"name":"内容10"}
+    ];
+    var data03 = [
+        {"value":1,"name":"xx内容01"},
+        {"value":2,"name":"xx内容02"},
+        {"value":3,"name":"xx内容03"},
+        {"value":4,"name":"xx内容04"},
+        {"value":5,"name":"xx内容05"},
+        {"value":6,"name":"xx内容06"},
+        {"value":7,"name":"xx内容07"}
+    ];
+
+    var day = new touchSelect({
+                    "elm":document.getElementById('dom'), // 目标对象dom
+                    "data":data01, // 选项数据
+                    "default_v":3, // 默认选项 value
+                    "sizenum":5, // 显示选项个数 默认5  必须是奇数
+                    "unit":36, // 单位移动距离
+                    "change":function(v){ // 数据更改事件
+                        time.init({"data":data03,"default_v":5});
+                    }
+                });
+    var time = new touchSelect({
+                    "elm":document.getElementById('doma'), // 目标对象dom
+                    "data":data02, // 选项数据
+                    "default_v":4, // 默认选项 value
+                    "sizenum":5, // 显示选项个数 默认5  必须是奇数
+                    "unit":36, // 单位移动距离
+                    "change":function(v){ // 数据更改事件
+                        console.log(v);
+                    }
+                });
+</script>
+</body>
+</html>
