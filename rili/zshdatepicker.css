@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+body{padding:0; margin:0;font-family:"微软雅黑",Arial, Helvetica, sans-serif; background: #fafafa;}
+div, p, form, label,  textarea, img, span{margin:0; padding:0; border:none;}
+a{ text-decoration:none; color: #222;}
+a:hover{ color: #72db96; transition:color 0.2s,background 0.2s; -moz-transition:color 0.2s,background 0.2s; -webkit-transition:color 0.2s,background 0.2s;}
+ul{ margin:0;   padding:0;  list-style-type:none;}
+div{font-size:12px;line-height:20px; color: #333;}
+html, body { height: 100%}
+img {vertical-align: middle;border: none; -ms-interpolation-mode: bicubic;}
+div,p,span,a,ul,li,nav,input{ -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;}
+
+
+
+.datepicker{ background: #41b29c; text-align: center; color: #fff;}
+.datepicker .dp-top{ height: 40px; line-height: 40px; position: relative; text-align: center;}
+.datepicker .dp-top .prev{ display: block; height: 40px; width: 40px; position: absolute; left: 0; top: 0; text-align: center; line-height: 40px; color: #fff; background: rgba(255,255,255,0.3);}
+.datepicker .dp-top .next{ display: block; height: 40px; width: 40px; position: absolute; right: 0; top: 0; text-align: center; line-height: 40px; color: #fff; background: rgba(255,255,255,0.3);}
+.datepicker .dp-top .year,.datepicker .dp-top .m{ color: #fff; padding: 0 5px; font-weight: bold;}
+.datepicker .weekline{ overflow: hidden;}
+.datepicker .week_li{ float: left; width: 14.28%; line-height: 28px;}
+/*.datepickerdiv th{ line-height: 28px;}*/
+.datepicker .td{ border:1px solid #42c0a7; width: 14.28%;}
+.datepicker .a{ display: block; height: 30px; padding: 0 5px 0 0; text-align: right; font-size: 12px; line-height: 30px; height: 30px; color: #fff; text-align: center;}
+.datepicker .a.today{ background: #42c0a7;}
+.datepicker .a.active{ background: #359280;}
+.datepicker table{border-collapse:collapse;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
