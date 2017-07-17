@@ -13,30 +13,32 @@
 	<title>js小效果</title>
 </head>
 <body>
+<div style="padding: 30px;">
+	
 	<button onclick="funa()">tip提示框</button><br><br>
 	<button onclick="funb()">alert提示框</button><br><br>
 	<button onclick="funi()">confirm提示框</button>
+</div>
 	<script type="text/javascript">
 		function funa(){
 			CUES.tip({
-				"msg":"这是提示文字", // 必填
+				"msg":"这是提示文字这是提示文字这是提示文字这是提示文字这是提示文字这是提示文字这是提示文字这是提示文字这是提示文字", // 必填
 				"type":"danger", // 默认info    info warning  success danger
-				"time":1000, //停留时间  默认1000毫秒
 				"callback":function(){
 				console.log('回调函数，可有可无')
 			}})
 		}
 		function funb(){
-			CUES.alert({'msg':'这是要显示的文字这是要的文字','callback':function(){
-				console.log('回调函数，可有可无')
+			CUES.alert({'msg':'这是要显示的文字这是要的文字这是要显示的文字这是要的文字这是要显示的文字这是要的文字这是要显示的文字这是要的文字','callback':function(){
+				alert('回调函数，可有可无')
 			}});
 		}
 
 		function funi(){
 			CUES.confirm({
 				'msg':'是否删除？',
-				'callback':function(){
-					console.log('回调函数，可有可无')
+				'callback':function(tf){
+					alert('回调函数，可有可无'+tf)
 				}
 			});
 		}

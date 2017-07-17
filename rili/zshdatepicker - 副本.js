@@ -314,9 +314,6 @@ datepicker.prototype.bindEvent_input_click = function(obj){
 			};
 		};
 		outer.style.display = "block";
-		setTimeout(function(){
-			obj.target.blur();
-		},100);
 	},false);
 	
 };

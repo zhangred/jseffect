@@ -1,74 +1,229 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>移动端小插件</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>移动端小插件</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class="html modal-open">
-    <div class="t_select" id="dom"></div>
-    <div class="t_select" id="doma"></div>
-</div>
-<script type="text/javascript" src="main.js"></script>
-<script>
-    
-    var data01 = [
-        {"value":1,"name":"文本内容01"},
-        {"value":2,"name":"文本内容02"},
-        {"value":3,"name":"文本内容03"},
-        {"value":4,"name":"文本内容04"},
-        {"value":5,"name":"文本内容05"},
-        {"value":6,"name":"文本内容06"},
-        {"value":7,"name":"文本内容07"}
-    ];
-    var data02 = [
-        {"value":1,"name":"内容01"},
-        {"value":2,"name":"内容02"},
-        {"value":3,"name":"内容03"},
-        {"value":4,"name":"内容04"},
-        {"value":5,"name":"内容05"},
-        {"value":6,"name":"内容06"},
-        {"value":7,"name":"内容07"},
-        {"value":8,"name":"内容08"},
-        {"value":9,"name":"内容09"},
-        {"value":10,"name":"内容10"}
-    ];
-    var data03 = [
-        {"value":1,"name":"xx内容01"},
-        {"value":2,"name":"xx内容02"},
-        {"value":3,"name":"xx内容03"},
-        {"value":4,"name":"xx内容04"},
-        {"value":5,"name":"xx内容05"},
-        {"value":6,"name":"xx内容06"},
-        {"value":7,"name":"xx内容07"}
-    ];
+	<div class="html modal-open">
+		数据选择-有默认<div class="t_select" id="doma"></div>
+		数据选择-无默认<div class="t_select" id="domb"></div>
+		联动一级<div class="t_select" id="domc"></div>
+		联动二级<div class="t_select" id="domd"></div>
+		联动三级<div class="t_select" id="dome"></div>
 
-    var day = new touchSelect({
-                    "elm":document.getElementById('dom'), // 目标对象dom
-                    "data":data01, // 选项数据
-                    "default_v":3, // 默认选项 value
-                    "sizenum":5, // 显示选项个数 默认5  必须是奇数
-                    "unit":36, // 单位移动距离
-                    "change":function(v){ // 数据更改事件
-                        time.init({"data":data03,"default_v":5});
-                    }
-                });
-    var time = new touchSelect({
-                    "elm":document.getElementById('doma'), // 目标对象dom
-                    "data":data02, // 选项数据
-                    "default_v":4, // 默认选项 value
-                    "sizenum":5, // 显示选项个数 默认5  必须是奇数
-                    "unit":36, // 单位移动距离
-                    "change":function(v){ // 数据更改事件
-                        console.log(v);
-                    }
-                });
-</script>
+		<div class="nodata">
+			<div class="cltow" id="cla"></div>
+			<div class="cltow" id="clb"></div>
+		</div>
+		<div class="nodata">
+			<div class="clthr" id="clc"></div>
+			<div class="clthr" id="cld"></div>
+			<div class="clthr" id="cle"></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="main.js"></script>
+	<script>
+
+		var data01 = [
+			{"value":1,"key":"文本内容01"},
+			{"value":2,"key":"文本内容02"},
+			{"value":3,"key":"文本内容03"},
+			{"value":4,"key":"文本内容04"},
+			{"value":5,"key":"文本内容05"},
+			{"value":6,"key":"文本内容06"},
+			{"value":7,"key":"文本内容07"}
+		];
+		var data02 = [
+		    {"value":1,"key":"内容01"},
+		    {"value":2,"key":"内容02"},
+		    {"value":3,"key":"内容03"},
+		    {"value":4,"key":"内容04"},
+		    {"value":5,"key":"内容05"},
+		    {"value":6,"key":"内容06"},
+		    {"value":7,"key":"内容07"},
+		    {"value":8,"key":"内容08"},
+		    {"value":9,"key":"内容09"},
+		    {"value":10,"key":"内容10"}
+		];
+		var data03 = [
+		    {"value":1,"key":"data03内容01"},
+		    {"value":2,"key":"data03内容02"},
+		    {"value":3,"key":"data03内容03"},
+		    {"value":4,"key":"data03内容04"},
+		    {"value":5,"key":"data03内容05"},
+		    {"value":6,"key":"data03内容06"},
+		    {"value":7,"key":"data03内容07"}
+		];
+
+		var timea = new dataSelect({
+			"title":"数据选择-有默认",
+			"target":document.getElementById('doma'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":data02, // 选项数据
+			"default_v":data02[2].value, // 设置默认值
+			"initselected":true,
+			"selected":function(v){
+				document.getElementById('doma').innerHTML = (v&&v.key)||"无值";
+			}
+		});
+		var timeb = new dataSelect({
+			"title":"数据选择-无默认",
+			"target":document.getElementById('domb'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":data03, // 选项数据
+			"selected":function(v){
+				document.getElementById('domb').innerHTML = (v&&v.key)||"无值";
+			}
+		});
+
+		var shengarr = [
+			{"value":1,"key":"北京"},
+		    {"value":2,"key":"上海"},
+		    {"value":3,"key":"河北"},
+		    {"value":4,"key":"广西"},
+		    {"value":5,"key":"江苏"},
+		    {"value":6,"key":"浙江"},
+		    {"value":7,"key":"山东"}
+		];
+		var timeone = new dataSelect({
+			"title":"联动一级",
+			"target":document.getElementById('domc'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":shengarr, // 选项数据
+			"selected":function(v){
+				if(v){
+					document.getElementById('domc').innerHTML = (v&&v.key)||"无值";
+					var arr = [
+						{"value":1,"key":"邢台"},
+					    {"value":2,"key":"南宫"},
+					    {"value":3,"key":"隆尧"},
+					    {"value":4,"key":"沧州"},
+					    {"value":5,"key":"张家口"},
+					    {"value":6,"key":"邯郸"},
+					    {"value":7,"key":"秦皇岛"}
+					];
+					timetwo.init({"data":arr});
+					timetwo.show();
+					timethree.empty();
+				}
+			}
+		});
+
+		var timetwo = new dataSelect({
+			"title":"联动二级",
+			"target":document.getElementById('domd'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":[], // 选项数据
+			"selected":function(v){
+				if(v){
+					document.getElementById('domd').innerHTML = (v&&v.key)||"无值";
+					var arr = [
+						{"value":1,"key":"南宫"},
+					    {"value":2,"key":"段头"},
+					    {"value":3,"key":"清河"},
+					    {"value":4,"key":"土营"},
+					    {"value":5,"key":"垂杨"},
+					    {"value":6,"key":"红庙"}
+					];
+					timethree.init({"data":arr});
+					timethree.show();
+				}
+			}
+		});
+		var timethree = new dataSelect({
+			"title":"联动三级",
+			"target":document.getElementById('dome'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":[], // 选项数据
+			"selected":function(v){
+				document.getElementById('dome').innerHTML = v&&(v.key||"无值");
+			}
+		});
+
+
+		var da = new dataSelectNt({
+			"target":document.getElementById('cla'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":data01, // 选项数据
+			"initchange":true,
+			"change":function(v){
+				console.log(5,v?v.key:"无值");
+			}
+		});
+		var db = new dataSelectNt({
+			"target":document.getElementById('clb'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"default_v":data02[2].value,
+			"data":data02, // 选项数据
+			"change":function(v){
+				// alert(v?v.key:"无值");
+			}
+		});
+
+		var dc = new dataSelectNt({
+			"target":document.getElementById('clc'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":shengarr, // 选项数据
+			"change":function(v){
+				console.log(v);
+				var arr = [
+					{"value":1,"key":"邢台"},
+				    {"value":2,"key":"南宫"},
+				    {"value":3,"key":"隆尧"},
+				    {"value":4,"key":"沧州"},
+				    {"value":5,"key":"张家口"},
+				    {"value":6,"key":"邯郸"},
+				    {"value":7,"key":"秦皇岛"}
+				];
+				dd.init({"data":arr});
+				de.empty();
+			}
+		});
+		var dd = new dataSelectNt({
+			"target":document.getElementById('cld'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":[], // 选项数据
+			"change":function(v){
+				console.log(v);
+				var arr = [
+					{"value":1,"key":"南宫"},
+				    {"value":2,"key":"段头"},
+				    {"value":3,"key":"清河"},
+				    {"value":4,"key":"土营"},
+				    {"value":5,"key":"垂杨"},
+				    {"value":6,"key":"红庙"}
+				];
+				de.init({"data":arr});
+			}
+		});
+		var de = new dataSelectNt({
+			"target":document.getElementById('cle'), // 目标对象dom
+			"fieldshow":"key",// 必选 显示字段
+			"fieldvalue":"value",// 必选 值匹配字段
+			"data":[], // 选项数据
+			"change":function(v){
+				console.log(v?v.value:"无值");
+			}
+		});
+
+
+
+	</script>
 </body>
 </html>

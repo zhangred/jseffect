@@ -2,7 +2,7 @@
 	tip:function(options){
 		var msg = options.msg;
 		var type = options.type?options.type:'info';
-		var time = options.time?options.time:1000;
+		var time = options.time?options.time:1500;
 		var elma = this.createdom({"tag":"div","classname":"tippop","msg":'<div class="text '+type+'">'+msg+'</div></div>'});
 		document.body.appendChild(elma);
 		setTimeout(function(){
@@ -46,11 +46,12 @@
 		a_cal.addEventListener('click',function(){
 			elm_bg.remove();
 			elma.remove();
+			options.callback && options.callback(0);
 		},false);
 		a_sure.addEventListener('click',function(){
 			elm_bg.remove();
 			elma.remove();
-			options.callback && options.callback();
+			options.callback && options.callback(1);
 		},false);
 	},
 	createdom:function(options){

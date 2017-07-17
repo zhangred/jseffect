@@ -13,7 +13,13 @@
 	<title>手机端小效果</title>
 </head>
 <body>
-	<div class="newdata" id="newdate"></div>
+	<p><input type="text" readonly="" name="" id="J_dataa"></p><br>
+	<p><input type="text" readonly="" name="" id="J_datab"></p><br>
+	<p><input type="text" readonly="" name="" id="J_datac"></p><br>
+	<p><input type="text" readonly="" name="" id="J_datad"></p><br>
+	<div class="newdata" id="newdate"></div><br>
+	<div class="newdata" id="newdatea"></div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<script type="text/javascript">
 		var dt = new datepicker({
 			"target":"newdate",
@@ -24,11 +30,59 @@
 			"nexttext" :"→",
 			"monthchange":function(m){
 				console.log('当前月份：'+m)
-			},
-			"dateclick":function(y,m,d){
-				console.log(y,m,d)
 			}
 		})
+		var dta = new datepicker({
+			"target":"newdatea",
+			"defaultdate":"2018/3/24",
+			"monthtext":["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
+			"weektext":["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+			"prevtext" :"←",
+			"nexttext" :"→",
+			"monthchange":function(m){
+				console.log('当前月份：'+m)
+			}
+		});
+		var data = new datepicker({"targettype":"input","targets":[
+				{
+					"target":"J_dataa",
+					"timegroup":"y-m-d",
+					"format":"y-m-d",
+					"selected":function(date,target){
+						console.log()
+						target.value = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+					}
+				},
+				{
+					"target":"J_datab",
+					"defaultdate":"2016/3/24 12:35:20",
+					"timegroup":"y-m-d-h-i-s",
+					"format":"y/m/d h:i:s",
+					"selected":function(date,target){
+						console.log(date)
+						target.value = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+					}
+				},
+				{
+					"target":"J_datac",
+					"timegroup":"h-i",
+					"format":"h:i",
+					"selected":function(date,target){
+						console.log(date)
+						target.value = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+					}
+				},
+				{
+					"target":"J_datad",
+					"defaultdate":"12:32",
+					"timegroup":"h-i",
+					"format":"h:i",
+					"selected":function(date,target){
+						console.log(date)
+						target.value = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+					}
+				}
+			]})
 	</script>
 </body>
 </html>
