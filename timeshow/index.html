@@ -1,0 +1,117 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<!-- <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width"> -->
+	<!-- <meta name="viewport" content="user-scalable=no,width=640"> -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="assets/js/jquery-1.8.2.min.js"></script>
+	<script language="javascript" type="text/javascript" src="assets/js/main.js"></script>
+	<title>dome改变c</title>
+</head>
+<body>
+	<div class="html" id="J_html">
+		<div class="box" id="J_box">
+			<p class="frount">frount</p>
+			<p class="behind">behind</p>
+		</div>
+
+		<div class="timeback">
+			<div class="J_ls ls">
+				<p class="tls_t tls"><span class="J_inta pta wh ps_t">0</span></p>
+				<p class="tls_b tls"><span class="J_intb pta wh ps_b">0</span></p>
+				<div class="pta wh tls_m_f"><p class="pta wh tls_m_f_h"><span class="J_intb pta wh ps_m_t">0</span></p></div>
+				<div class="pta wh tls_m_b"><p class="pta wh tls_m_b_h"><span class="J_inta pta wh ps_m_b">0</span></p></div>
+			</div>
+			<div class="J_ls ls">
+				<p class="tls_t tls"><span class="J_inta pta wh ps_t">0</span></p>
+				<p class="tls_b tls"><span class="J_intb pta wh ps_b">0</span></p>
+				<div class="pta wh tls_m_f"><p class="pta wh tls_m_f_h"><span class="J_intb pta wh ps_m_t">0</span></p></div>
+				<div class="pta wh tls_m_b"><p class="pta wh tls_m_b_h"><span class="J_inta pta wh ps_m_b">0</span></p></div>
+			</div>
+			<p class="ls lsp">:</p>
+			<div class="J_ls ls">
+				<p class="tls_t tls"><span class="J_inta pta wh ps_t">0</span></p>
+				<p class="tls_b tls"><span class="J_intb pta wh ps_b">0</span></p>
+				<div class="pta wh tls_m_f"><p class="pta wh tls_m_f_h"><span class="J_intb pta wh ps_m_t">0</span></p></div>
+				<div class="pta wh tls_m_b"><p class="pta wh tls_m_b_h"><span class="J_inta pta wh ps_m_b">0</span></p></div>
+			</div>
+			<div class="J_ls ls">
+				<p class="tls_t tls"><span class="J_inta pta wh ps_t">0</span></p>
+				<p class="tls_b tls"><span class="J_intb pta wh ps_b">0</span></p>
+				<div class="pta wh tls_m_f"><p class="pta wh tls_m_f_h"><span class="J_intb pta wh ps_m_t">0</span></p></div>
+				<div class="pta wh tls_m_b"><p class="pta wh tls_m_b_h"><span class="J_inta pta wh ps_m_b">0</span></p></div>
+			</div>
+			<p class="ls lsp">:</p>
+			<div class="J_ls ls">
+				<p class="tls_t tls"><span class="J_inta pta wh ps_t">0</span></p>
+				<p class="tls_b tls"><span class="J_intb pta wh ps_b">0</span></p>
+				<div class="pta wh tls_m_f"><p class="pta wh tls_m_f_h"><span class="J_intb pta wh ps_m_t">0</span></p></div>
+				<div class="pta wh tls_m_b"><p class="pta wh tls_m_b_h"><span class="J_inta pta wh ps_m_b">0</span></p></div>
+			</div>
+			<div class="J_ls ls">
+				<p class="tls_t tls"><span class="J_inta pta wh ps_t">0</span></p>
+				<p class="tls_b tls"><span class="J_intb pta wh ps_b">0</span></p>
+				<div class="pta wh tls_m_f"><p class="pta wh tls_m_f_h"><span class="J_intb pta wh ps_m_t">0</span></p></div>
+				<div class="pta wh tls_m_b"><p class="pta wh tls_m_b_h"><span class="J_inta pta wh ps_m_b">0</span></p></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$('.frount').click(function(){
+				console.log(1)
+			});
+			$('.behind').click(function(){
+				console.log(2)
+			});
+
+
+
+			function timeback(){
+				var J_ls = $('.J_ls'),
+					J_inta = $('.J_inta'),
+					J_intb = $('.J_intb');
+
+				var oldarr = ["0","0","0","0","0","0","0"],newarr = [];
+
+
+				function animate(k,v){
+					J_inta.eq(2*k).html(v);
+					J_inta.eq(2*k+1).html(v);
+					J_ls.eq(k).addClass('timebackactive');
+					setTimeout(function(){
+						J_intb.eq(2*k).html(v);
+						J_intb.eq(2*k+1).html(v);
+						J_ls.eq(k).removeClass('timebackactive');
+					},800);
+				};
+				setInterval(function(){
+					var t = new Date(),tstr = '',
+						h = t.getHours(),
+						m = t.getMinutes(),
+						s = t.getSeconds();
+					tstr = (h>9?h:('0'+h))+''+(m>9?m:('0'+m))+''+(s>9?s:('0'+s));
+					newarr = tstr.split('');
+					for(var i=0;i<6;i++){
+						if(oldarr[i]!=newarr[i]){
+							animate(i,newarr[i]);
+							oldarr[i] = newarr[i];
+						}
+					}
+				},1000);
+
+			};
+
+			timeback();
+
+		});
+	</script>
+</body>
+</html>
