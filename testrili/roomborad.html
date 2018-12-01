@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css" /> 
+	<title>房态管理</title>
+</head>
+<body>
+	<div class="fixedbox-index">
+		<p class="title"><a href="javascript:;" class="tlin"><span id="J_top_date">2018年11月30日</span><span class="icon-arr-down01"></span></a></p>
+	</div>
+
+	
+	<div class="html roomboard" id="J_roomboard">
+		<div class="corner" id="J_corner"></div>
+		<div class="axis-y" id="J_y">
+			<table class="table" cellspacing="0" border="0"  cellpadding="0" id="J_axis_y">
+				<!-- <tr><td><div class="lis"><p class="axis-y-t">32</p><p class="axis-y-b">五</p></div></td></tr> -->
+			</table>
+		</div>
+
+		<div class="axis-x" id="J_x">
+			<table class="table" cellspacing="0" border="0"  cellpadding="0">
+				<tr id="J_axis_x">
+					<!-- <td><div class="lis">龙阳路龙阳路龙阳路</div></td> -->
+				</tr>
+				
+			</table>
+		</div>
+
+
+		<div class="borad" id="J_table">
+			<table class="table" cellspacing="0" border="0"  cellpadding="0" id="J_borad">
+				<!-- <tr>
+					<td><div class="lis"><div class="lis-in">
+						<p class="lis-in-name">韩跑</p>
+						<p class="lis-in-money">2200</p>
+					</div></div></td>
+					<td><div class="lis"><div class="lis-in">
+						<p class="lis-in-name">韩跑</p>
+						<p class="lis-in-money">2200</p>
+						<p class="lis-in-from">来源 艺龙</p>
+						<p class="lis-in-info">12/01入 2晚</p>
+					</div></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+				</tr> -->
+				
+			</table>
+		</div>
+
+		<div class="newroom">
+			<p class="rn-til">龙阳101</p>
+			<p class="rn-info">已选<span class="rn-info-n" id="J_rn_n">2</span>晚</p>
+			<a href="javascript:;" class="rn-btn" id="J_rn_btn">下一步</a>
+		</div>
+	</div>
+
+	<div class="botnav">
+		<a href="roomboard.html" class="botnav-ls active">
+			<p class="icon-botnav icon-botnava"></p>
+			<p class="botnav-te">房态管理</p>
+		</a>
+		<a href="manage.html" class="botnav-ls">
+			<p class="icon-botnav icon-botnavb"></p>
+			<p class="botnav-te">经营看板</p>
+		</a>
+		<a href="setting.html" class="botnav-ls">
+			<p class="icon-botnav icon-botnavc"></p>
+			<p class="botnav-te">设置</p>
+		</a>
+	</div>
+
+	<div class="pagestate" id="J_pagestate"></div>
+
+	<script language="javascript" type="text/javascript" src="assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="assets/javascript/func.js"></script>
+	<script type="text/javascript">
+
+
+		/**************
+		页面由于数据交互复杂，请后端哥哥严格按照请求的json数据格式配置，如需调整数据字段名称或其他，请联系俺，协调修改
+		*****/
+
+
+		//变量
+		var weekarr = ['日','一','二','三','四','五','六'],
+			height_unit = 51;
+
+		//时间格式
+		function timeformat(time,format){
+		    format = format.replace("y",time.getFullYear());
+		    format = format.replace("m",(time.getMonth()+1)<10?'0'+(time.getMonth()+1):(time.getMonth()+1));
+		    format = format.replace("d",time.getDate()<10?'0'+time.getDate():time.getDate());
+		    format = format.replace("h",time.getHours()<10?'0'+time.getHours():time.getHours());
+		    format = format.replace("i",time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes());
+		    format = format.replace("s",time.getSeconds()<10?'0'+time.getSeconds():time.getSeconds());
+		   	return format;
+		};
+
+		function patch(n){
+			return n<10?'0'+n:n;
+		}
+
+		
+
+		$(function(){
+
+			// 滚动相关脚本
+			var win = $(window),
+				J_x = $('#J_x'),
+				J_y = $('#J_y');
+
+			win.on('scroll',function(e){
+				console.log(win.scrollTop(),win.scrollLeft())
+				J_x.scrollLeft(win.scrollLeft())
+				J_y.scrollTop(win.scrollTop())
+			});
+
+
+
+			// 填充y轴日期
+			function set_axis_y(dom){
+				var day = '',
+					str = '',
+					st_time = start_gettime;
+
+
+				dom.addClass('opacity0');
+				for(var i=0;i<61;i++){
+					day = new Date(st_time);
+
+					str += '<tr><td><div class="lis"><p class="axis-y-t">'+patch(day.getMonth()+1)+'/'+patch(day.getDate())+'</p><p class="axis-y-b">'+weekarr[day.getDay()]+'</p></div></td></tr>'
+
+					st_time += 24*3600000;
+				}
+
+				dom.html(str);
+				setTimeout(function(){
+					dom.removeClass('opacity0');
+					J_y.scrollTop(height_unit*30);
+					dom.find('.lis').eq(30).addClass('active')
+				},500);
+
+			};
+
+			//填充空数据表格
+			function settabledom(){
+				var rlen = table_data.length,
+					ystr = '',
+					st_time = start_gettime;
+
+				for(var i = 0;i<rlen;i++){
+					var v = table_data[i];
+					ystr += '<td><div class="lis">'+v.name+(v.other?'<span class="lis-co">co</span>':'')+'</div></td>';
+				};
+				$('#J_axis_x').html(ystr);
+
+
+
+				var day = '',
+					iistr = '',
+					str = '';
+				for(var i=0;i<61;i++){
+					day = new Date(st_time);
+					iistr = '';
+
+					for(var ii=0; ii<rlen;ii++){
+						iistr += '<td><div class="lis"></div></td>';
+					}
+					str += '<tr>'+iistr+'</tr>';
+					st_time += 24*3600000;
+				};
+
+				$('#J_borad').html(str);
+				setTimeout(function(){
+					win.scrollTop(height_unit*30);
+				},500);
+			}
+
+
+
+			// 日期相关脚本
+			var date = new Date(),
+				now_date = new Date(timeformat(date,'y/m/d 00:00:00')),
+				start_gettime = now_date.getTime() - 30*24*3600000,
+				table_data = {}; //全局数据
+
+			// 填充y轴
+			set_axis_y($('#J_axis_y'),J_y);
+
+
+			var locked = false;
+
+			var J_pagestate = $('#J_pagestate');
+			function pagestate(type){
+				if(type=='loading'){
+					J_pagestate.html('<p class="tx center"><img src="assets/images/loading.gif" class="ico">正在加载数据···</p>')
+				}else if(type='done'){
+					J_pagestate.fadeOut();
+				}
+			};
+
+
+
+			//获取房间订单详情
+			function getroomdetail(){
+				pagestate('loading');
+				$.ajax({ 
+					type: "GET",
+					url: "api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						//res 返回格式{code:0,data:[]}
+						//other  是否替别人管理
+						if(res.code==0){
+
+							// 模拟数据
+							res.data = [
+								{
+									"id":1,
+									"name":"龙阳108",
+									"other":true,
+									"orders":[
+										{"id":1,"start_time":1540828800000,"end_time":1541088000000,"days":3,"name":"李梅梅","money":5600,"from":"艺龙"},
+										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"name":"李梅梅","money":2200,"from":"艺龙"}
+									]
+								},
+								{
+									"id":1,
+									"name":"龙阳108",
+									"orders":[
+										{"id":1,"start_time":1540828800000,"end_time":1541088000000,"days":3,"name":"李梅梅","money":5600,"from":"艺龙"},
+										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"name":"李梅梅","money":2200,"from":"艺龙"}
+									]
+								},
+								{
+									"id":1,
+									"name":"龙阳108",
+									"orders":[
+										{"id":1,"start_time":1540828800000,"end_time":1541088000000,"days":3,"name":"李梅梅","money":5600,"from":"艺龙"},
+										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"name":"李梅梅","money":2200,"from":"艺龙"}
+									]
+								},
+								{
+									"id":1,
+									"name":"龙阳108",
+									"orders":[
+										{"id":1,"start_time":1540828800000,"end_time":1541088000000,"days":3,"name":"李梅梅","money":5600,"from":"艺龙"},
+										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"name":"李梅梅","money":2200,"from":"艺龙"}
+									]
+								},
+								{
+									"id":1,
+									"name":"龙阳108",
+									"orders":[
+										{"id":1,"start_time":1540828800000,"end_time":1541088000000,"days":3,"name":"李梅梅","money":5600,"from":"艺龙"},
+										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"name":"李梅梅","money":2200,"from":"艺龙"}
+									]
+								},
+								{
+									"id":1,
+									"name":"龙阳108",
+									"orders":[
+										{"id":1,"start_time":1540828800000,"end_time":1541088000000,"days":3,"name":"李梅梅","money":5600,"from":"艺龙"},
+										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"name":"李梅梅","money":2200,"from":"艺龙"},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"name":"李梅梅","money":2200,"from":"艺龙"}
+									]
+								}
+							];
+
+							table_data = res.data;
+
+
+							//插入空dom
+							settabledom();
+
+							
+						}
+					},
+					complete:function(){
+						setTimeout(function(){
+							pagestate('done');
+						},300);
+						
+					}
+				});
+			};
+
+			getroomdetail();
+
+
+
+
+			
+
+		});
+	</script>
+</body>
+</html>
