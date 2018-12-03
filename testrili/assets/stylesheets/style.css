@@ -131,9 +131,11 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .botnav .icon-botnava{ background-image: url(../images/icon_nava.png); }
 .botnav .active .icon-botnava{ background-image: url(../images/icon_navah.png); }
 .botnav .icon-botnavb{ background-image: url(../images/icon_navb.png); }
+.botnav .active .icon-botnavb{ background-image: url(../images/icon_navbh.png); }
 .botnav .icon-botnavc{ background-image: url(../images/icon_navc.png); }
+.botnav .active .icon-botnavc{ background-image: url(../images/icon_navch.png); }
 
-.roomboard{ padding-bottom: 50px; background: #fff; }
+.roomboard{ padding-bottom: 50px;}
 .roomboard .corner{ position: fixed; left: 0; top: 44px; z-index: 6; width: 60px; height: 44px; background: #64BB97; line-height: 44px; color: #fff; font-size: 14px; text-align: center; }
 .roomboard .axis-y{height: 100%; width: 60px; position: fixed; left: 0; top: 0; z-index: 4; background: #F8F8F8; overflow: hidden; padding: 88px 0 50px;}
 .roomboard table{border: none; border-collapse: collapse;  border-spacing: 0; width: 100%; text-align: center;}
@@ -161,24 +163,12 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .roomboard .rn-info-n{ color: #58B586; padding: 0 2px 0 5px; }
 .roomboard .rn-btn{ position: absolute; right: 0; top: 0; height: 50px; width: 120px; font-size: 16px; color: #fff; background: #58B586; text-align: center; }
 .roomboard .lis-in-add{ border:1px solid #FFE8C8; background: #FFF6EB; border-radius: 2px; text-align: center; font-size: 14px; color: #FF9401; font-weight: bold; }
-.roomboard .xxxx{}
-.roomboard .xxxx{}
-.roomboard .xxxx{}
 .roomboard-set{ padding-bottom: 100px; }
 .roomboard-set .newroom{ display: block; }
 .roomboard-set .axis-y{ padding-bottom: 100px; }
-.roomboard-set .xxxx{}
-.roomboard .xxxx{}
-.roomboard .xxxx{}
-.roomboard .xxxx{}
 
-.pagestate{ position: fixed; left: 0; top: 0; z-index: 10; height: 100%; width: 100%; background: rgba(0,0,0,.5); color: #fff; font-size: 16px; }
+.pagestate{ display: none; position: fixed; left: 0; top: 0; z-index: 10; height: 100%; width: 100%; background: rgba(0,0,0,.5); color: #fff; font-size: 16px; }
 .pagestate .ico{ height: 16px; vertical-align: middle; position: relative; margin-right:5px; top: -1px; }
-/*.lis{ display: block; line-height: 40px; text-align: center; border-bottom: 1px solid #eee; }*/
 
-/*.html{ padding: 40px 0 0 80px; }*/
-/*.axis-y{ height: 100%; width: 80px; position: fixed; left: 0; top: 0; z-index: 4; background: #ddd; overflow: hidden; }
-.axis-x{ width: 100%; height: 40px; position: fixed; left: 0; top: 0; z-index: 5; background: #ddd; white-space: nowrap; overflow: hidden;}
-*/
-/*.html .lis{ width: 800px; }*/
-/*.axis-x .lis{ display: inline-block; float: none; width: 200px; }*/
+
+

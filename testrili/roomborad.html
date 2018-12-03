@@ -61,8 +61,8 @@
 		</div>
 
 		<div class="newroom">
-			<p class="rn-til" id="J_rn_name">龙阳101</p>
-			<p class="rn-info">已选<span class="rn-info-n" id="J_rn_n">2</span>晚</p>
+			<p class="rn-til" id="J_rn_name">---</p>
+			<p class="rn-info">已选<span class="rn-info-n" id="J_rn_n">-</span>晚</p>
 			<a href="javascript:;" class="rn-btn" id="J_rn_btn">下一步</a>
 		</div>
 	</div>
@@ -254,7 +254,7 @@
 					tfstr = timeformat(day,'y_m_d');
 
 					for(var ii=0; ii<rlen;ii++){
-						iistr += '<td class="" data-idxx="'+ii+'" data-idxy="'+i+'" data-date="'+tfstr+'" id="J_td_'+ii+'_'+tfstr+'"><div class="lis"></div></td>';
+						iistr += '<td class="J_td_x'+ii+'" data-idxx="'+ii+'" data-idxy="'+i+'" data-date="'+tfstr+'" id="J_td_'+ii+'_'+tfstr+'"><div class="lis"></div></td>';
 					}
 					str += '<tr>'+iistr+'</tr>';
 					st_time += 24*3600000;
@@ -319,12 +319,12 @@
 
 				J_roomboard.addClass('roomboard-set');
 
-				var st = new Date(table_room_add.elms[0].attr('data-date').replace(/_/ig,'/')),
-					elms = table_room_add.elms;
-				table_room_add.start_time = st.getTime();
-				table_room_add.end_time = table_room_add.start_time+table_room_add.elms.length*24*3600000;
-				table_room_add.days = table_room_add.elms.length;
-				table_room_add.room = table_data[parseInt(table_room_add.elms[0].attr('data-idxx'))].room;
+				var st = new Date(table_room_edit.elms[0].attr('data-date').replace(/_/ig,'/')),
+					elms = table_room_edit.elms;
+				table_room_edit.start_time = st.getTime();
+				table_room_edit.end_time = table_room_edit.start_time+table_room_edit.elms.length*24*3600000;
+				table_room_edit.days = table_room_edit.elms.length;
+				table_room_edit.room = table_data[parseInt(table_room_edit.elms[0].attr('data-idxx'))].room;
 				
 				for(var i=0,len = elms.length;i<len;i++){
 					elms[i].attr('style','border-bottom-color:#fff;').html('<div class="lis"></div>');
@@ -334,35 +334,68 @@
 						elms[i].attr('style','').html('<div class="lis"></div>');
 					}
 				};
-				elms[0].html('<div class="lis"><div class="lis-in lis-in-add">已选 '+elms.length+'晚</div></div>');
+				if(table_state=='add'){
+					elms[0].html('<div class="lis"><div class="lis-in lis-in-add">已选 '+elms.length+'晚</div></div>');
+				}else{
+					elms[0].html('<div class="lis"><div class="lis-in lis-in-add">\
+					<p class="lis-in-name">'+table_room_edit.name+'</p><p class="lis-in-money">计算中···</p>\
+					<p class="lis-in-from">来源 '+table_room_edit.from.name+'</p><p class="lis-in-info">'+timeformat(new Date(table_room_edit.start_time),'m/d')+'入 '+table_room_edit.days+'晚</p></div></div>');
+
+						//传对应的房间 时间 算钱
+						$.ajax({ 
+							type: "GET",
+							url: "api/callback.json?v="+(new Date().getTime()),
+							data: {},
+							dataType: "json",
+							success: function(res){
+								if(res.code==0){
+
+									table_room_edit.money = 5677;
+
+									J_pop_money.val(table_room_edit.money);
+									$('.lis-in-add .lis-in-money').html(table_room_edit.money)
+								}
+							}
+						});
+				}
+				
 				setTimeout(function(){
-					elms[0].find('.lis-in').css({'height':height_unit*elms.length-6,'line-height':(height_unit*elms.length-8)+'px'})
+					elms[0].find('.lis-in').css({'height':height_unit*elms.length-6,'line-height':(table_state=='add'?(height_unit*elms.length-8)+'px':'auto')})
 				},30);
 
-				J_rn_name.html(table_room_add.room.name);
-				J_rn_n.html(table_room_add.days);
+				J_rn_name.html(table_room_edit.room.name);
+				J_rn_n.html(table_room_edit.days);
 			};
 
 			//判断房间添加或者去除
-			function table_room_add_check(elm){
-				if(elm.attr('data-ordered')=='1'){
+			function table_room_edit_check(elm){
+				var idxx = parseInt(elm.attr('data-idxx')),
+					idxy = parseInt(elm.attr('data-idxy')),
+					oid = elm.attr('data-orderid'),
+					idxx_o = parseInt(table_room_edit.elms[0].attr('data-idxx')),
+					idxy_start = parseInt(table_room_edit.elms[0].attr('data-idxy')),
+					idxy_end = parseInt(table_room_edit.elms[table_room_edit.elms.length-1].attr('data-idxy'));
+
+
+				if(elm.attr('data-ordered')=='1'&&table_state=='add'){
 					CUES.tip({"msg":"此房间已被预订"})
 					return;
 				};
-				var idxx = parseInt(elm.attr('data-idxx')),
-					idxy = parseInt(elm.attr('data-idxy')),
-					idxx_add = parseInt(table_room_add.elms[0].attr('data-idxx')),
-					idxy_start = parseInt(table_room_add.elms[0].attr('data-idxy')),
-					idxy_end = parseInt(table_room_add.elms[table_room_add.elms.length-1].attr('data-idxy'));
+				if(oid!=table_room_edit.id&&table_state=='edit'&&elm.attr('data-ordered')=='1'){
+					CUES.tip({"msg":"此房间已被预订"})
+					return;
+				}
 
-				if(idxx!=idxx_add){
-					var elms = table_room_add.elms,
+				
+
+				if(idxx!=idxx_o){
+					var elms = table_room_edit.elms,
 						len = elms.length;
 					for(var i=0;i<len;i++){
 						elms[i].attr('style','').html('<div class="lis"></div>');
 					};
-					table_room_add.elms = [];
-					table_room_add.elms.push(elm);
+					table_room_edit.elms = [];
+					table_room_edit.elms.push(elm);
 					settableadd();
 					return;
 				};
@@ -377,20 +410,25 @@
 				}
 
 				if(idxy==idxy_start||idxy==idxy_end){
-					var us = idxy==idxy_start?table_room_add.elms.shift(): table_room_add.elms.pop();
-					us.html('<div class="lis"></div>');
-					table_room_add_len();
+					if(table_room_edit.elms.length==1&&table_state=='edit'){
+						CUES.tip({"msg":"已生成订单不可全部取消，您可删除订单"})
+						return;
+					}
+					elm.attr({'data-ordered':'','data-orderid':''});
+					var us = idxy==idxy_start?table_room_edit.elms.shift():table_room_edit.elms.pop();
+					us.attr('style','').html('<div class="lis"></div>');
+					table_room_edit_len();
 					return;
 				};
 
-				idxy<idxy_start?table_room_add.elms.unshift(elm):table_room_add.elms.push(elm)
+				idxy<idxy_start?table_room_edit.elms.unshift(elm):table_room_edit.elms.push(elm)
 				settableadd();
 
 			}
 
 			// 判断所选日期
-			function table_room_add_len(){
-				if(table_room_add.elms.length){
+			function table_room_edit_len(){
+				if(table_room_edit.elms.length){
 					settableadd();
 				}else{
 					J_roomboard.removeClass('roomboard-set');
@@ -413,10 +451,8 @@
 			function setpopdata(){
 				var obj = {};
 				J_botbtn.hide();
-				//title
 				if(table_state=='add'){
 					J_full_til.html('完善订单信息');
-					obj = table_room_add;
 
 					//传对应的房间 时间 算钱
 					$.ajax({ 
@@ -436,21 +472,24 @@
 					J_save.html('提交')
 					J_fullpop.removeClass('fullpop-lineshow');
 				}else{
-					obj = table_room_edit;
-					console.log(5,obj)
-					J_pop_money.val(obj.money);
-					J_pop_name.val(obj.name);
-					J_pop_phone.val(obj.phone);
-					J_pop_from.val(obj.from.name);
-					$('#J_botbtn_edit').show();
-					J_fullpop.addClass('fullpop-lineshow');
+					if(J_fullpop.hasClass('fullpop-lineshow')){
+						J_full_til.html('订单详情');
+						J_pop_money.val(table_room_edit.money);
+						$('#J_botbtn_edit').show();
+					}else{
+						$('#J_botbtn_add').show();
+					}
 					showpop(J_fullpop);
+					
 				};
 
-				J_pop_room.val(obj.room.name);
-				J_pop_start.val(timeformat(new Date(obj.start_time),'y-m-d'));
-				J_pop_days.val(obj.days);
-				J_pop_bz.val(obj.bz||'');
+				J_pop_name.val(J_pop_name.val()||table_room_edit.name);
+				J_pop_phone.val(J_pop_phone.val()||table_room_edit.phone);
+				J_pop_from.val(J_pop_from.val()||table_room_edit.from.name);
+				J_pop_room.val(table_room_edit.room.name);
+				J_pop_start.val(timeformat(new Date(table_room_edit.start_time),'y-m-d'));
+				J_pop_days.val(table_room_edit.days);
+				J_pop_bz.val(J_pop_bz.val()||table_room_edit.bz||'');
 			}
 
 
@@ -462,11 +501,8 @@
 				table_data = {}, //全局数据
 				table_rooms = '', //暂存房间对象
 				table_state = 'show', // show:展示  edit:编辑  add:增加
-				table_room_add = {"elms":[]};
-				table_room_edit= {};
-
-			// 填充y轴
-			set_axis_y($('#J_axis_y'),J_y);
+				table_room_edit= {"elms":[]},
+				table_room_tar = {};
 
 
 			var locked = false;
@@ -503,7 +539,6 @@
 									"room":{"id":1,"name":"龙阳108"},
 									"other":true,
 									"orders":[
-										{"id":1,"start_time":1540828800000,"end_time":1541260800000,"days":5,"phone":"15821658563","name":"李梅梅1","money":5600,"from":{"id":7,"name":"艺龙"}},
 										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"phone":"15821326568","name":"李梅梅2","money":2100,"from":{"id":7,"name":"艺龙"},"tip":"房间里要放很多花啊，要漂亮一点啊，灯光好一点啊。"},
 										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅3","money":2200,"from":{"id":7,"name":"艺龙"}},
 										{"id":5,"start_time":1544112000000,"end_time":1544371200000,"days":3,"phone":"15821658563","name":"李梅梅4","money":2300,"from":{"id":7,"name":"艺龙"}},
@@ -514,7 +549,6 @@
 									"id":1,
 									"room":{"id":2,"name":"龙阳109"},
 									"orders":[
-										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"phone":"15821658563","name":"李梅梅6","money":2500,"from":{"id":7,"name":"艺龙"}},
 										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅7","money":2600,"from":{"id":7,"name":"艺龙"}},
 										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅8","money":2700,"from":{"id":7,"name":"艺龙"}}
 									]
@@ -523,7 +557,6 @@
 									"id":1,
 									"room":{"id":3,"name":"龙阳110"},
 									"orders":[
-										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"phone":"15821658563","name":"李梅梅9","money":2800,"from":{"id":7,"name":"艺龙"}},
 										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅10","money":2900,"from":{"id":7,"name":"艺龙"}},
 										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅11","money":3000,"from":{"id":7,"name":"艺龙"}}
 									]
@@ -532,7 +565,6 @@
 									"id":1,
 									"room":{"id":4,"name":"龙阳210"},
 									"orders":[
-										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"phone":"15821658563","name":"李梅梅","money":3100,"from":{"id":7,"name":"艺龙"}},
 										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅","money":3200,"from":{"id":7,"name":"艺龙"}},
 										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅","money":3300,"from":{"id":7,"name":"艺龙"}}
 									]
@@ -541,7 +573,6 @@
 									"id":1,
 									"room":{"id":6,"name":"龙阳202"},
 									"orders":[
-										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"phone":"15821658563","name":"李梅梅","money":3400,"from":{"id":7,"name":"艺龙"}},
 										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅","money":3500,"from":{"id":7,"name":"艺龙"}},
 										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅","money":3600,"from":{"id":7,"name":"艺龙"}}
 									]
@@ -550,7 +581,6 @@
 									"id":1,
 									"room":{"id":8,"name":"龙阳205"},
 									"orders":[
-										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"phone":"15821658563","name":"李梅梅","money":3700,"from":{"id":7,"name":"艺龙"}},
 										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅","money":2200,"from":{"id":7,"name":"艺龙"}},
 										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅","money":2200,"from":{"id":7,"name":"艺龙"}}
 									]
@@ -574,6 +604,9 @@
 				});
 			};
 
+			//###################源头开始脚本
+			// 填充y轴
+			set_axis_y($('#J_axis_y'));
 			getroomdetail(timeformat(new Date(),'y/m/d'));
 
 
@@ -593,24 +626,27 @@
 							if(ols[i].id==id){
 								table_state = 'edit';
 								var obj = {};
-
 								obj = ols[i];
 								obj.room = table_data[idxx].room;
-
 								$.extend(table_room_edit,obj);
 								stfrom.init({default_v:table_room_edit.from.id});
+								J_fullpop.addClass('fullpop-lineshow');
+								table_room_tar.idxx = idxx;
+								table_room_tar.id = table_room_edit.id;
 								setpopdata();
 								break;
 							}
 						}
-						console.log(ols)
 					}else{
 						table_state = 'add';
-						table_room_add.elms.push(self);
+						table_room_edit.elms.push(self);
+						table_room_edit.from = {};
 						settableadd();
 					}
 				}else if(table_state=='add'){
-					table_room_add_check(self);
+					table_room_edit_check(self);
+				}else{
+					table_room_edit_check(self);
 				}
 			});
 
@@ -621,6 +657,8 @@
 				"format":"y/m/d",
 				"selected":function(opt){
 					$('#J_top_date').html(timeformat(opt.time,'y年m月d日'));
+					start_gettime = opt.time.getTime() - 30*24*3600000
+					set_axis_y($('#J_axis_y'));
 					getroomdetail(timeformat(opt.time,'y/m/d'));
 					dt.hide();
 				}
@@ -629,48 +667,56 @@
 			var J_fullpop = $('#J_fullpop');
 
 			$('#J_closefull').click(function(){
-				if(table_state=='add'){
-					var elms = table_room_add.elms,
-						len = elms.length;
-					for(var i=0;i<len;i++){
-						elms[i].attr('style','').html('<div class="lis"></div>');
-					};
-					table_room_add.elms = [];
-				}else{
+				var elms = table_room_edit.elms,
+					len = elms.length;
+				for(var i=0;i<len;i++){
+					elms[i].attr('style','').html('<div class="lis"></div>');
+				};
+				if(table_state=='edit'){
+					var ols = table_data[table_room_tar.idxx].orders,
+						len = ols.length,
+						id = table_room_tar.id;
 
+					for(var i=0;i<len;i++){
+						if(ols[i].id==id){
+							settableorder(table_room_tar.idxx,ols[i]);
+							break;
+						}
+					}
 				}
+				table_room_edit = {"elms":[]};
 				table_state = 'show';
 				J_roomboard.removeClass('roomboard-set');
 				closepop(J_fullpop);
+				setTimeout(function(){
+					$('#J_form')[0].reset();
+				},200);
 			});
 
 			//重新选择房间
 			$('.J_choserome').click(function(){
-				if(table_state=='add'){
-
-				}
 				hidepop(J_fullpop);
 			});
 
-			//下一步
+			// 下一步
 			$('#J_rn_btn').click(function(){
 				setpopdata();
 				showpop(J_fullpop);
 			});
 
 			$('#J_edit').click(function(){
+				settableadd();
 				J_fullpop.removeClass('fullpop-lineshow');
 				$('#J_botbtn_edit').hide();
 				J_save.html('保存修改');
 				$('#J_botbtn_add').show();
-
 			})
 
 			//删除订单
 			$('#J_delete').click(function(){
 				CUES.confirm({"msg":"确认删除次订单？","callback":function(rs){
 					if(rs){
-						var oid = table_room_edit.elms[0].attr('data-orderid'),
+						var oid = table_room_edit.id,
 							idxx = table_room_edit.elms[0].attr('data-idxx'),
 							ols = table_data[idxx].orders,
 							olen = ols.length;
@@ -679,12 +725,13 @@
 							if(ols[i].id==oid){
 								var elms = ols[i].elms;
 								for(var ii=0,len=elms.length;ii<len;ii++){
-									elms[ii].attr('style','').html('<div class="lis"></div>');
+									elms[ii].attr({'style':'','data-orderid':'',"data-ordered":''}).html('<div class="lis"></div>');
 								}
 								ols.splice(i,1);
 								break;
 							}
 						}
+						table_room_edit = {"elms":[]};
 						closepop(J_fullpop)
 						$('#J_form')[0].reset();
 						table_state = 'show';
@@ -740,27 +787,17 @@
 		   			return;
 		   		};
 
-		   		var data = {};
-		   		if(table_state=='add'){
-		   			table_room_add.name = name;
-		   			table_room_add.phone = phone;
-		   			table_room_add.from = stfrom.v;
-		   			table_room_add.money = J_pop_money.val();
-		   			table_room_add.tip = J_pop_bz.val().trim();
-		   			$.extend(data,table_room_add);
-		   			delete data.elms;
-		   		}else{
-		   			table_room_edit.name = name;
-		   			table_room_edit.phone = phone;
-		   			table_room_edit.from = stfrom.v;
-		   			table_room_edit.money = J_pop_money.val();
-		   			table_room_edit.tip = J_pop_bz.val().trim();
-		   			$.extend(data,table_room_edit);
-		   			delete data.elms;
-		   		}
+				table_room_edit.name = name;
+	   			table_room_edit.phone = phone;
+	   			table_room_edit.from = stfrom.v;
+	   			table_room_edit.money = J_pop_money.val();
+	   			table_room_edit.tip = J_pop_bz.val().trim();
+
+	   			var data = {};
+	   			$.extend(data,table_room_edit);
+	   			delete data.elms;
 		   		
 		   		locked = true;
-		   		console.log(data)
 
 		   		J_save.html('正在提交···');
 		   		//保存提交数据
@@ -773,6 +810,7 @@
 						if(res.code==0){
 							CUES.tip({"msg":"提交成功","callback":function(){
 								closepop(J_fullpop);
+								table_room_edit = {"elms":[]};
 								$('#J_form')[0].reset();
 							}})
 
@@ -780,25 +818,26 @@
 							if(table_state=='add'){
 								//返回订单id
 								data.id = 9;
-								idx = parseInt(table_room_add.elms[0].attr('data-idxx'));
+								idx = parseInt(table_room_edit.elms[0].attr('data-idxx'));
 								table_data[idx].orders.push(data);
 							}else{
 								idx = parseInt(table_room_edit.elms[0].attr('data-idxx'));
-								// table_data[idx].orders
 								var ols = table_data[idx].orders,
 									len = ols.length,
-									id = data.id;
+									id = data.id,
+									obj = {};
 
 								for(var i=0;i<len;i++){
 									if(ols[i].id==id){
-										$.extend(ols[i],data);
+										ols[i] = data;
 										break;
 									}
 								}
 							}
 							
-							
+							console.log(table_state,idx,data)
 							settableorder(idx,data);
+							J_roomboard.addClass('roomboard-set');
 							table_state = 'show';
 
 						}
