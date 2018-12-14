@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* CSS Document */
+body{padding:0; margin:0;font-family:"微软雅黑",Arial, Helvetica, sans-serif; background: #fafafa;}
+div, p, form, label,  textarea, img, span{margin:0; padding:0; border:none;}
+a{ text-decoration:none; color: #222;}
+a:hover{ color: #72db96; transition:color 0.2s,background 0.2s; -moz-transition:color 0.2s,background 0.2s; -webkit-transition:color 0.2s,background 0.2s;}
+ul{ margin:0;   padding:0;  list-style-type:none;}
+div{font-size:12px;line-height:20px; color: #333;}
+html, body { height: 100%}
+img {vertical-align: middle;border: none; -ms-interpolation-mode: bicubic;}
+div,p,span,a,ul,li,nav,input{ -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;}
+
+
+
+.dateselect_input_box{ position: fixed; left: 0; top: 0; width: 100%; background: rgba(0,0,0,.3); z-index: 50; display: block; overflow: hidden; height: 0;}
+.dateselect_input_box_active{ height: 100%;}
+.dateselect_input{position: absolute;   width: 100%;  bottom: 0; left: 0; background: #fff; opacity: 0; transform: translateY(70%); -webkit-transform: translateY(70%); transition: all .3s; -webkit-transition: all .3s; }
+.dateselect_input_box_active .dateselect_input{ opacity: 1; transform: translateY(0); -webkit-transform: translateY(0);}
+.dateselect_input .dp-btns{ height: 40px; line-height: 40px; text-align: center; font-size: 16px; border-bottom: 1px solid #f1f1f1; z-index: 5;background: #fff;}
+.dateselect_input .dp-btn{ display: block; float: left; height: 40px; line-height: 40px; color: #666; font-size: 14px; padding: 0 14px;}
+.dateselect_input .dp-btn:nth-last-child(1){ float: right;}
+.dateselect_input .dp-btn:nth-child(2){ border: none;}
+
+.dateselect_input .dpls{ overflow: hidden; text-align: center; padding: 10px 0; position: relative;}
+.dateselect_input .dp-select{ width: 16.6%; float: left; position: relative; height: 200px; overflow: hidden;}
+.dateselect_input .dp-select:before{content: ""; display: block; position: absolute; left: 0; top: 0; height: 80px; width: 100%; background: rgba(255,255,255,.8);background: linear-gradient(0, rgba(255,255,255,.8), #fff); border-bottom: 1px solid #eee; z-index: 2;}
+.dateselect_input .dp-select:after{content: ""; display: block; position: absolute; left: 0; bottom: 0; height: 80px; width: 100%; background: rgba(255,255,255,.8);background: linear-gradient(180deg, rgba(255,255,255,.8),#fff ); border-top: 1px solid #eee; z-index: 2;}
+.dateselect_input .dpls1 .dp-select{ width: 100%;}
+.dateselect_input .dpls2 .dp-select{ width: 50%;}
+.dateselect_input .dpls3 .dp-select{ width: 33.3%;}
+.dateselect_input .dpls4 .dp-select{ width: 25%;}
+.dateselect_input .dpls5 .dp-select{ width: 20%;}
+.dateselect_input .dpls6 .dp-select{ width: 16.6%;}
+.dateselect_input .dp-select-ul{ position: relative;}
+.dateselect_input .dp-option{ line-height: 40px;}
+
+
+
+
+
+
+
+
+
+

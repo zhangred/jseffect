@@ -6,7 +6,7 @@ a{ text-decoration:none; color: #222;}
 ul{ list-style: none; }
 dl,ul,p{ -webkit-margin-before:0em; -webkit-margin-after:0em;}
 input,select,textarea{-webkit-appearance: none; font-size: 14px; outline: none; color: #333; font-family:Helvetica, "Helvetica Neue",  STHeiTi, sans-serif;}
-body{ font-size: 14px; line-height: 24px; color: #333; background: #f9f9f9; }
+body{ font-size: 14px; line-height: 24px; color: #333; background: #f6f6f6; }
 html,body{ height: 100%; }
 /*.html{ width: 100%; margin: 0 auto; position: relative; z-index: 1; overflow: hidden;min-height: 100%; padding-top: 45px;}*/
 .alic{ text-align: center;}
@@ -18,6 +18,7 @@ html,body{ height: 100%; }
 .wp100{ width: 100%;}
 .ellipsis{white-space: nowrap; text-overflow:ellipsis; overflow: hidden;}
 .dsn{ display: none;}
+.dsb{display: block;}
 .center{ position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);  }
 .clearfix:after{ content: ""; display: block; clear: both; }
 .opacity0{ opacity: 0; }
@@ -55,11 +56,15 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .fullpop-order .btna{ display: block; text-align: center; line-height: 40px; font-size: 16px; color: #fff; background: #58B586; border-radius: 3px; }
 .fullpop-order .btnb{ display:block; float: right; line-height: 32px; border:1px solid #666; color: #666; width: 90px; text-align: center; margin-left: 20px; border-radius: 4px; }
 .fullpop-order .btnba{ color: #58B586; border-color: #58B586; }
-.fullpop-order .xxxx{}
-.fullpop-order .xxxx{}
 
-.dateselect_input_box{ position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,.3); z-index: 10; display: none;}
-.dateselect_input{position: absolute;   width: 100%;  bottom: 0; left: 0; background: #fff;}
+.dateselect_input_box{ position: fixed; left: 0; top: 0; width: 100%; background: rgba(0,0,0,.3); z-index: 50; display: block; overflow: hidden; height: 0;}
+.dateselect_input_box_active{ height: 100%;}
+.dateselect_input{position: absolute;   width: 100%;  bottom: 0; left: 0; background: #fff; opacity: 0; transform: translateY(70%); -webkit-transform: translateY(70%); transition: all .3s; -webkit-transition: all .3s; }
+.dateselect_input_box_active .dateselect_input{ opacity: 1; transform: translateY(0); -webkit-transform: translateY(0);}
+.dateselect_input .dp-btns{ height: 40px; line-height: 40px; text-align: center; font-size: 16px; border-bottom: 1px solid #f1f1f1; z-index: 5;background: #fff;}
+.dateselect_input .dp-btn{ display: block; float: left; height: 40px; line-height: 40px; color: #666; font-size: 14px; padding: 0 14px;}
+.dateselect_input .dp-btn:nth-last-child(1){ float: right;}
+.dateselect_input .dp-btn:nth-child(2){ border: none;}
 .dateselect_input .dpls{ overflow: hidden; text-align: center; padding: 10px 0; position: relative;}
 .dateselect_input .dp-select{ width: 16.6%; float: left; position: relative; height: 200px; overflow: hidden;}
 .dateselect_input .dp-select:before{content: ""; display: block; position: absolute; left: 0; top: 0; height: 80px; width: 100%; background: rgba(255,255,255,.8);background: linear-gradient(0, rgba(255,255,255,.8), #fff); border-bottom: 1px solid #eee; z-index: 2;}
@@ -72,9 +77,6 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .dateselect_input .dpls6 .dp-select{ width: 16.6%;}
 .dateselect_input .dp-select-ul{ position: relative;}
 .dateselect_input .dp-option{ line-height: 40px;}
-.dateselect_input .dp-btns{ height: 40px; border-top: 1px solid #f1f1f1; z-index: 5;}
-.dateselect_input .dp-btn{ display: block; float: left; width: 33.3%; background: #fff; height: 55px; border-right: 1px solid #f1f1f1; text-align: center; line-height: 39px; color: #666;}
-.dateselect_input .dp-btn:nth-child(3){ border: none; width: 33.4%;}
 
 
 .editlinebox{ position: relative; margin-top: 10px; background: #fff; padding-left:14px;}
@@ -91,6 +93,7 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .editlinebox .el-ado-m{ top: 50%; margin-top: -22px; }
 .editlinebox .el-ado-line{position: relative; line-height: 44px; color: #333;}
 .editlinebox .el-text{text-align: right; padding: 10px 0; color: #333; line-height: 24px; display: block;}
+.editlinebox .el-text-ash{ color: #999;}
 .editlinebox .el-text-dis{color: #ccc;}
 .editlinebox .el-ctrol{ display: block; width: 100%; border:none; outline: none; background: #fff; height: 44px; text-align: right; color: #333;}
 .editlinebox .el-ctrol-alil{ text-align: left; }
@@ -121,7 +124,12 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .select_data .sc-ul,.zshsclsbox .sc-ul{ position: relative;}
 .select_data .sc-option,.zshsclsbox .sc-option{ line-height: 40px; font-size: 14px;}
 
-
+.botmore{ padding: 10px 0; font-size: 12px; color: #999; text-align: center;}
+.botmore .bmimg{ vertical-align: middle; height: 16px; width: 16px; margin-right: 5px;}
+.botmore .done{ display: none; }
+.botmore-all .bmimg{ display: none; }
+.botmore-all .load{ display: none; }
+.botmore-all .done{ display: inline; }
 
 .botnav{ position: fixed; left: 0; bottom: 0; width: 100%; z-index: 8; height: 50px; border-top: 1px solid #CBCBCB; background: #fff; }
 .botnav .botnav-ls{ display: block; float: left; width: 33.3%; height: 49px; padding-top: 4px; color: #A3A3A3; text-align: center; font-size: 10px; line-height: 20px; overflow: hidden;}
@@ -134,6 +142,14 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .botnav .active .icon-botnavb{ background-image: url(../images/icon_navbh.png); }
 .botnav .icon-botnavc{ background-image: url(../images/icon_navc.png); }
 .botnav .active .icon-botnavc{ background-image: url(../images/icon_navch.png); }
+
+.toptilline{ height: 44px; line-height: 44px; position: fixed; left: 0; top: 0; z-index: 10; width: 100%; background: #fff; border-bottom: 1px solid #eee;}
+.toptilline .til{ text-align: center; font-size: 16px;}
+.toptilline .tl-back{ background: url(../images/arw01_left.png) no-repeat 14px center; background-size: 9px 16px; display: block; height: 44px; width: 44px;; position: absolute; left: 0; top: 0; z-index: 2;}
+.toptilline .xxx{}
+.toptilline .xxx{}
+.toptilline .xxx{}
+.toptilline .xxx{}
 
 .roomboard{ padding-bottom: 50px;}
 .roomboard .corner{ position: fixed; left: 0; top: 44px; z-index: 6; width: 60px; height: 44px; background: #64BB97; line-height: 44px; color: #fff; font-size: 14px; text-align: center; }
@@ -170,5 +186,137 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .pagestate{ display: none; position: fixed; left: 0; top: 0; z-index: 10; height: 100%; width: 100%; background: rgba(0,0,0,.5); color: #fff; font-size: 16px; }
 .pagestate .ico{ height: 16px; vertical-align: middle; position: relative; margin-right:5px; top: -1px; }
 
+.manage{ padding: 44px 0 64px;}
+.manage .topexp{ position:  fixed; left: 0; top: 0; z-index: 6; width: 100%; height: 44px; background: #fff; line-height: 44px; font-size: 16px; padding-right: 14px; }
+.manage .topexp-in{ display: block; float: right; padding-left: 26px; background: url(../images/icon_exp.png) no-repeat left center;background-size: 16px 16px; color: #666;}
+.manage .topbox{ position: relative; z-index: 5; padding: 10px 20px; background:linear-gradient(180deg,rgba(93,208,78,1) 0%,rgba(88,181,134,1) 100%);}
+.manage .tb-time{ font-size: 16px;}
+.manage .tb-tls{ position: relative; color: #fff; display: inline-block; padding-right: 13px;}
+.manage .tb-tls:after{ display: block; position: absolute; right: 0; top: 50%; width: 8px; height: 5px; margin-top: -2px; background: url(../images/icon_arr_d01.png) no-repeat right center; background-size: 100% 100%; content: ""; }
+.manage .tb-tsp{ color: #fff; opacity: .8; padding: 0 10px;}
+.manage .tb-rep{ position: absolute; right: 20px; top: 10px; display: block; width: 21px; padding: 5px 0 5px 5px;}
+.manage .tb-lis{ padding: 44px 0 16px; }
+.manage .tb-li{display: block;float: left; width: 50%; text-align: center; font-size: 30px; line-height: 40px; color: #fff;}
+.manage .tb-li-t{ font-size: 12px; color: #fff; opacity: .7; line-height: 18px;}
+.manage .tabbox{ position: relative; z-index: 4; overflow: hidden; line-height: 40px; height: 40px;background: #fff; text-align: center; border-bottom: 1px solid #eee;}
+.manage .tabbox-fixed{ position: fixed; left: 0; top: 44px; width: 100%; z-index: 3;}
+.manage .tabbox .tab{ float: left; width: 50%;}
+.manage .tab-in{ display: inline-block; height: 40px;}
+.manage .tabbox .active{ color: #58B586;}
+.manage .tabbox .active .tab-in{ border-bottom: 2px solid #58B586;}
+.manage .tabdrop{ display: none; padding-left: 14px;}
+.manage .tabdrop:nth-child(1){ display:block;}
+.manage .dp-ls{ display: block; height: 69px; position: relative; border-bottom: 1px solid #eee;}
+.manage .dp-ls:nth-last-child(1){ border-bottom: none;}
+.manage .dp-ls-til{ padding: 12px 0 1px; font-size: 16px;}
+.manage .dp-ls-tp{ font-size: 12px; color: #666;}
+.manage .dp-ls-mon{ position: absolute; right: 14px; top: 14px; text-align: right;}
+.manage .dp-ls-m{ font-size: 20px;}
+.manage .dp-ls-ado{ line-height: 18px; font-size: 12px;}
+.manage .dp-ls-it{ display: block; font-size: 10px; color: #999; line-height: 16px;}
 
 
+.manage-report{ padding: 44px 0 68px;}
+.manage-report .tip{padding: 14px; font-size: 12px; color: #E47916; line-height: 18px; font-weight: bold;}
+.manage-report .botbtn{ position: fixed; left: 0; bottom: 0; z-index: 2; padding: 14px; border-top: 1px solid #ccc; width: 100%;}
+.manage-report .btn{ display: block; text-align: center; font-size: 16px; line-height: 40px; color: #fff; background: #58B586; border-radius: 3px;}
+
+.statepage{ padding: 44px 0 0; text-align: center; min-height: 100%; background: #fff;}
+.statepage .topico{ padding-top: 80px;}
+.statepage .ico{ display: block; margin: 0 auto; width: 64px;}
+.statepage .text01{ font-size: 20px; color: #58B586; padding: 20px 0 0; font-weight: bold;}
+.statepage .text02{ font-size: 14px; color: #999;}
+.statepage .btns{ padding-top:40px;}
+.statepage .btn{ display: inline-block; height: 40px; width: 34%; margin: 0 6px; line-height: 38px; border:1px solid #58B586; background: #58B586; color: #fff; border-radius: 4px; font-size: 16px; }
+.statepage .btn:nth-last-child(1){color: #58b586; background: #fff;}
+
+.setting{ padding-bottom: 80px;}
+.setting .topbox{ height: 120px; padding-left: 20px; background: #fff; position: relative;}
+.setting .tb-phone{ padding: 35px 0 2px; font-size: 24px; line-height: 32px;}
+.setting .tb-day{ font-size: 14px; color: #999;}
+.setting .tb-n{ color: #58B586; padding-left: 10px;}
+.setting .tb-btn{ position: absolute; right: 20px; top: 44px;width:110px; height:36px; background:linear-gradient(90deg,rgba(93,208,78,1) 0%,rgba(88,181,134,1) 100%); box-shadow:0px 2px 10px 0px rgba(88,181,134,0.4); border-radius:20px; color: #fff; line-height: 36px; text-align: center;}
+.setting .editlinebox{ padding-left: 54px;}
+.setting .editline{ height: 45px;}
+.setting .elico{ position: absolute; left: -30px; top: 50%; margin-top: -9px; width: 20px;}
+.setting .el-brd{ position: absolute; right: 30px; top: 20px; color: #fff; font-size: 10px; line-height: 14px; background: #FF2842; margin-top: -4px; padding: 0 3px; border-radius: 7px;}
+.setting .outbtn{ display: block; margin:30px; background: #fff; border:1px solid #eee; line-height: 42px; color: #666; text-align: center;}
+
+.pop{ position: fixed; left: 0; top: 0; height: 0; overflow: hidden; width: 100%; background: rgba(0,0,0,0.5); z-index: 10; opacity: 0;}
+.pop_active{ opacity: 1; height: 100%;}
+.pop-cont{opacity: 0; transform:translateZ(0) translateY(100%); -webkit-transform:translateZ(0) translateY(100%); transition:all .3s; -webkit-transition:all .3s; background: #fff; border-radius: 10px;}
+.pop-mid-cont{ position: absolute; left: 10%; top: 50%; margin-top: -30px; width: 80%; transform:translateZ(0) translateY(-50%) scale(.8,.8); -webkit-transform:translateZ(0) translateY(-50%) scale(.8,.8); }
+.pop_active .pop-mid-cont{opacity: 1;transform:translateZ(0) translateY(-50%) scale(1,1); -webkit-transform:translateZ(0) translateY(-50%) scale(1,1);}
+.pop-botcont{position: absolute; left: 0; bottom: 0; width: 100%; transform:translateZ(0) translateY(101%); -webkit-transform:translateZ(0) translateY(101%);}
+.pop_active .pop-botcont{opacity: 1;transform:translateZ(0) translateY(0); -webkit-transform:translateZ(0) translateY(0);}
+.pop-cont .pop-cont-til{ text-align: center; font-size: 20px; padding: 30px 0; font-weight: bold;}
+.pop-cont .close{position: absolute; left: 50%; bottom: -50px; margin-left: -15px; display: block; width: 30px; height: 30px; background: url(../images/icon_close.png); background-size: 100% 100%; }
+.pop-cont .cmbtn{display: block; margin-top: 10px; background:linear-gradient(90deg,rgba(93,208,78,1) 0%,rgba(88,181,134,1) 100%); color: #fff; font-size: 16px; font-weight: bold; line-height: 44px; box-shadow:0px 2px 10px 0px rgba(88,181,134,0.4); border-radius:22px; text-align: center;}
+.pop-cont .el-switch{ display: block; height: 24px; background: #ddd; width: 50px; position: relative; border-radius: 12px; background: #fff; border:1px solid #eee; float: right; transition: all .2s; -webkit-transition: all .2s; }
+.pop-cont .el-switch:after{ content: ""; position: absolute; left: 1px; top: 0; height: 22px; width: 22px; border:0 solid #eee; background: #fff; border-radius: 50%; box-shadow: 0 1px 0 1px rgba(0,0,0,.1); transition: all .2s; -webkit-transition: all .2s; }
+.pop-cont .el-switch-active{ background: #44DB5E; border-color: #44DB5E;}
+.pop-cont .el-switch-active:after{left: 26px;}
+
+.pop-chongzhi{padding: 0 20px 20px;}
+.pop-chongzhi .ls{ display: block; padding: 0 14px 0 48px; background: url(../images/icon_check01.png) no-repeat 14px center; background-size: 20px 20px; line-height: 60px; margin-bottom: 14px; border:1px solid #eee; border-radius: 3px; font-size: 16px;}
+.pop-chongzhi .ls-r{ font-size: 20px; font-weight: bold; float: right;}
+.pop-chongzhi .ls-active{ background: url(../images/icon_check01ed.png) no-repeat 14px center #F4FFFA;background-size: 20px 20px; border-color: #58B586;}
+.pop-chongzhi .btn{ display: block; background:linear-gradient(90deg,rgba(93,208,78,1) 0%,rgba(88,181,134,1) 100%); color: #fff; font-size: 16px; font-weight: bold; line-height: 44px; box-shadow:0px 2px 10px 0px rgba(88,181,134,0.4); border-radius:22px; text-align: center;}
+.pop-chongzhi .pop-cont-tila{ font-size: 18px;}
+.pop-chongzhi .btna{ width: 80%; margin: 0 auto 10px;}
+
+.pop-getend{ padding: 0 20px 20px;}
+.pop-getend .num{ font-size: 36px; line-height: 44px; color: #58B586; text-align: center;}
+.pop-getend .num-ad{ padding-left: 10px; font-size: 18px; color: #333; line-height: 30px;}
+.pop-getend .tip{ padding: 0 0 30px; text-align: center; color: #666;}
+.pop-getend .btn{display: block; margin-top: 10px; background:linear-gradient(90deg,rgba(93,208,78,1) 0%,rgba(88,181,134,1) 100%); color: #fff; font-size: 16px; font-weight: bold; line-height: 44px; box-shadow:0px 2px 10px 0px rgba(88,181,134,0.4); border-radius:22px; text-align: center;}
+.pop-getend .btnb{ line-height: 42px; border:1px solid #58B586; color: #58B586; background: #fff; box-shadow: none;}
+
+.pop-room .bot{ padding: 14px 14px 24px;}
+
+.settingrooms{ padding: 44px 0 72px;}
+.settingrooms .editline{ height: 45px;}
+
+.botbtnline{ position: fixed; left: 0; bottom: 0; z-index: 3; width: 100%; padding: 14px; background: #fff; border-top: 1px solid #ccc;}
+.botbtnline .btn{ line-height: 40px; display: block; background: #58B586; font-size: 16px; color: #fff; border-radius: 3px; text-align: center;}
+.botbtnline .icoa{ display: inline-block; position: relative; top: -2px; vertical-align: middle; margin-right: 8px; width: 16px;}
+
+
+.settingator{ padding: 44px 0 80px;}
+.settingator .editline{ padding-left: 0;}
+.settingator .eltil{ font-size: 16px; font-weight: bold; padding-top: 10px;}
+.settingator .elinfo{ font-size: 12px; color: #999; padding-bottom: 6px;}
+.settingator .elsp{ display: inline-block; vertical-align: middle; height: 10px; border-left: 1px solid #ccc; margin: 0 10px;}
+.settingator .eltext{ position: absolute; right: 30px; top: 50%; margin-top: -12px; color: #58B586;}
+.settingator .eltext-dis{ color: #999;}
+
+.atoredit{ padding: 44px 0 80px;}
+.atoredit .el-text-sm{ font-size: 12px; color: #999;}
+.atoredit .el-text-in{ padding-left: 5px;}
+.atoredit .rooms{ overflow: hidden;}
+.atoredit .rm{ position: relative; display: inline-block; margin: 0 32px 10px 0; padding-left: 20px; line-height: 18px; color: #666;}
+.atoredit .rm:after{ content: ""; display: block; position: absolute; left: 0; top: 50%; height: 12px; width: 12px; margin-top: -7px; border:1px solid #666;}
+.atoredit .rm-active:after{ border:none; height: 14px; width: 14px; background: url(../images//icon_check02.png); background-size: 100% 100%;}
+
+.stshare{ position: relative; height: 100%; background: #58B586; padding-top: 44px;}
+.stshare .img01{ position: absolute; left: 0; top: 44px; width: 100%;}
+.stshare .img02{ padding: 7% 10% 0;}
+.stshare .box{ display: none; position: absolute; left: 0; bottom: 20px; background: #fff; border-radius: 4px; margin: 0 20px; z-index: 3;}
+.stshare .btil{ padding: 30px 0 30px; text-align: center;}
+.stshare .img03{ display: block; width: 105px; margin: 0 auto;}
+.stshare .btx{ color: #7B9F8D; padding: 0 30px;}
+.stshare .btn{ display: block; height:45px; background:linear-gradient(90deg,rgba(93,208,78,1),rgba(88,181,134,1)); box-shadow:0px 2px 10px 0px rgba(88,181,134,0.4); border-radius:4px; text-align: center; color: #fff; font-size: 16px; line-height: 45px;}
+.stshare .bbox{ position: absolute; left: 0; bottom: 0; width: 100%; padding: 30px;}
+
+.register{ position: relative; height: 100%; padding: 0 30px; background:linear-gradient(360deg,rgba(41,153,96,1) 0%,rgba(88,181,134,1) 100%);}
+.register .logo{ padding: 60px 0 20px;}
+.register .logo-ico{ display: block; margin:0 auto; width: 144px;}
+.register .til{ padding: 20px 0 6px; color: #fff;}
+.register .input{ position: relative; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.6);}
+.register .ctrol{ height: 30px; display: block; width: 100%; font-size: 18px; border:none; background: none; color: #fff;}
+.register .yzm{ position: absolute; right: 0; top: 0; display: block; width: 100px; text-align: center; line-height: 30px; height: 30px; border-radius: 15px; background: rgba(255,255,255,.6); color: #58B586;}
+.register .btn{ margin-top: 30px; display: block; text-align: center; line-height: 48px; height: 48px; border-radius: 24px; background: rgba(255,255,255,.6); font-size: 18px; color: #58B586; font-weight: bold;}
+.register .bottx{ position: absolute; left: 0; bottom: 26px; color: #fff; text-align: center; width: 100%;}
+.register .btna{ background: #fff;}
+.register .text{ padding-top: 38px; font-size: 18px; color: #fff; text-align: center;}
+.register .xxx{}

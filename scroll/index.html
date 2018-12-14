@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="format-detection" content="telephone=no">
+		<meta content="telephone=no" name="format-detection">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<link href="css.css" rel="stylesheet" type="text/css">
+		<title>抽屉效果测试01</title>
+		<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<div class="html">
+	<p id="J_t"></p>
+	<div style="height: 5000px;"></div>
+</div>
+<script type="text/javascript">
+
+	function scrollFn(){
+	    console.log(1)
+	}
+	function throttle(method,context){
+	    clearTimeout(method.tId);
+	    method.tId=setTimeout(function(){
+	        method.call(context)
+	    },300)
+	}
+	window.onscroll=function(){
+	    throttle(scrollFn)
+	}
+
+
+	// var timer = '';
+	// window.addEventListener('scroll',function(){
+	// 	clearTimeout(timer)
+	// 	timer = setTimeout(function(){
+	// 		console.log(4)
+	// 	},100);
+	// })
+
+	var t = document.getElementById('J_t');
+	t.addEventListener('touchstart',function(){
+		console.log('start')
+	})
+	
+	$(function(){
+		
+	});
+</script>
+</body>
+</html>

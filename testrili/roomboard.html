@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="fixedbox-index">
-		<p class="title"><a href="javascript:;" class="J_choosetime tlin"><span id="J_top_date">----年--月--日</span><span class="icon-arr-down01"></span></a></p>
+		<p class="title"><a href="javascript:;" class="J_choosetime tlin" data-timegroup="y-m-d" data-format="y/m/d"><span id="J_top_date">----年--月--日</span><span class="icon-arr-down01"></span></a></p>
 	</div>
 
 	
@@ -137,6 +137,47 @@
 		</div>
 	</div>
 
+	<!-- 立即充值弹层 -->
+	<div class="pop" id="J_pop_chongzhi">
+		<div class="pop-cont pop-mid-cont pop-chongzhi">
+			<a href="javascript:;" data-target="#J_pop_chongzhi" class="J_togglepop close"></a>
+			<p class="pop-cont-til">选择续费时长</p>
+			<div class="ul">
+				<a href="javascript:;" class="J_ls ls ls-active" data-buyid="1">购买 1个月<span class="ls-r">￥30.00</span></a>
+				<a href="javascript:;" class="J_ls ls" data-buyid="2">购买 6个月<span class="ls-r">￥160.00</span></a>
+				<a href="javascript:;" class="J_ls ls" data-buyid="3">购买 12个月<span class="ls-r">￥300.00</span></a>
+			</div>
+			<a class="btn" href="javascript:;" id="J_buynow">立即支付</a>
+		</div>
+	</div>
+	<!-- 即将到期弹层 -->
+	<div class="pop" id="J_pop_getend">
+		<div class="pop-cont pop-mid-cont pop-getend">
+			<a href="javascript:;" data-target="#J_pop_getend" class="J_togglepop close"></a>
+			<p class="pop-cont-til">有效期剩余</p>
+			<p class="num">5<span class="num-ad">天</span></p>
+			<p class="tip">满格努力ing，离不开小伙伴们的支持</p>
+			<p class="btnbox">
+				<a class="J_gobuy btn" href="javascript:;">立即续费</a>
+				<a data-target="#J_pop_getend" class="J_togglepop btn btnb" href="javascript:;">稍后处理</a>
+			</p>
+		</div>
+	</div>
+
+	<!-- 过期弹层 -->
+	<div class="pop" id="J_pop_outtime">
+		<div class="pop-cont pop-mid-cont pop-getend">
+			<p class="pop-cont-til">有效期已过</p>
+			<p class="tip">满格努力ing，离不开小伙伴们的支持</p>
+			<p class="btnbox">
+				<a class="J_gobuy btn" href="javascript:;">立即续费</a>
+			</p>
+		</div>
+	</div>
+
+
+
+
 	<script language="javascript" type="text/javascript" src="assets/javascript/jquery-2.1.4.min.js"></script>
 	<script language="javascript" type="text/javascript" src="assets/javascript/func.js"></script>
 	<script type="text/javascript">
@@ -190,18 +231,36 @@
 			// 滚动相关脚本
 			var win = $(window),
 				J_x = $('#J_x'),
-				J_y = $('#J_y');
+				J_y = $('#J_y'),
+				timer = '',
+				range_lines = Math.ceil((win.height() - 138)/height_unit);
 
 			win.on('scroll',function(e){
+				var top = win.scrollTop();
 				J_x.scrollLeft(win.scrollLeft())
-				J_y.scrollTop(win.scrollTop())
+				J_y.scrollTop(top);
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					getrange(top);
+				},50)
 			});
 
 
 			$('#J_top_date').html(timeformat(new Date(),'y年m月d日'));
 
+			var J_corner = $('#J_corner');
+			function getrange(top){
+				var ols = Math.floor(top/height_unit);
 
-
+				var ta = new Date(start_gettime+ols*24*3600000),
+					tb = new Date(start_gettime+(ols+range_lines)*24*3600000);
+				
+				if(ta.getMonth()==tb.getMonth()){
+					J_corner.html(patch(ta.getMonth()+1)+'月')
+				}else{
+					J_corner.html(patch(ta.getMonth()+1)+'-'+patch(tb.getMonth()+1)+'月')
+				}
+			}
 			// 填充y轴日期
 			function set_axis_y(dom){
 				var day = '',
@@ -480,7 +539,6 @@
 						$('#J_botbtn_add').show();
 					}
 					showpop(J_fullpop);
-					
 				};
 
 				J_pop_name.val(J_pop_name.val()||table_room_edit.name);
@@ -653,8 +711,6 @@
 			//初始化时间选择器
 			var dt = new dateselect({
 				"targets":document.getElementsByClassName('J_choosetime'),
-				"timegroups":["y","m","d"],
-				"format":"y/m/d",
 				"selected":function(opt){
 					$('#J_top_date').html(timeformat(opt.time,'y年m月d日'));
 					start_gettime = opt.time.getTime() - 30*24*3600000
@@ -848,8 +904,38 @@
 					}
 				});
 
-		   	});
+			});
 
+			//**************即将到期展示弹层脚本
+			setTimeout(function(){
+				$('#J_pop_getend').addClass('pop_active')
+			},1500)
+
+			//**************过期展示弹层脚本
+			// setTimeout(function(){
+			// 	$('#J_pop_outtime').addClass('pop_active')
+			// },1500)
+
+			$('.J_gobuy').click(function(){
+				$('#J_pop_getend').removeClass('pop_active');
+				$('#J_pop_outtime').removeClass('pop_active');
+				$('#J_pop_chongzhi').addClass('pop_active');
+			})
+			   
+			//弹层切换
+			$('.J_togglepop').on('click',function(){
+				$($(this).attr('data-target')).toggleClass('pop_active')
+			});
+			
+			$(".J_ls").click(function(){
+				$(this).addClass('ls-active').siblings().removeClass('ls-active');
+			})
+
+			//购买续费
+			$('#J_buynow').click(function(){
+				var buyid = $('.ls-active').eq(0).attr('data-buyid');
+				alert('续费的产品id为：'+buyid)
+			});
 			
 
 		});
