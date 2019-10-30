@@ -34,7 +34,10 @@
 		.popprice .ptip{ padding: 20px 0 5px; color: #E7BC00; font-size: 12px; text-align: center;}
 		.tippop_confirm_btn{ color: #1ED6D0;}
 		.botshare{ position: fixed; left: 0; bottom: 0; right: 0; z-index: 2; background: #85DBD8; text-align: center; line-height: 50px; color: #fff;}
-		.bico{ height: 15px; margin-right: 6px; vertical-align: middle; position: relative; top: -1px;}
+        .bico{ height: 15px; margin-right: 6px; vertical-align: middle; position: relative; top: -1px;}
+        .gitem-input-line{ display: none; position: relative; padding: 5px 54px 5px 14px; overflow: hidden;}
+        .gitem-input{ display: block; width: 100%; border:1px solid #f2f2f2; border-radius: 3px; height: 30px; padding-left: 10px; font-size: 12px;}
+        .gitem-inpbtn{ position: absolute; right: 14px; top: 5px; width: 50px; color: #85DBD8; text-align: right; line-height: 30px; font-size: 12px;}
 	</style>
 
 	<!-- 页面html -->
@@ -157,6 +160,10 @@
 											<a href="javascript:;" data-id="1" class="J_download gitem-bbtns gitem-bbtnsa">下载</a>	\
 											<a href="javascript:;" data-id="1" class="J_editprice gitem-bbtns gitem-bbtnsb">编辑同行价</a>\
 										</p>\
+                                    </div>\
+                                    <div class="gitem-botl gitem-input-line">\
+                                        <input type="number" class="gitem-input" placeholder="同行价＞10元，才会进入同行大仓哦" />\
+                                        <a href="javascript:;" data-id="1" class="J_editprice_sure gitem-inpbtn">确定</a>\
 									</div>\
 								</div>';
 							}
@@ -198,12 +205,31 @@
                     CUES.loadingclose()
                 },2000)
 			}).on('click','.J_editprice',function(){
-				var self = $(this),
-					id = self.attr('data-id');
-				
-				$('#J_inputalert').toggle();
-				currentItem = self.parents('.gitem');
-			})
+				$(this).parents('.gitem-botl').next().toggle()
+			}).on('click','.J_editprice_sure',function(){
+                var price = parseFloat($(this).prev().val())
+                var self = $(this);
+                if(price){
+                    locked = true;
+					$.ajax({
+                        url:'/api/callback.json?t='+(new Date().getTime()),
+                        success:function(rs){
+                            if(rs.code==0){
+                                CUES.tip({msg:'商品已成功进入同行大仓'})
+                                self.parents('.gitem').find('.J_price').html(price);
+                                self.parents('.gitem-botl').toggle()
+                            }else{
+                                CUES.tip({msg:'商品未成功进入同行大仓<br/>(同行价未达到10元)',type:'danger'})
+                            }
+                        },
+                        complete:function(){
+                            locked = false;
+                        }
+                    })
+                }else{
+                    CUES.tip({msg:'请输入价格'})
+                }
+            })
 
 			$('.J_toggle_alert').click(function(){
 				$('#J_inputalert').toggle();
