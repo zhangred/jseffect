@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css" /> 
+	<title>经营看板</title>
+</head>
+<body>
+	<div class="toptilline">
+		<p class="til">提交成功</p>
+		<a class="tl-back" id="J_back"></a>
+	</div>
+	<div class="html statepage" id="J_html">
+		<p class="topico"><img src="assets/images/icon_succ.png" class="ico"></p>
+		<p class="text01">报告生成请求已提交</p>
+		<p class="text02">稍后发送至邮箱 <span id="J_email">---</span></p>
+		<p class="btns">
+			<a href="manage.html" class="btn">返回经营看板</a>
+			<a href="roomboard.html" class="btn">返回房态管理</a>
+		</p>
+	</div>
+	<script language="javascript" type="text/javascript" src="assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="assets/javascript/func.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			$('#J_email').html(localStorage.pass_email);
+
+		});
+	</script>
+</body>
+</html>

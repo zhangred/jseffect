@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css" /> 
+	<title>经营看板</title>
+</head>
+<body>
+	<div class="html manage" id="J_html">
+		<div class="topexp"><a href="manage_report.html" class="topexp-in">导出报告</a></div>
+		<div class="topbox">
+			<div class="tb-time">
+				<a href="javascript:;" class="J_choosetime tb-tls" id="J_time_start" data-key="start" data-timegroup="y-m-d" data-format="y-m-d"></a>
+				<span class="tb-tsp">至</span>
+				<a href="javascript:;" class="J_choosetime tb-tls" id="J_time_end" data-key="end" data-timegroup="y-m-d" data-format="y-m-d"></a>
+			</div>
+			<a href="javascript:;" class="J_choosetime tb-rep" data-key="month" id="J_time_month" data-timegroup="y-m" data-format="y/m/d"><img class="dsb" src="assets/images/icon_calendor.png"></a>
+
+			<div class="tb-lis clearfix">
+				<a href="javascript:;" class="tb-li">
+					<p class="tb-li-t">总营业收入(元)</p>
+					<p class="tb-li-b">8,262.00</p>
+				</a>
+				<a href="javascript:;" class="tb-li">
+					<p class="tb-li-t">总入住率</p>
+					<p class="tb-li-b">86.5%</p>
+				</a>
+			</div>
+		</div>
+		<div class="tabbox tabbox-fixed">
+			<a class="J_tab tab active" data-idx="0"><span class="tab-in">房间明细</span></a>
+			<a class="J_tab tab" data-idx="1"><span class="tab-in">渠道统计</span></a>
+		</div>
+		<div class="tabbox">
+			<a class="J_tab tab active" data-idx="0"><span class="tab-in">房间明细</span></a>
+			<a class="J_tab tab" data-idx="1"><span class="tab-in">渠道统计</span></a>
+		</div>
+		<div>
+			<div class="J_tabdrop">
+				<div class="tabdrop bgcfff" id="J_list">
+					<!-- <a href="javascript:;" class="dp-ls">
+						<p class="dp-ls-til">龙阳101</p>
+						<p class="dp-ls-tp">入驻率 56%<span class="dp-ls-sp"></span>均价 340/晚</p>
+						<p class="dp-ls-mon"><span class="dp-ls-m">5000</span><span class="dp-ls-ado">元</span><span class="dp-ls-it">总收入</span></p>
+					</a> -->
+				</div>
+				<p class="botmore" id="J_botmore"><img src="assets/images/loading.gif" class="bmimg"><span class="load">正在加载更多···</span><span class="done">数据已全部加载完毕</span></p>
+			</div>
+			<div class="J_tabdrop tabdrop bgcfff">
+				<a href="javascript:;" class="dp-ls">
+					<p class="dp-ls-til">airbnb</p>
+					<p class="dp-ls-tp">订单数 5<span class="dp-ls-sp"></span>晚数 20</p>
+					<p class="dp-ls-mon"><span class="dp-ls-m">5000</span><span class="dp-ls-ado">元</span><span class="dp-ls-it">总收入</span></p>
+				</a>
+				<a href="javascript:;" class="dp-ls">
+					<p class="dp-ls-til">途家</p>
+					<p class="dp-ls-tp">订单数 4<span class="dp-ls-sp"></span>晚数 10</p>
+					<p class="dp-ls-mon"><span class="dp-ls-m">400</span><span class="dp-ls-ado">元</span><span class="dp-ls-it">总收入</span></p>
+				</a>
+				<a href="javascript:;" class="dp-ls">
+					<p class="dp-ls-til">去哪儿</p>
+					<p class="dp-ls-tp">订单数 9<span class="dp-ls-sp"></span>晚数 1</p>
+					<p class="dp-ls-mon"><span class="dp-ls-m">25000</span><span class="dp-ls-ado">元</span><span class="dp-ls-it">总收入</span></p>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="botnav">
+		<a href="roomboard.html" class="botnav-ls">
+			<p class="icon-botnav icon-botnava"></p>
+			<p class="botnav-te">房态管理</p>
+		</a>
+		<a href="manage.html" class="botnav-ls active">
+			<p class="icon-botnav icon-botnavb"></p>
+			<p class="botnav-te">经营看板</p>
+		</a>
+		<a href="setting.html" class="botnav-ls">
+			<p class="icon-botnav icon-botnavc"></p>
+			<p class="botnav-te">设置</p>
+		</a>
+	</div>
+
+
+	<script language="javascript" type="text/javascript" src="assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="assets/javascript/func.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// 获取当月天数
+			function getdays(date){
+				var m = date.getMonth();
+				date.setMonth(m + 1);
+				date.setDate(0);
+				return date.getDate();
+			};
+
+			var J_tab = $('.J_tab'),
+				J_tabdrop = $('.J_tabdrop');
+			   
+			J_tab.click(function(){
+				J_tab.removeClass('active');
+				var idx = parseInt($(this).attr('data-idx'));
+				J_tab.eq(idx).addClass('active');
+				J_tab.eq(idx+2).addClass('active');
+				J_tabdrop.eq(idx).show().siblings().hide();
+			});
+
+
+
+			// 列表加载
+			var data = {"page":0,"pagesize":20},
+				locked = false;//设置开关 防止重复提交;
+
+			var J_list = $('#J_list'),
+				J_botmore = $('#J_botmore');
+
+			var active_time = new Date();
+
+			data.timestart = CUES.timeformat(active_time,'y-m-01');
+			data.timeend = CUES.timeformat(active_time,'y-m-'+getdays(active_time));
+
+			var J_time_start = $('#J_time_start'),
+				J_time_end = $('#J_time_end'),
+				J_time_month = $('#J_time_month');
+			
+				J_time_start.attr('data-time',data.timestart).html(data.timestart);
+				J_time_end.attr('data-time',data.timeend).html(data.timeend);
+				J_time_month.attr('data-time',data.timestart);
+
+			//初始化时间选择器
+			var dt = new dateselect({
+				"targets":document.getElementsByClassName('J_choosetime'),
+				"selected":function(opt){
+					var timetype = $(opt.target).attr('data-key');
+					if(timetype=='start'){
+						var tend = new Date(data.timeend.replace(/\-/ig,'/')).getTime();
+						var tsta = new Date(opt.time.getTime());
+						if(tsta>tend){
+							CUES.tip({"msg":"起始日期不可大于结束日期"})
+						}else{
+							data.timestart = opt.timestr;
+							J_time_start.html(opt.timestr);
+							dt.hide();
+							//重新查询数据
+							getajax(true);
+						}
+					}else if(timetype=='end'){
+						var tsta = new Date(data.timestart.replace(/\-/ig,'/')).getTime();
+						var tend = new Date(opt.time.getTime());
+						if(tsta>tend){
+							CUES.tip({"msg":"结束日期不可小于起始日期"})
+						}else{
+							data.timeend = opt.timestr;
+							J_time_end.html(opt.timestr);
+							dt.hide();
+							//重新查询数据
+							getajax(true);
+						}
+					}else{
+						data.timestart = CUES.timeformat(opt.time,'y-m-01');
+						data.timeend = CUES.timeformat(opt.time,'y-m-'+getdays(opt.time));
+						J_time_start.attr('data-time',data.timestart).html(data.timestart);
+						J_time_end.attr('data-time',data.timeend).html(data.timeend);
+						dt.hide();
+						//重新查询数据
+						getajax(true);
+					}
+					
+				}
+			});
+
+			// 注册下拉滚动效果
+			var bm = new botmore(240,function(){
+				data.page++;
+				getajax();
+			});
+
+			function getajax(first){
+				if(first){
+					data.page = 1;
+					J_botmore.attr('class','botmore');
+					J_list.html(''); //清空列表
+				};
+				// ajax获取列表数据
+				locked = true;
+				bm.stop = true; // 关闭下拉加载
+				alert('提交数据：'+JSON.stringify(data))
+				console.log(5,data)
+				$.ajax({ 
+					type: "GET",
+					url: "api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						locked =false;
+						if(res.code==0){
+							
+							//虚拟返回模拟数据
+							res.data = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
+							
+							var dt = res.data,len = dt.length,str = '';
+							for(var i=0;i<len;i++){
+								str += '<a href="javascript:;" class="dp-ls">\
+										<p class="dp-ls-til">龙阳101</p>\
+										<p class="dp-ls-tp">入驻率 56%<span class="dp-ls-sp"></span>均价 340/晚</p>\
+										<p class="dp-ls-mon"><span class="dp-ls-m">5000</span><span class="dp-ls-ado">元</span><span class="dp-ls-it">总收入</span></p>\
+									</a>';
+							};
+							J_list.append(str);
+							setTimeout(function(){
+								bm.stop = false; // 打开下拉加载
+								if(len<data.pagesize){// 判断返回数据是否是全部数据
+									J_botmore.attr('class','botmore botmore-all');
+									bm.stop = true; // 关闭下拉加载
+								};
+							},30);
+							//----------end--------
+						}else{
+							CUES.alert({"msg":"此处可设置提示错误信息"})
+						};
+					}
+				});
+			};
+
+			// 获取第一屏房间明细数据
+			getajax(true);
+
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+    "code": 0,
+    "data":[
+        {"id":1,"img":"/img/img01.png","title":"01【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":1,"selltype":1},
+        {"id":1,"img":"/img/img01.png","title":"02【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":2,"lasttime":90000,"selltype":2},
+        {"id":1,"img":"/img/img01.png","title":"03【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":3,"selltype":1},
+        {"id":1,"img":"/img/img01.png","title":"04【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":4,"selltype":2},
+        {"id":1,"img":"/img/img01.png","title":"05【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":5,"selltype":2},
+        {"id":1,"img":"/img/img01.png","title":"06【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":1},
+        {"id":1,"img":"/img/img01.png","title":"07【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":2,"lasttime":12000,"selltype":1},
+        {"id":1,"img":"/img/img01.png","title":"08【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":3,"selltype":1},
+        {"id":1,"img":"/img/img01.png","title":"09【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":4,"selltype":2},
+        {"id":1,"img":"/img/img01.png","title":"10【钱包】蔻驰(COACH)牛皮高贵女士皮靴啊牛皮高贵女士皮靴啊","nob":"NO.12010101","time":1512291732306,"tip":"西街门店回购","price":15999,"chengben":1000,"sellnum":20,"status":5,"selltype":1}
+    ]
+}

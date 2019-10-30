@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css" /> 
+	<title>房态管理</title>
+</head>
+<body>
+	<div class="fixedbox-index">
+		<p class="title"><a href="javascript:;" class="J_choosetime tlin" data-timegroup="y-m-d" data-format="y/m/d"><span id="J_top_date">----年--月--日</span><span class="icon-arr-down01"></span></a></p>
+	</div>
+
+	
+	<div class="html roomboard" id="J_roomboard">
+		<div class="corner" id="J_corner"></div>
+		<div class="axis-y" id="J_y">
+			<table class="table" cellspacing="0" border="0"  cellpadding="0" id="J_axis_y">
+				<!-- <tr><td><div class="lis"><p class="axis-y-t">32</p><p class="axis-y-b">五</p></div></td></tr> -->
+			</table>
+		</div>
+
+		<div class="axis-x" id="J_x">
+			<table class="table" cellspacing="0" border="0"  cellpadding="0">
+				<tr id="J_axis_x">
+					<!-- <td><div class="lis">龙阳路龙阳路龙阳路</div></td> -->
+				</tr>
+				
+			</table>
+		</div>
+
+
+		<div class="borad" id="J_table">
+			<table class="table" cellspacing="0" border="0"  cellpadding="0" id="J_borad">
+				<!-- <tr>
+					<td><div class="lis"><div class="lis-in">
+						<p class="lis-in-name">韩跑</p>
+						<p class="lis-in-money">2200</p>
+					</div></div></td>
+					<td><div class="lis"><div class="lis-in">
+						<p class="lis-in-name">韩跑</p>
+						<p class="lis-in-money">2200</p>
+						<p class="lis-in-from">来源 艺龙</p>
+						<p class="lis-in-info">12/01入 2晚</p>
+					</div></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+					<td><div class="lis"></div></td>
+				</tr> -->
+				
+			</table>
+		</div>
+
+		<div class="newroom">
+			<p class="rn-til" id="J_rn_name">---</p>
+			<p class="rn-info">已选<span class="rn-info-n" id="J_rn_n">-</span>晚</p>
+			<a href="javascript:;" class="rn-btn" id="J_rn_btn">下一步</a>
+		</div>
+	</div>
+
+	<div class="botnav">
+		<a href="roomboard.html" class="botnav-ls active">
+			<p class="icon-botnav icon-botnava"></p>
+			<p class="botnav-te">房态管理</p>
+		</a>
+		<a href="manage.html" class="botnav-ls">
+			<p class="icon-botnav icon-botnavb"></p>
+			<p class="botnav-te">经营看板</p>
+		</a>
+		<a href="setting.html" class="botnav-ls">
+			<p class="icon-botnav icon-botnavc"></p>
+			<p class="botnav-te">设置</p>
+		</a>
+	</div>
+
+	<div class="pagestate" id="J_pagestate"></div>
+
+	<!-- 弹层展示 -->
+	<div class="fullpop fullpop-order fullpop-active" id="J_fullpop">
+		<p class="topline"><a href="javascript:;" class="close" id="J_closefull"></a></p>
+		<p class="til" id="J_full_til">完善订单信息</p>
+		<div class="editlinebox editlinebox-nmt">
+			<form id="J_form">
+				<div class="editline">
+					<p class="el-ado">真实姓名</p>
+					<p class="el-input"><input type="text" name="" placeholder="请输入" id="J_pop_name" class=" el-ctrol"></p>
+				</div>
+				<div class="editline">
+					<p class="el-ado">联系电话</p>
+					<p class="el-input"><input type="text" name="" placeholder="请输入" id="J_pop_phone" class=" el-ctrol"></p>
+				</div>
+
+				<div class="editline editline-cover editline-select" id="J_line_from">
+					<p class="el-ado">来源渠道</p>
+					<p class="el-input"><input type="text" name="" placeholder="请选择" class="el-ctrol" id="J_pop_from"></p>
+				</div>
+
+				<div class="J_choserome editline editline-cover editline-select">
+					<p class="el-ado">入住房间</p>
+					<p class="el-input"><input type="text" name="" placeholder="请选择" class="el-ctrol" id="J_pop_room"></p>
+				</div>
+
+				<div class="J_choserome editline editline-cover editline-select">
+					<p class="el-ado">入住日期</p>
+					<p class="el-input"><input type="text" name="" placeholder="请选择" class="el-ctrol" id="J_pop_start"></p>
+				</div>
+
+				<div class="J_choserome editline editline-cover editline-select">
+					<p class="el-ado">入住几晚</p>
+					<p class="el-input"><input type="text" name="" placeholder="请选择" class="el-ctrol" id="J_pop_days"></p>
+				</div>
+
+				<div class="editline editline-cover">
+					<p class="el-ado">总价格(元)</p>
+					<p class="el-input"><input type="text" name="" placeholder="请选择" class="el-ctrol" id="J_pop_money"></p>
+				</div>
+
+				<div class="editline editline-textarea">
+					<p class="el-textarea"><textarea class="el-ctrol el-ctrol-textarea" id="J_pop_bz" placeholder="请填写备注"></textarea></p>
+				</div>
+
+			</form>
+		</div>
+		<div class="J_botbtn botbtn" id="J_botbtn_add"><a href="javascript:;" class="btna" id="J_save">提交</a></div>
+		<div class="J_botbtn botbtn clearfix" id="J_botbtn_edit">
+			<a href="javascript:;" class="btnb btnba" id="J_edit">编辑</a>
+			<a href="javascript:;" class="btnb" id="J_delete">删除订单</a>
+		</div>
+	</div>
+
+	<!-- 立即充值弹层 -->
+	<div class="pop" id="J_pop_chongzhi">
+		<div class="pop-cont pop-mid-cont pop-chongzhi">
+			<a href="javascript:;" data-target="#J_pop_chongzhi" class="J_togglepop close"></a>
+			<p class="pop-cont-til">选择续费时长</p>
+			<div class="ul">
+				<a href="javascript:;" class="J_ls ls ls-active" data-buyid="1">购买 1个月<span class="ls-r">￥30.00</span></a>
+				<a href="javascript:;" class="J_ls ls" data-buyid="2">购买 6个月<span class="ls-r">￥160.00</span></a>
+				<a href="javascript:;" class="J_ls ls" data-buyid="3">购买 12个月<span class="ls-r">￥300.00</span></a>
+			</div>
+			<a class="btn" href="javascript:;" id="J_buynow">立即支付</a>
+		</div>
+	</div>
+	<!-- 即将到期弹层 -->
+	<div class="pop" id="J_pop_getend">
+		<div class="pop-cont pop-mid-cont pop-getend">
+			<a href="javascript:;" data-target="#J_pop_getend" class="J_togglepop close"></a>
+			<p class="pop-cont-til">有效期剩余</p>
+			<p class="num">5<span class="num-ad">天</span></p>
+			<p class="tip">满格努力ing，离不开小伙伴们的支持</p>
+			<p class="btnbox">
+				<a class="J_gobuy btn" href="javascript:;">立即续费</a>
+				<a data-target="#J_pop_getend" class="J_togglepop btn btnb" href="javascript:;">稍后处理</a>
+			</p>
+		</div>
+	</div>
+
+	<!-- 过期弹层 -->
+	<div class="pop" id="J_pop_outtime">
+		<div class="pop-cont pop-mid-cont pop-getend">
+			<p class="pop-cont-til">有效期已过</p>
+			<p class="tip">满格努力ing，离不开小伙伴们的支持</p>
+			<p class="btnbox">
+				<a class="J_gobuy btn" href="javascript:;">立即续费</a>
+			</p>
+		</div>
+	</div>
+
+
+
+
+	<script language="javascript" type="text/javascript" src="assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="assets/javascript/func.js"></script>
+	<script type="text/javascript">
+
+
+		/**************
+		页面由于数据交互复杂，请后端哥哥严格按照请求的json数据格式配置，如需调整数据字段名称或其他，请联系俺，协调修改
+		*****/
+
+
+		//变量
+		var weekarr = ['日','一','二','三','四','五','六'],
+			height_unit = 51;
+
+		//时间格式
+		function timeformat(time,format){
+		    format = format.replace("y",time.getFullYear());
+		    format = format.replace("m",(time.getMonth()+1)<10?'0'+(time.getMonth()+1):(time.getMonth()+1));
+		    format = format.replace("d",time.getDate()<10?'0'+time.getDate():time.getDate());
+		    format = format.replace("h",time.getHours()<10?'0'+time.getHours():time.getHours());
+		    format = format.replace("i",time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes());
+		    format = format.replace("s",time.getSeconds()<10?'0'+time.getSeconds():time.getSeconds());
+		   	return format;
+		};
+
+		function patch(n){
+			return n<10?'0'+n:n;
+		}
+
+		function showpop(tar){
+			tar.show();
+			setTimeout(function(){
+				tar.addClass('fullpop-active')
+			},10)
+		};
+		function closepop(tar){
+			tar.removeClass('fullpop-active').hide();
+		};
+
+		function hidepop(tar){
+			tar.removeClass('fullpop-active');
+			setTimeout(function(){
+				tar.hide();
+			},280);
+		}
+
+		
+
+		$(function(){
+
+			// 滚动相关脚本
+			var win = $(window),
+				J_x = $('#J_x'),
+				J_y = $('#J_y'),
+				timer = '',
+				range_lines = Math.ceil((win.height() - 138)/height_unit);
+
+			win.on('scroll',function(e){
+				var top = win.scrollTop();
+				J_x.scrollLeft(win.scrollLeft())
+				J_y.scrollTop(top);
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					getrange(top);
+				},50)
+			});
+
+
+			$('#J_top_date').html(timeformat(new Date(),'y年m月d日'));
+
+			var J_corner = $('#J_corner');
+			function getrange(top){
+				var ols = Math.floor(top/height_unit);
+
+				var ta = new Date(start_gettime+ols*24*3600000),
+					tb = new Date(start_gettime+(ols+range_lines)*24*3600000);
+				
+				if(ta.getMonth()==tb.getMonth()){
+					J_corner.html(patch(ta.getMonth()+1)+'月')
+				}else{
+					J_corner.html(patch(ta.getMonth()+1)+'-'+patch(tb.getMonth()+1)+'月')
+				}
+			}
+			// 填充y轴日期
+			function set_axis_y(dom){
+				var day = '',
+					str = '',
+					st_time = start_gettime;
+
+
+				dom.addClass('opacity0');
+				for(var i=0;i<61;i++){
+					day = new Date(st_time);
+
+					str += '<tr><td><div class="lis"><p class="axis-y-t">'+patch(day.getMonth()+1)+'/'+patch(day.getDate())+'</p><p class="axis-y-b">'+weekarr[day.getDay()]+'</p></div></td></tr>'
+
+					st_time += 24*3600000;
+				}
+
+				dom.html(str);
+				setTimeout(function(){
+					dom.removeClass('opacity0');
+					J_y.scrollTop(height_unit*30+1);
+					dom.find('.lis').eq(30).addClass('active')
+				},500);
+
+			};
+
+			//填充空数据表格
+			function settabledom(){
+				var rlen = table_data.length,
+					ystr = '',
+					st_time = start_gettime;
+
+				for(var i = 0;i<rlen;i++){
+					var v = table_data[i];
+					ystr += '<td id="J_top_room_'+i+'" class="top-room"><div class="lis">'+v.room.name+(v.other?'<span class="lis-co">co</span>':'')+'</div></td>';
+				};
+				$('#J_axis_x').html(ystr);
+
+				table_rooms = $('#J_axis_x').find('.top-room');
+
+
+
+				var day = '',
+					iistr = '',
+					str = '',
+					tfstr = '';
+
+				for(var i=0;i<61;i++){
+					day = new Date(st_time);
+					iistr = '';
+					tfstr = timeformat(day,'y_m_d');
+
+					for(var ii=0; ii<rlen;ii++){
+						iistr += '<td class="J_td_x'+ii+'" data-idxx="'+ii+'" data-idxy="'+i+'" data-date="'+tfstr+'" id="J_td_'+ii+'_'+tfstr+'"><div class="lis"></div></td>';
+					}
+					str += '<tr>'+iistr+'</tr>';
+					st_time += 24*3600000;
+				};
+
+				$('#J_borad').html(str);
+				setTimeout(function(){
+					win.scrollTop(height_unit*30+1);
+					settabledata();
+				},500);
+			};
+
+			//填充表格数据
+			function settabledata(){
+				var rlen = table_data.length;
+
+				for(var i=0;i<rlen;i++){
+					var orders = table_data[i].orders;
+					for(var ii=0,olen=orders.length;ii<olen;ii++){
+						settableorder(i,orders[ii])
+					}
+					
+				}
+				console.log(table_data)
+			}
+
+			function settableorder(idx,order){
+				order.elms = [];
+				for(var i=0;i<order.days;i++){
+					var dt = new Date(order.start_time+i*24*3600000),
+						td = $('#J_td_'+idx+'_'+timeformat(dt,'y_m_d'));
+					if(td.length){
+						td.attr({'data-ordered':'1','data-orderid':order.id});
+						order.elms.push(td);
+					}
+				}
+
+				settableorder_show(order);
+
+			}
+
+			function settableorder_show(order){
+				var elms = order.elms;
+				
+				for(var i=0,len = elms.length-1;i<len;i++){
+					elms[i].attr('style','border-bottom-color:#fff;').html('<div class="lis"></div>');
+				};
+				elms[0].html('<div class="lis"><div class="lis-in">\
+					<p class="lis-in-name">'+order.name+'</p><p class="lis-in-money">'+order.money+'</p>\
+					<p class="lis-in-from">来源 '+order.from.name+'</p><p class="lis-in-info">'+timeformat(new Date(order.start_time),'m/d')+'入 '+order.days+'晚</p></div></div>');
+				setTimeout(function(){
+					elms[0].find('.lis-in').css('height',height_unit*elms.length-6)
+				},30);
+			};
+
+			var J_roomboard = $('#J_roomboard'),
+				J_rn_name = $('#J_rn_name'),
+				J_rn_n = $('#J_rn_n');
+
+			//重置添加房间数据对象
+			function settableadd(){
+
+				J_roomboard.addClass('roomboard-set');
+
+				var st = new Date(table_room_edit.elms[0].attr('data-date').replace(/_/ig,'/')),
+					elms = table_room_edit.elms;
+				table_room_edit.start_time = st.getTime();
+				table_room_edit.end_time = table_room_edit.start_time+table_room_edit.elms.length*24*3600000;
+				table_room_edit.days = table_room_edit.elms.length;
+				table_room_edit.room = table_data[parseInt(table_room_edit.elms[0].attr('data-idxx'))].room;
+				
+				for(var i=0,len = elms.length;i<len;i++){
+					elms[i].attr('style','border-bottom-color:#fff;').html('<div class="lis"></div>');
+					if(i<len-1){
+						elms[i].attr('style','border-bottom-color:#fff;').html('<div class="lis"></div>');
+					}else{
+						elms[i].attr('style','').html('<div class="lis"></div>');
+					}
+				};
+				if(table_state=='add'){
+					elms[0].html('<div class="lis"><div class="lis-in lis-in-add">已选 '+elms.length+'晚</div></div>');
+				}else{
+					elms[0].html('<div class="lis"><div class="lis-in lis-in-add">\
+					<p class="lis-in-name">'+table_room_edit.name+'</p><p class="lis-in-money">计算中···</p>\
+					<p class="lis-in-from">来源 '+table_room_edit.from.name+'</p><p class="lis-in-info">'+timeformat(new Date(table_room_edit.start_time),'m/d')+'入 '+table_room_edit.days+'晚</p></div></div>');
+
+						//传对应的房间 时间 算钱
+						$.ajax({ 
+							type: "GET",
+							url: "api/callback.json?v="+(new Date().getTime()),
+							data: {},
+							dataType: "json",
+							success: function(res){
+								if(res.code==0){
+
+									table_room_edit.money = 5677;
+
+									J_pop_money.val(table_room_edit.money);
+									$('.lis-in-add .lis-in-money').html(table_room_edit.money)
+								}
+							}
+						});
+				}
+				
+				setTimeout(function(){
+					elms[0].find('.lis-in').css({'height':height_unit*elms.length-6,'line-height':(table_state=='add'?(height_unit*elms.length-8)+'px':'auto')})
+				},30);
+
+				J_rn_name.html(table_room_edit.room.name);
+				J_rn_n.html(table_room_edit.days);
+			};
+
+			//判断房间添加或者去除
+			function table_room_edit_check(elm){
+				var idxx = parseInt(elm.attr('data-idxx')),
+					idxy = parseInt(elm.attr('data-idxy')),
+					oid = elm.attr('data-orderid'),
+					idxx_o = parseInt(table_room_edit.elms[0].attr('data-idxx')),
+					idxy_start = parseInt(table_room_edit.elms[0].attr('data-idxy')),
+					idxy_end = parseInt(table_room_edit.elms[table_room_edit.elms.length-1].attr('data-idxy'));
+
+
+				if(elm.attr('data-ordered')=='1'&&table_state=='add'){
+					CUES.tip({"msg":"此房间已被预订"})
+					return;
+				};
+				if(oid!=table_room_edit.id&&table_state=='edit'&&elm.attr('data-ordered')=='1'){
+					CUES.tip({"msg":"此房间已被预订"})
+					return;
+				}
+
+				
+
+				if(idxx!=idxx_o){
+					var elms = table_room_edit.elms,
+						len = elms.length;
+					for(var i=0;i<len;i++){
+						elms[i].attr('style','').html('<div class="lis"></div>');
+					};
+					table_room_edit.elms = [];
+					table_room_edit.elms.push(elm);
+					settableadd();
+					return;
+				};
+
+				if(idxy>idxy_start&&idxy<idxy_end){
+					CUES.tip({"msg":"不可中断预订日期"})
+					return;
+				};
+				if(idxy-idxy_start<-1||idxy-idxy_end>1){
+					CUES.tip({"msg":"不可跨日期预订"})
+					return;
+				}
+
+				if(idxy==idxy_start||idxy==idxy_end){
+					if(table_room_edit.elms.length==1&&table_state=='edit'){
+						CUES.tip({"msg":"已生成订单不可全部取消，您可删除订单"})
+						return;
+					}
+					elm.attr({'data-ordered':'','data-orderid':''});
+					var us = idxy==idxy_start?table_room_edit.elms.shift():table_room_edit.elms.pop();
+					us.attr('style','').html('<div class="lis"></div>');
+					table_room_edit_len();
+					return;
+				};
+
+				idxy<idxy_start?table_room_edit.elms.unshift(elm):table_room_edit.elms.push(elm)
+				settableadd();
+
+			}
+
+			// 判断所选日期
+			function table_room_edit_len(){
+				if(table_room_edit.elms.length){
+					settableadd();
+				}else{
+					J_roomboard.removeClass('roomboard-set');
+					table_state = 'show';
+				}
+			}
+
+			var J_full_til = $('#J_full_til'),
+				J_pop_phone = $('#J_pop_phone'),
+				J_pop_name = $('#J_pop_name'),
+				J_pop_room = $('#J_pop_room'),
+				J_pop_days = $('#J_pop_days'),
+				J_pop_start = $('#J_pop_start'),
+				J_pop_money = $('#J_pop_money'),
+				J_pop_from = $('#J_pop_from'),
+				J_pop_bz = $('#J_pop_bz'),
+				J_botbtn = $('.J_botbtn');
+
+			//初始化弹层
+			function setpopdata(){
+				var obj = {};
+				J_botbtn.hide();
+				if(table_state=='add'){
+					J_full_til.html('完善订单信息');
+
+					//传对应的房间 时间 算钱
+					$.ajax({ 
+						type: "GET",
+						url: "api/callback.json?v="+(new Date().getTime()),
+						data: {},
+						dataType: "json",
+						success: function(res){
+							if(res.code==0){
+								J_pop_money.val(2569);
+							}
+						}
+					});
+
+					//底部btn显示
+					$('#J_botbtn_add').show();
+					J_save.html('提交')
+					J_fullpop.removeClass('fullpop-lineshow');
+				}else{
+					if(J_fullpop.hasClass('fullpop-lineshow')){
+						J_full_til.html('订单详情');
+						J_pop_money.val(table_room_edit.money);
+						$('#J_botbtn_edit').show();
+					}else{
+						$('#J_botbtn_add').show();
+					}
+					showpop(J_fullpop);
+				};
+
+				J_pop_name.val(J_pop_name.val()||table_room_edit.name);
+				J_pop_phone.val(J_pop_phone.val()||table_room_edit.phone);
+				J_pop_from.val(J_pop_from.val()||table_room_edit.from.name);
+				J_pop_room.val(table_room_edit.room.name);
+				J_pop_start.val(timeformat(new Date(table_room_edit.start_time),'y-m-d'));
+				J_pop_days.val(table_room_edit.days);
+				J_pop_bz.val(J_pop_bz.val()||table_room_edit.bz||'');
+			}
+
+
+
+			// 日期相关脚本
+			var date = new Date(),
+				now_date = new Date(timeformat(date,'y/m/d 00:00:00')),
+				start_gettime = now_date.getTime() - 30*24*3600000,
+				table_data = {}, //全局数据
+				table_rooms = '', //暂存房间对象
+				table_state = 'show', // show:展示  edit:编辑  add:增加
+				table_room_edit= {"elms":[]},
+				table_room_tar = {};
+
+
+			var locked = false;
+
+			var J_pagestate = $('#J_pagestate');
+			function pagestate(type){
+				if(type=='loading'){
+					J_pagestate.show().html('<p class="tx center"><img src="assets/images/loading.gif" class="ico">正在加载数据···</p>')
+				}else if(type='done'){
+					J_pagestate.fadeOut();
+				}
+			};
+
+
+
+			//获取房间订单详情
+			function getroomdetail(date){ // 可协定传什么时间格式
+				console.log('请求的时间节点：'+date)
+				pagestate('loading');
+				$.ajax({ 
+					type: "GET",
+					url: "api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						//res 返回格式{code:0,data:[]}
+						//other  是否替别人管理
+						if(res.code==0){
+
+							// 模拟数据
+							res.data = [
+								{
+									"id":1,
+									"room":{"id":1,"name":"龙阳108"},
+									"other":true,
+									"orders":[
+										{"id":2,"start_time":1543507200000,"end_time":1543852800000,"days":4,"phone":"15821326568","name":"李梅梅2","money":2100,"from":{"id":7,"name":"艺龙"},"tip":"房间里要放很多花啊，要漂亮一点啊，灯光好一点啊。"},
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅3","money":2200,"from":{"id":7,"name":"艺龙"}},
+										{"id":5,"start_time":1544112000000,"end_time":1544371200000,"days":3,"phone":"15821658563","name":"李梅梅4","money":2300,"from":{"id":7,"name":"艺龙"}},
+										{"id":4,"start_time":1546272000000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅5","money":2400,"from":{"id":7,"name":"艺龙"}}
+									]
+								},
+								{
+									"id":1,
+									"room":{"id":2,"name":"龙阳109"},
+									"orders":[
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅7","money":2600,"from":{"id":7,"name":"艺龙"}},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅8","money":2700,"from":{"id":7,"name":"艺龙"}}
+									]
+								},
+								{
+									"id":1,
+									"room":{"id":3,"name":"龙阳110"},
+									"orders":[
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅10","money":2900,"from":{"id":7,"name":"艺龙"}},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅11","money":3000,"from":{"id":7,"name":"艺龙"}}
+									]
+								},
+								{
+									"id":1,
+									"room":{"id":4,"name":"龙阳210"},
+									"orders":[
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅","money":3200,"from":{"id":7,"name":"艺龙"}},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅","money":3300,"from":{"id":7,"name":"艺龙"}}
+									]
+								},
+								{
+									"id":1,
+									"room":{"id":6,"name":"龙阳202"},
+									"orders":[
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅","money":3500,"from":{"id":7,"name":"艺龙"}},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅","money":3600,"from":{"id":7,"name":"艺龙"}}
+									]
+								},
+								{
+									"id":1,
+									"room":{"id":8,"name":"龙阳205"},
+									"orders":[
+										{"id":3,"start_time":1543939200000,"end_time":1544025600000,"days":1,"phone":"15821658563","name":"李梅梅","money":2200,"from":{"id":7,"name":"艺龙"}},
+										{"id":4,"start_time":1546185600000,"end_time":1546444800000,"days":3,"phone":"15821658563","name":"李梅梅","money":2200,"from":{"id":7,"name":"艺龙"}}
+									]
+								}
+							];
+
+							table_data = res.data;
+
+
+							//插入空dom
+							settabledom();
+
+							
+						}
+					},
+					complete:function(){
+						setTimeout(function(){
+							pagestate('done');
+						},300);
+					}
+				});
+			};
+
+			//###################源头开始脚本
+			// 填充y轴
+			set_axis_y($('#J_axis_y'));
+			getroomdetail(timeformat(new Date(),'y/m/d'));
+
+
+			$('#J_table').on('click','td',function(){
+				var self = $(this),
+					idxx = parseInt(self.attr('data-idxx')),
+					idxy = parseInt(self.attr('data-idxy'));
+
+
+				if(table_state=='show'){
+					if(self.attr('data-ordered')=='1'){ //点击已预订房间
+						var ols = table_data[idxx].orders,
+							len = ols.length,
+							id = self.attr('data-orderid');
+
+						for(var i=0;i<len;i++){
+							if(ols[i].id==id){
+								table_state = 'edit';
+								var obj = {};
+								obj = ols[i];
+								obj.room = table_data[idxx].room;
+								$.extend(table_room_edit,obj);
+								stfrom.init({default_v:table_room_edit.from.id});
+								J_fullpop.addClass('fullpop-lineshow');
+								table_room_tar.idxx = idxx;
+								table_room_tar.id = table_room_edit.id;
+								setpopdata();
+								break;
+							}
+						}
+					}else{
+						table_state = 'add';
+						table_room_edit.elms.push(self);
+						table_room_edit.from = {};
+						settableadd();
+					}
+				}else if(table_state=='add'){
+					table_room_edit_check(self);
+				}else{
+					table_room_edit_check(self);
+				}
+			});
+
+			//初始化时间选择器
+			var dt = new dateselect({
+				"targets":document.getElementsByClassName('J_choosetime'),
+				"selected":function(opt){
+					$('#J_top_date').html(timeformat(opt.time,'y年m月d日'));
+					start_gettime = opt.time.getTime() - 30*24*3600000
+					set_axis_y($('#J_axis_y'));
+					getroomdetail(timeformat(opt.time,'y/m/d'));
+					dt.hide();
+				}
+			});
+
+			var J_fullpop = $('#J_fullpop');
+
+			$('#J_closefull').click(function(){
+				var elms = table_room_edit.elms,
+					len = elms.length;
+				for(var i=0;i<len;i++){
+					elms[i].attr('style','').html('<div class="lis"></div>');
+				};
+				if(table_state=='edit'){
+					var ols = table_data[table_room_tar.idxx].orders,
+						len = ols.length,
+						id = table_room_tar.id;
+
+					for(var i=0;i<len;i++){
+						if(ols[i].id==id){
+							settableorder(table_room_tar.idxx,ols[i]);
+							break;
+						}
+					}
+				}
+				table_room_edit = {"elms":[]};
+				table_state = 'show';
+				J_roomboard.removeClass('roomboard-set');
+				closepop(J_fullpop);
+				setTimeout(function(){
+					$('#J_form')[0].reset();
+				},200);
+			});
+
+			//重新选择房间
+			$('.J_choserome').click(function(){
+				hidepop(J_fullpop);
+			});
+
+			// 下一步
+			$('#J_rn_btn').click(function(){
+				setpopdata();
+				showpop(J_fullpop);
+			});
+
+			$('#J_edit').click(function(){
+				settableadd();
+				J_fullpop.removeClass('fullpop-lineshow');
+				$('#J_botbtn_edit').hide();
+				J_save.html('保存修改');
+				$('#J_botbtn_add').show();
+			})
+
+			//删除订单
+			$('#J_delete').click(function(){
+				CUES.confirm({"msg":"确认删除次订单？","callback":function(rs){
+					if(rs){
+						var oid = table_room_edit.id,
+							idxx = table_room_edit.elms[0].attr('data-idxx'),
+							ols = table_data[idxx].orders,
+							olen = ols.length;
+
+						for(var i=0;i<olen;i++){
+							if(ols[i].id==oid){
+								var elms = ols[i].elms;
+								for(var ii=0,len=elms.length;ii<len;ii++){
+									elms[ii].attr({'style':'','data-orderid':'',"data-ordered":''}).html('<div class="lis"></div>');
+								}
+								ols.splice(i,1);
+								break;
+							}
+						}
+						table_room_edit = {"elms":[]};
+						closepop(J_fullpop)
+						$('#J_form')[0].reset();
+						table_state = 'show';
+					}
+				}})
+				
+			});
+
+			//来源选择
+		    var fromarr = [ 
+		    	{"id":5,"name":"途牛"},
+    			{"id":6,"name":"携程"},
+    			{"id":7,"name":"艺龙"},
+    			{"id":8,"name":"去哪儿"},
+    			{"id":97,"name":"同城"}
+		    ];
+		    var stfrom = new dataSelect({
+		        "target":document.getElementById('J_line_from'), // 目标对象dom
+		        "fieldshow":"name",// 必选 显示字段
+		        "fieldvalue":"id",// 必选 值匹配字段
+		        "default_v":0, // 设置默认值
+		        "data":fromarr, // 选项数据
+		        "selected":function(v){
+		        	if(v&&v.id){
+		        		J_pop_from.val(v.name);
+		        		stfrom.hide();
+		        	}else{
+		        		CUES.tip({"msg":"请选择"})
+		        	}
+		        	console.log(stfrom)
+		        }
+		    });
+
+		   	
+		   	var J_save = $('#J_save');
+		   	J_save.click(function(){
+		   		if(locked){ return;}
+
+		   		var name = J_pop_name.val().trim();
+		   		if(!name){
+		   			CUES.tip({"msg":"请输入姓名"})
+		   			return;
+		   		};
+		   		var phone = J_pop_phone.val().trim(),
+		   			regphone = /^[1][0-9]{10}$/ig;
+		   		if(!regphone.test(phone)){
+		   			CUES.tip({"msg":"请输入手机号"})
+		   			return;
+		   		};
+		   		var from = J_pop_from.val().trim();
+		   		if(!from){
+		   			CUES.tip({"msg":"请选择渠道"})
+		   			return;
+		   		};
+
+				table_room_edit.name = name;
+	   			table_room_edit.phone = phone;
+	   			table_room_edit.from = stfrom.v;
+	   			table_room_edit.money = J_pop_money.val();
+	   			table_room_edit.tip = J_pop_bz.val().trim();
+
+	   			var data = {};
+	   			$.extend(data,table_room_edit);
+	   			delete data.elms;
+		   		
+		   		locked = true;
+
+		   		J_save.html('正在提交···');
+		   		//保存提交数据
+				$.ajax({ 
+					type: "GET",
+					url: "api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						if(res.code==0){
+							CUES.tip({"msg":"提交成功","callback":function(){
+								closepop(J_fullpop);
+								table_room_edit = {"elms":[]};
+								$('#J_form')[0].reset();
+							}})
+
+							var idx = '';
+							if(table_state=='add'){
+								//返回订单id
+								data.id = 9;
+								idx = parseInt(table_room_edit.elms[0].attr('data-idxx'));
+								table_data[idx].orders.push(data);
+							}else{
+								idx = parseInt(table_room_edit.elms[0].attr('data-idxx'));
+								var ols = table_data[idx].orders,
+									len = ols.length,
+									id = data.id,
+									obj = {};
+
+								for(var i=0;i<len;i++){
+									if(ols[i].id==id){
+										ols[i] = data;
+										break;
+									}
+								}
+							}
+							
+							console.log(table_state,idx,data)
+							settableorder(idx,data);
+							J_roomboard.addClass('roomboard-set');
+							table_state = 'show';
+
+						}
+					},
+					complete:function(){
+						locked = false;
+						J_save.html('提交');
+					}
+				});
+
+			});
+
+			//**************即将到期展示弹层脚本
+			setTimeout(function(){
+				$('#J_pop_getend').addClass('pop_active')
+			},1500)
+
+			//**************过期展示弹层脚本
+			// setTimeout(function(){
+			// 	$('#J_pop_outtime').addClass('pop_active')
+			// },1500)
+
+			$('.J_gobuy').click(function(){
+				$('#J_pop_getend').removeClass('pop_active');
+				$('#J_pop_outtime').removeClass('pop_active');
+				$('#J_pop_chongzhi').addClass('pop_active');
+			})
+			   
+			//弹层切换
+			$('.J_togglepop').on('click',function(){
+				$($(this).attr('data-target')).toggleClass('pop_active')
+			});
+			
+			$(".J_ls").click(function(){
+				$(this).addClass('ls-active').siblings().removeClass('ls-active');
+			})
+
+			//购买续费
+			$('#J_buynow').click(function(){
+				var buyid = $('.ls-active').eq(0).attr('data-buyid');
+				alert('续费的产品id为：'+buyid)
+			});
+			
+
+		});
+	</script>
+</body>
+</html>
