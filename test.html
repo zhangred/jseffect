@@ -15,8 +15,8 @@
     </style>
 </head>
 <body>
-    <a href="javascript:;" class="btn" id="J_btn">3唤起app，无参数</a>
-    <a href="javascript:;" class="btn" id="J_btna">3唤起app，带参数 key=1</a>
+    <a href="javascript:;" class="btn" id="J_btn">4唤起app，无参数</a>
+    <a href="javascript:;" class="btn" id="J_btna">4唤起app，带参数 key=1</a>
     <a href="https://www.fir.im/pjry" class="btn btna" id="J_btnb">2s没有唤起，展示下载按钮</a>
 
     <a href="duanxiaoli://" class="btn" id="J_btnd">Scheme打开app</a>
@@ -27,7 +27,7 @@
         
         var btn = document.getElementById('J_btn');
         btn.addEventListener('click',function(){
-            window.location.href = 'scheme://duanxiaoli';
+            window.location = 'secheme://duanxiaoli';
             setTimeout(function() {
                 down.classList.remove('btna')
             },2000)
@@ -36,7 +36,7 @@
 
         var btna = document.getElementById('J_btna');
         btna.addEventListener('click',function(){
-            window.location.href = 'scheme://duanxiaoli?key=1';
+            window.location = 'secheme://duanxiaoli?key=1';
             setTimeout(function() {
                 down.classList.remove('btna')
             },2000)
