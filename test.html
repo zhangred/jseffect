@@ -19,13 +19,13 @@
     <a href="javascript:;" class="btn" id="J_btna">唤起app，带参数 key=1</a>
     <a href="https://www.fir.im/pjry" class="btn btna" id="J_btnb">2s没有唤起，展示下载按钮</a>
 
-    <a href="duanxiaoli://" class="btn" id="J_btnd">Scheme唤起app</a>
+    <a href="scheme://duanxiaoli" class="btn" id="J_btnd">Scheme唤起app</a>
 	<script>
         var down = document.getElementById('J_btnb');
         
         var btn = document.getElementById('J_btn');
         btn.addEventListener('click',function(){
-            window.location.href = 'app://duanxiaoli/wakeapp';
+            window.location.href = 'scheme://duanxiaoli/wakeapp';
             setTimeout(function() {
                 down.classList.remove('btna')
             },2000)
@@ -34,7 +34,7 @@
 
         var btna = document.getElementById('J_btna');
         btna.addEventListener('click',function(){
-            window.location.href = 'app://duanxiaoli/wakeapp?key=1';
+            window.location.href = 'scheme://duanxiaoli/wakeapp?key=1';
             setTimeout(function() {
                 down.classList.remove('btna')
             },2000)
