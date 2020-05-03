@@ -1,0 +1,172 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./assets/css/style.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="./assets/js/size.js"></script>
+	<title>预约详情</title>
+</head>
+<body>
+	<style>
+		.html{ padding-top: .1rem;}
+		.el-pay{ width: .3rem; position: relative; top: -.02rem;}
+		.mao{ font-size: .12rem;}
+		.money{ color: red; font-size: .16rem;}
+		.editlinebox .el-text{ min-height: .44rem; color: #666;}
+		.tel{ color: #999;}
+		.status{ position: absolute; right: .14rem; top: .2rem; width: 1rem;}
+		/* .btnbox{ padding: .1rem 0 .1rem 0;} */
+		.bottip{padding: .15rem 0 .2rem; color: #999; font-size: .12rem; text-align: center;}
+		.overtouch{ position: fixed; bottom: .7rem; line-height: .4rem; background: rgba(0,0,0,.5); color: #fff; border-radius: .06rem; width: 1rem; right: 0; text-align: center; left: auto;}
+		.btnbox{ overflow: hidden;}
+		.cm-btn.a{ width: 48%; float: left;}
+		.cm-btn.a:nth-child(2){float: right;}
+	</style>
+	<div class="html">
+        <!---待审核--->
+        <img class="status" src="./assets/images/wait.png" />
+        <!---未通过--->
+        <!-- <img class="status" src="./assets/images/fail.png" /> -->
+        <!-- 已取消 -->
+        <!-- <img class="status" src="./assets/images/cancel.png" /> -->
+
+		<div class="editlinebox editlinebox-nmt">
+			<div class="editline">
+				<p class="el-ado">预约编号</p>
+				<div class="el-text tal">SDFSD1561651651</div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">预约名称</p>
+				<div class="el-text tal">宝马试驾预约</div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">姓名</p>
+				<div class="el-text tal">陈陈</div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">手机</p>
+				<div class="el-text tal"><a class="tel" href="tel:15821670480">15821670480</a></div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">预约门店</p>
+				<div class="el-text tal">1号店</div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">预约日期</p>
+				<div class="el-text tal">2020/4/20</div>
+			</div><div class="editline">
+				<p class="el-ado">预约时段</p>
+				<div class="el-text tal">任意时段(00:00-23:59)</div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">提交日期</p>
+				<div class="el-text tal">2020/4/16 12:11:12</div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">备注</p>
+				<div class="el-text tal">这是备注</div>
+			</div>
+			<div class="editline">
+				<p class="el-ado"><img src="./assets/images/icon_pay.png" class="el-pay" />定金</p>
+				<div class="el-text tal"><span class="mao">￥</span><span class="money">0.01</span></div>
+			</div>
+			<div class="editline">
+				<p class="el-ado">操作</p>
+				<p class="el-checks">
+					<span class="J_el_radio el-radio" data-value="1">通过</span>
+					<span class="J_el_radio el-radio" data-value="2">拒绝</span>
+				</p>
+			</div>
+			<!-- <div class="editline editline-full">
+				<p class="btnbox"><a href="javascript:;" class="cm-btn" id="J_btn">立即处理</a></p>
+			</div> -->
+		</div>
+
+		<div class="cm-botline">
+			<!-- 状态01 -->
+			<!-- <p class="btnbox"><a href="javascript:;" class="cm-btn" id="J_btn">立即处理</a></p> -->
+
+			<!-- 状态02 -->
+			<p class="btnbox">
+				<a href="javascript:;" class="cm-btn a" id="J_btn">立即处理</a>
+				<a href="javascript:;" class="cm-btn a">立即处理</a>
+			</p>
+
+			<p class="bl-tip">标途科技有限公司</p>
+		</div>
+		<!-- <p class="bottip">标途科技有限公司</p> -->
+
+		<a href="./mine.html" class="overtouch" id="J_over">我的预约</a>
+	</div>
+	<script language="javascript" type="text/javascript" src="./assets/js/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/js/tools.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			// 预定义数据
+			var data = {},
+				locked = false;//设置开关 防止重复提交;
+
+			//浮动按钮
+			new overtouch({
+ 				elm:document.getElementById('J_over'),
+ 				edge:0
+  			})
+
+			
+			$('.J_el_radio').click(function(){
+				var self = $(this),
+                    val = self.attr('data-value');
+
+				data.status = val;
+				self.addClass('el-radioed').siblings().removeClass('el-radioed');
+			});
+			
+			$('#J_btn').click(function(){
+				if(locked) return;
+				if(!data.status){
+					CUES.tip({msg:'请选择操作结果'})
+					return;
+				}
+
+				if(data.status=='2'||data.status=='3'){
+					CUES.confirm({msg:'是否确认此操作？',callback:function(rs){
+						if(rs){
+							savedata();
+						}
+					}})
+				}else{
+					savedata();
+				}
+			})
+
+			function savedata(){
+				locked = true;
+				$.ajax({ // 发送验证码ajax
+					type: "GET",
+					url: "../api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						if(res.code==0){
+							CUES.tip({msg:'操作成功',callback:function(){
+								// do
+							}})
+						}
+					},
+					complete:function(){
+						locked = false;
+					}
+				});
+			}
+			
+		});
+	</script>
+</body>
+</html>
