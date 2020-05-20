@@ -21,7 +21,10 @@
 		<div class="swipe_wrap">4</div>
 		<div class="swipe_wrap">5</div>
     </div>
-    <div style="height: 600px"></div>
+	<div style="height: 600px">
+		<div class="a" id="test">adfasdfasdfasdf</div>
+		<div class="b" id="testa">adfasdfasdfasdf</div>
+	</div>
 	<script language="javascript" type="text/javascript" src="main.js"></script>
 	<script type="text/javascript">
 		var banner =  new swipe({
@@ -33,6 +36,19 @@
             	// console.log(eq);
             }
 		});
+
+		var m = document.getElementById('test');
+		console.log(m)
+		m.addEventListener('click',function(){
+			console.log(555)
+		})
+
+
+		var n = document.getElementById('testa');
+		console.log(n)
+		n.addEventListener('click',function(){
+			console.log(5556666)
+		})
 	</script>
 </body>
 </html>
