@@ -241,7 +241,7 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .cm-topline-pr{ position: relative;} */
 
 
-.botmore{ padding: 10px 0; font-size: 12px; color: #999; text-align: center;}
+.botmore{ padding: .1rem 0; font-size: .12rem; color: #999; text-align: center;}
 .botmore .bmimg{ vertical-align: middle; height: 16px; width: 16px; margin-right: 5px;}
 .botmore .done{ display: none; }
 .botmore-all .bmimg{ display: none; }
