@@ -74,7 +74,7 @@ ZSHscroll.prototype.anmgo = function(e,num){
         slt = dom[this.s];
     dom[this.s] = slt+part;
     var per = dom[this.s]/pxi*this.pxo;
-    this.bar.style.cssText = this.po +':'+(this.pxo/pxi*100)+'%;-webkit-transition:-webkit-transform 300ms; transition:transform 300ms;-webkit-transform:translate'+this._axis+'('+(per)+'px); transform:translate'+this._axis+'('+(per)+'px)';
+    this.bar.style.cssText = this.po +':'+(this.pxo/pxi*100)+'%;-webkit-transition:-webkit-transform 100ms; transition:transform 100ms;-webkit-transform:translate'+this._axis+'('+(per)+'px); transform:translate'+this._axis+'('+(per)+'px)';
 };
 
 ZSHscroll.prototype.resize = function(){

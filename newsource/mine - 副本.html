@@ -1,0 +1,172 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./assets/css/style.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="./assets/js/size.js"></script>
+	<title>我的预约</title>
+</head>
+<body>
+	<style>
+		.html{ padding-top: .44rem;}
+		.list{ padding-top: .1rem;}
+		.item{ position: relative; display: block; margin-bottom: .1rem; padding: .1rem .14rem .1rem 1.24rem; border-top: 1px solid #eee; border-bottom: 1px solid #eee; background: #fff;}
+		.item:nth-last-child(1){ margin-bottom: 0;}
+		.item-img{ position: absolute; left: .14rem; top: .1rem; height: .6rem; width: 1rem;}
+		.item-title{ font-weight: bold;}
+		.item-time{ font-size: .12rem; color: #999; line-height: .16rem;}
+		.item-shop{ padding-top: .04rem;}
+		.cm-tabbox{ z-index: 3;}
+	</style>
+	<div class="html">
+		<div class="cm-tabbox cm-tabbox-fixed cm-tabbox-full">
+            <a href="javascript:;" data-value="wait" class="J_cmtab cmtab cmtab-active"><p class="cmtab-in">待审核</p></a>
+            <a href="javascript:;" data-value="pass" class="J_cmtab cmtab"><p class="cmtab-in">已通过</p></a>
+            <a href="javascript:;" data-value="cancel" class="J_cmtab cmtab"><p class="cmtab-in">已取消</p></a>
+            <a href="javascript:;" data-value="fail" class="J_cmtab cmtab"><p class="cmtab-in">未通过</p></a>
+		</div>
+		
+		<div>
+			<div id="J_list" class="list">
+				<!-- <a href="./detail.html" class="item">
+					<img src="./img/img01_200x120.jpg" class="item-img" />
+					<p class="item-title">宝马试驾预约</p>
+					<P class="item-time">2011-56-56 9:00-11:00</P>
+					<p class="item-shop">101号店</p>
+				</a>
+				<a href="./detail.html" class="item">
+					<img src="./img/img01_200x120.jpg" class="item-img" />
+					<p class="item-title">宝马试驾预约</p>
+					<P class="item-time">2011-56-56 9:00-11:00</P>
+					<p class="item-shop">101号店</p>
+				</a> -->
+			</div>
+			<div class="dsn empty" id="J_empty"><p><img src="assets/images/empty.png" class="emimg"></p><p class="emtext">暂无相关数据</p></div>
+			<p class="botmore" id="J_botmore"><img src="assets/images/loading.gif" class="bmimg"><span class="load">正在加载更多···</span><span class="done">数据已全部加载完毕</span></p>
+		</div>
+
+
+	</div>
+	<script language="javascript" type="text/javascript" src="./assets/js/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/js/tools.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			// 列表加载
+			var data = {"page":1,"pagesize":10,type:'wait',list:[]},
+				locked = false;//设置开关 防止重复提交;
+
+			var J_list = $('#J_list'),
+				J_botmore = $('#J_botmore'),
+				J_empty = $('#J_empty');
+
+			// 注册下拉滚动效果
+			var bm = new botmore(350,function(){
+				
+			});
+			var bm = new botmore({
+                num:350,
+                stop:false,
+                callback:function(){
+					data.page++;
+					getajax();
+                }
+            });
+
+			// 如果第一屏后端渲染，需开放以下一行代码用于打开下拉加载
+			// bm.stop = false; // 打开下拉加载
+			
+			$('.J_cmtab').click(function(){
+				var self = $(this),
+					val = self.attr('data-value');
+				if(data.type==val) return;
+				data.type = val;
+				self.addClass('cmtab-active').siblings().removeClass('cmtab-active');
+				getajax(true);
+			})
+
+			function getajax(first){
+				if(first){
+					data.page = 1;
+					J_botmore.attr('class','botmore');
+					J_empty.hide();
+					J_list.html(''); //清空列表
+				};
+				// ajax获取列表数据
+				bm.stop = true; // 关闭下拉加载
+				$.ajax({ 
+					type: "GET",
+					url: "./api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						if(res.code==0){
+							// 虚拟返回数据
+							res.data = [
+								{id:Math.random(),state:1,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:2,time:1553052653174,imgs:['./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:3,time:1553052653174,imgs:['./img/img03.jpg']},
+								{id:Math.random(),state:2,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:1,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:3,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:1,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:1,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:1,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']},
+								{id:Math.random(),state:1,time:1553052653174,imgs:['./img/img01.png','./img/img02.jpg','./img/img03.jpg']}
+							];
+							// 模拟加载完成
+							if(data.page>=3){
+								res.data.splice(2,1)
+							}
+							//模拟空数据
+							if(data.type=='pass'){
+								res.data = [];
+							}
+
+							var dt = res.data,len = dt.length,str = '';
+							data.list = data.list.concat(dt);
+
+							for(var i=0;i<len;i++){
+								var v = dt[i];
+								str += '<a href="./detail.html" class="item">\
+									<img src="./img/img01_200x120.jpg" class="item-img" />\
+									<p class="item-title">宝马试驾预约</p>\
+									<P class="item-time">2011-56-56 9:00-11:00</P>\
+									<p class="item-shop">101号店</p>\
+								</a>';
+							};
+							
+							J_list.append(str);
+							setTimeout(function(){
+								bm.stop = false; // 打开下拉加载
+								if(len<data.pagesize){// 判断返回数据是否是全部数据
+									if(data.page==1&&len==0){
+										J_botmore.hide();
+										J_empty.show()
+									}else{
+										J_botmore.attr('class','botmore botmore-all');
+										J_empty.hide()
+									}
+									bm.stop = true; // 关闭下拉加载
+								};
+							},30);
+						}else{
+							CUES.alert({"msg":"此处可设置提示错误信息"})
+						};
+					}
+				});
+			};
+
+			// 获取第一页列表数据
+			getajax(true);
+			
+		});
+	</script>
+</body>
+</html>

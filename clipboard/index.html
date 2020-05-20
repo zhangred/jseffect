@@ -1,0 +1,62 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<title>粘贴复制</title>
+</head>
+<body>
+
+	<div class="pageload">
+		<a href="javascript:;" class="btn" data-clipboard-text="脚本支持" id="J_btna">检测是否支持脚本<span class="res"></span></a>
+		<br /><br />
+		<textarea class="textarea" id="J_textarea" placeholder="请输入"></textarea>
+		<a href="javascript:;" class="btn" id="J_btnb" data-clipboard-action="copy" data-clipboard-target="#J_textarea">复制上面输入的内容</a>
+		<br /><br />
+		<a href="javascript:;" class="btn" id="J_btnc" data-clipboard-text="段小狸测试">复制固定内容：段小狸测试</a>
+
+		<!-- <button class="btna" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
+			Copy to clipboard
+		</button> -->
+	</div>
+	<script type="text/javascript" src="./jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="./clipboard.min.js"></script>
+	<script type="text/javascript" src="./tools.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			var clipboard = new ClipboardJS('#J_btna');
+			clipboard.on('success', function(e) {
+				$('.res').html('yes').addClass('green')
+				e.clearSelection();
+			});
+			clipboard.on('error', function(e) {
+				$('.res').html('no').addClass('red');
+				
+			});
+
+			var clipboardb = new ClipboardJS('#J_btnb');
+			clipboardb.on('success', function(e) {
+				CUES.tip({msg:'复制成功'})
+				e.clearSelection();
+			});
+
+			var clipboardc = new ClipboardJS('#J_btnc');
+			clipboardc.on('success', function(e) {
+				CUES.tip({msg:'复制成功'})
+				e.clearSelection();
+			});
+			
+
+
+
+		})
+	</script>
+</body>
+</html>
