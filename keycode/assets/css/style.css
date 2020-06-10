@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+body{padding:0; margin:0;font-family:"Microsoft YaHei",Arial, Helvetica, sans-serif; background: #fff;max-width: 1920px; margin: 0 auto;font-size:14px;line-height:24px; color: #333;}
+div, p, form, label,  textarea, img, span,select{margin:0; padding:0; border:none;}
+a{ text-decoration:none; color: #333;}
+ul{ margin:0;   padding:0;  list-style-type:none;}
+html, body { height: 100%}
+img {vertical-align: middle;border: none; -ms-interpolation-mode: bicubic; max-width: 100%;}
+div,p,span,a,ul,li,nav,input,a:before,a:after{ -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;}
+
+.conta{ width: 1340px; margin: 0 auto; position: relative;}
+.alic{ text-align: center;}
+.ovh{ overflow: hidden;}
+.fl{ float: left;}
+.fr{ float: right;}
+.clearfix:after{ content: ""; display: block; clear: both;}
+.trans03{ -webkit-transition:all .3s; -moz-transition: all .3s; -ms-transition:all .3s;transition:all .3s;}
+.trans04{ -webkit-transition:all .4s; -moz-transition: all .4s; -ms-transition:all .4s;transition:all .4s;}
+.dsb{ display: block;}
+.dsn{ display: none;}
+.ellipsis{white-space: nowrap; text-overflow:ellipsis; overflow: hidden;}
+.flex{display: -webkit-flex; display: flex;}
+
+.cont{ padding: 20px;}
+.text{ display: block; width: 400px; height: 100px; border: 1px solid #eee;}
+.show{ width: 400px;}
+.show p{ margin-bottom: 20px;}
