@@ -20,7 +20,8 @@
 	.list{ padding: 58px 14px 0; overflow: hidden; text-align: center;}
 	.item{ position: relative; float: left; width: 48%; margin-right: 4%; margin-bottom: 4%; overflow: hidden; background-color: #fff;  }
 	.item:nth-child(2n){ margin-right: 0;}
-	.item-img{ width: 100%;}
+	.item-imgo{ position: relative; padding: 50% 0;}
+	.item-img{ position: absolute; left: 0; top: 0; width: 100%; height: 100%;}
 	.item-tip{ position: absolute; top: 0; left: 0; background-color: #85DBD8; padding: 0 10px; color: #fff;}
 	.item-info{ padding: 5px 5px 8px;}
 	.item-til{ padding-bottom:5px; font-size: 16px;}
@@ -38,7 +39,7 @@
 		<div class="list" id="J_list"></div>
 
 		<!-- 无数据 -->
-		<div class="cm-empty" id="J_empty"><img src="../assets/images/empty.png" class="empty-ico" /><p class="empty-tx">暂无数据</p></div>
+		<div class="cm-empty" id="J_empty"><img src="./assets/images/empty.png" class="empty-ico" /><p class="empty-tx">暂无数据</p></div>
 		<p class="botmore" id="J_botmore"><img src="assets/images/loading.gif" class="bmimg"><span class="load">正在加载更多···</span><span class="done">数据已全部加载完毕</span></p>
 
 	</div>
@@ -108,7 +109,7 @@
 								var v = res.data[i];
 
 								str += '<a href="./0623list.html" class="item">\
-									<img src="./img/img01.png" class="item-img">\
+									<p class="item-imgo"><img src="./img/img01.png" class="item-img"></p>\
 									<p class="item-tip">AW45号</p>\
 									<div class="item-info">\
 										<p class="item-til ellipsis">上海段小狸门面旗舰店</p>\
