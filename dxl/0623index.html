@@ -1,0 +1,151 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./assets/stylesheets/style.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="./assets/javascript/size.js"></script>
+	<title>同行清仓</title>
+</head>
+<body>
+
+	<!-- 页面样式 -->
+	<style rel="stylesheet" type="text/css">
+	.html{ padding-bottom: 60px;}
+	.list{ padding: 58px 14px 0; overflow: hidden; text-align: center;}
+	.item{ position: relative; float: left; width: 48%; margin-right: 4%; margin-bottom: 4%; overflow: hidden; background-color: #fff;  }
+	.item:nth-child(2n){ margin-right: 0;}
+	.item-img{ width: 100%;}
+	.item-tip{ position: absolute; top: 0; left: 0; background-color: #85DBD8; padding: 0 10px; color: #fff;}
+	.item-info{ padding: 5px 5px 8px;}
+	.item-til{ padding-bottom:5px; font-size: 16px;}
+	.item-store{ color: #666; font-size: 12px; line-height: 18px;}
+	.item-num{ color: #ff695c; font-size: 14px;}
+	.item-sp{ padding: 0 3px;}
+	</style>
+
+	<!-- 页面html -->
+	<div class="cm-topline" style="top:0;">
+        <a href="javascript:;" class="tl-back" id="J_back"></a>
+        <p class="tl-title">同行清仓</p>
+    </div>
+	<div class="html pd-b80">
+		<div class="list" id="J_list"></div>
+
+		<!-- 无数据 -->
+		<div class="cm-empty" id="J_empty"><img src="../assets/images/empty.png" class="empty-ico" /><p class="empty-tx">暂无数据</p></div>
+		<p class="botmore" id="J_botmore"><img src="assets/images/loading.gif" class="bmimg"><span class="load">正在加载更多···</span><span class="done">数据已全部加载完毕</span></p>
+
+	</div>
+	<!-- 底部导航 -->
+	<div class="cm-botnav bl_botline three">
+		<a href="" class="cb-item active"><p class="cb-ico home"></p><p class="cb-text">同行清仓</p></a>
+		<a href="" class="cb-item"><p class="cb-ico sell"></p><p class="cb-text">我要卖货</p></a>
+		<a href="" class="cb-item"><p class="cb-ico mine"></p><p class="cb-text">我的</p></a>
+	</div>
+
+	<script type="text/javascript">
+		// app背景颜色设置
+		// callapp('bg')
+	</script>
+
+	<script language="javascript" type="text/javascript" src="./assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/javascript/tools.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			// 列表加载
+			var params = {"page":1,"pagesize":20},
+				locked = false;//设置开关 防止重复提交;
+
+			// 注册下拉滚动效果
+			var bm = new botmoreo({
+                num:400,
+                stop:false,
+                callback:function(){
+                    if(bm.stop) return;
+					bm.stop = true;
+					
+					params.page++;
+					getajax();
+                }
+			});
+
+			//列表相关js
+			var J_list = $('#J_list'),
+                J_botmore = $('#J_botmore'),
+				J_empty = $('#J_empty');
+
+			function getajax(){
+				$.ajax({ 
+					type: "GET",
+					url: "api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						if(res.code==0){
+
+							//虚拟返回模拟数据
+							var nt = new Date();
+							res.data = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
+
+							// 模拟加载完毕
+							if(params.page>=3){
+								res.data.splice(0,6);
+							}
+							//模拟少量数据
+							// res.data.splice(0,16)
+
+
+							var str = '',
+								len = res.data.length;
+							for(var i=0;i<len;i++){
+								var v = res.data[i];
+
+								str += '<a href="./0623list.html" class="item">\
+									<img src="./img/img01.png" class="item-img">\
+									<p class="item-tip">AW45号</p>\
+									<div class="item-info">\
+										<p class="item-til ellipsis">上海段小狸门面旗舰店</p>\
+										<p class="item-store"><span class="item-num">5200</span>在售<span class="item-sp">/</span>5666件货</p>\
+									</div>\
+								</a>';
+							}
+
+							J_list.append(str);
+
+							setTimeout(function(){
+								if(len==0&&params.page==1){
+									J_empty.show();
+									J_botmore.hide();
+									bm.stop = true; // 关闭下拉加载
+								}else if(len<params.pagesize){// 判断返回数据是否是全部数据
+									J_botmore.addClass('botmore-all');
+									bm.stop = true; // 关闭下拉加载
+									if(J_list.find('.item').length<6){
+										J_botmore.hide()
+									}
+								}else{
+									bm.stop = false; // 打开下拉加载
+								}
+							},30);
+						}else{
+							CUES.alert({"msg":"此处可设置提示错误信息"})
+						}
+					}
+				})
+			}
+
+
+			// 获取第一屏数据
+			getajax()
+			
+		});
+	</script>
+</body>
+</html>
