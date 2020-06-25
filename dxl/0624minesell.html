@@ -1,0 +1,441 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./assets/stylesheets/style.css" rel="stylesheet" type="text/css" />
+	<!-- 字体图标样式  可以放在通用头部里面 -->
+	<link href="./font/iconfont.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="./assets/javascript/size.js"></script>
+	<title>我卖的货</title>
+</head>
+<body>
+
+	<style rel="stylesheet" type="text/css">
+	.topfix{ position: fixed; left: 0; top: 0; width: 100%; background: #fff; z-index: 5;}
+	.toptabbox{ position: relative; overflow: hidden; height: 44px;}
+	.toptabbox::after{ content: ""; display: block; position: absolute; left: 0; bottom: 0; right: 0; border-bottom: 1px solid #eee;}
+	.tbouter{ position: relative; z-index: 3; width: 100%; padding: 0 6px 10px; overflow-x: scroll; -webkit-overflow-scrolling: touch; white-space: nowrap; line-height: 44px;}
+	.tb-item{ display: inline-block; padding: 0 8px; color: #666;}
+	.tb-itemin{ height: 44px;}
+	.active .tb-itemin{ color: #85DBD8; border-bottom:3px solid #85DBD8;}
+	.html{ padding: 92px 0 50px;}
+	.item{ display: block; margin-top: 10px; background-color: #fff; border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
+	.item-top{ padding: 0 14px; line-height: 40px; border-bottom: 1px solid #eee;}
+	.item-tname{ margin-right: 8px;}
+	.item-status{ float: right; color: #999;}
+	.item-status.red{ color: #ff695c;}
+	.item-status.yellow{ color: #E7BC00;}
+	.item-status.icoa{ padding-left: 20px; color: #85DBD8; background: url(./assets/images/ic40_check01.png) no-repeat left center; background-size: 14px 14px;}
+	.item-status.icob{ padding-left: 20px; color: #ff695c; background: url(./assets/images/ic40_close01.png) no-repeat left center; background-size: 14px 14px;}
+	.item-mid{ position: relative; display: block; height: 148px; padding: 10px 14px 0 148px;}
+	.item-imgo{ position: absolute; left: 14px; top: 14px;}
+	.item-img{ display: block; height: 120px; width: 120px;}
+	.item-stp{ position: absolute; left: 0; top: 0; z-index: 2; padding: 0 8px; background-color: #bbb; color: #fff; font-size: 12px; line-height: 20px;}
+	.item-stp.bg{ background-color: #85DBD8;}
+	.item-tilh{ height: 100px;}
+	.item-til{ padding-bottom: 5px;}
+	.item-desc{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3; text-overflow:ellipsis;overflow:hidden; font-size: 12px; color: #999; line-height: 18px;}
+	.item-price{ color: #999; font-size: 12px;}
+	.item-ao{ color: #D687B1;}
+	.item-num{ margin-right: 3px; color: #D687B1; font-size: 16px;}
+	.item-bot{ padding: 5px 14px; text-align: right; border-top: 1px solid #eee; font-size: 0;}
+	.item-btn{ display: inline-block; padding: 0 15px; margin-left: 10px; background-color: #85DBD8; color: #fff; font-size: 14px; line-height: 30px; border-radius: 15px;}
+	.botup{ position: fixed; left: 0; right: 0; bottom: 0; padding-bottom: 50px;  background-color: #85dbd8; z-index: 2; line-height: 40px; text-align: center; color: #fff;}
+	.bu-img{width: 18px; margin-right: 8px;}
+	.placeholder{ height: 44px;}
+	.pop-upload{ background: none; text-align: center;}
+	.pop-upload .pu-item{ float: left; display: block; width: 48%; padding: 20px 0 30px; background-color: #fff; border-radius: 8px;}
+	.pop-upload .pu-item:nth-child(2){ float: right;}
+	.pop-upload .pu-item-ico{ font-size: 20px;}
+	.pop-upload .icon{ font-size: 32px; line-height: 40px; color: #85DBD8;}
+	.pop-upload .pu-item-til{ padding: 10px 0; font-size: 24px; line-height: 40px;}
+	.pop-upload .pu-item-dc{ line-height: 20px;}
+	.pop-send{ padding: 30px 30px 40px; text-align: center;}
+	.pop-send .ps-til{ font-size: 18px;}
+	.pop-send .ps-input{ padding: 20px 0;}
+	.pop-send .ps-ctrol{ display: block; width: 100%; height: 44px; border:1px solid #eee; border-radius: 0; text-indent: 14px;}
+	.pop-send .ps-btn{ margin-bottom: 10px;}
+	.pop-send .ps-file{ position: absolute; left: 0; top: 0; height: 100%; width: 100%; z-index: 2; opacity: 0;}
+	</style>
+
+	<!-- 页面html -->
+	<div class="topfix">
+		<div class="cm-topline cm-topline-pr">
+			<a href="javascript:;" class="tl-back" id="J_back"></a>
+			<p class="tl-title">我卖的货</p>
+		</div>
+		<div class="toptabbox">
+			<div class="tbouter">
+				<a href="javascript:;" class="J_tab tb-item active" data-type="all"><p class="tb-itemin">全部</p></a>
+				<a href="javascript:;" class="J_tab tb-item" data-type="typea"><p class="tb-itemin">审核中</p></a>
+				<a href="javascript:;" class="J_tab tb-item" data-type="typeb"><p class="tb-itemin">已上架</p></a>
+				<a href="javascript:;" class="J_tab tb-item" data-type="typec"><p class="tb-itemin">待我发货</p></a>
+				<a href="javascript:;" class="J_tab tb-item" data-type="typed"><p class="tb-itemin">买家拒收货</p></a>
+				<a href="javascript:;" class="J_tab tb-item" data-type="typee"><p class="tb-itemin">已成交</p></a>
+				<a href="javascript:;" class="J_tab tb-item" data-type="typef"><p class="tb-itemin">未成交</p></a>
+			</div>
+		</div>
+	</div>
+	<div class="html pd-b80">
+		<div class="list" id="J_list">
+			<!-- <div class="item">
+				<div class="item-top">
+					<span class="item-tname">南京包装</span>
+					2020/6/8-2020/7/7
+					<span class="item-status red">审核中</span>
+					<span class="item-status yellow">审核未通过</span>
+					<span class="item-status red">已上架</span>
+					<span class="item-status red">待我发货</span>
+					<span class="item-status yellow">买家拒收货</span>
+					<span class="item-status icoa">已成交</span>
+					<span class="item-status icob">未成交</span>
+					<span class="item-status">已下架</span> 
+				</div>
+				<a href="" class="item-mid">
+					<p class="item-imgo">
+						<img src="./img/img01.png" class="item-img" />
+						<span class="item-stp item-stpbg">库存上架</span>
+						<span class="item-stp bg">拍照上架</span>
+					</p>
+					<div class="item-tilh">
+						<p class="item-til ellipsis">商品名称 CHINLECHINLECHINLE 单肩包 黄色</p>
+						<p class="item-desc">商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，</p>
+					</div>
+					<p class="item-price"><span class="item-ao">￥</span><span class="item-num">2500</span>/清仓价</p>
+				</a>
+				<div class="item-bot">
+					<a href="javascript:;" class="item-btn" data-id="3">编辑</a>
+					<a href="javascript:;" class="item-btn" data-id="3">重新上架</a>
+				</div>
+			</div> -->
+		</div>
+
+		<!-- 无数据 -->
+		<div class="cm-empty" id="J_empty"><img src="./assets/images/empty.png" class="empty-ico" /><p class="empty-tx">暂无数据</p></div>
+		<p class="botmore" id="J_botmore"><img src="assets/images/loading.gif" class="bmimg"><span class="load">正在加载更多···</span><span class="done">数据已全部加载完毕</span></p>
+		<!-- 占位行高 -->
+		<p class="placeholder"></p>
+	</div>
+
+	<!-- 上传包展商品 -->
+	<a href="javascript:;" class="J_pop_show botup pd-b70" data-target="#J_pop_upload"><img class="bu-img" src="./assets/images/ico0624_upload.png" />上传包展商品</a>
+	<!-- 底部导航 -->
+	<div class="cm-botnav bl_botline three">
+		<a href="./0623index.html" class="cb-item"><p class="cb-ico home"></p><p class="cb-text">同行清仓</p></a>
+		<a href="./0624minesell.html" class="cb-item active"><p class="cb-ico sell"></p><p class="cb-text">我要卖货</p></a>
+		<a href="" class="cb-item"><p class="cb-ico mine"></p><p class="cb-text">我的</p></a>
+	</div>
+
+	<!-- 上传包展商品弹层 -->
+	<div class="cm-pop" id="J_pop_upload">
+		<a href="javascript:;" class="J_pop_close cm-pop-bg" data-target="#J_pop_upload"></a>
+		<div class="cm-pop-cont cm-pop-mid-cont pop-upload">
+			<a href="./0624uploadstore.html" class="pu-item">
+				<p class="pu-ico"><span class="icon iconfont icon-shangchuan"></span></p>
+				<p class="pu-item-til">库存上架</p>
+				<p class="pu-item-dc">将库存商品<br />批量上架</p>
+			</a>
+			<a href="./0624uploadpic.html" class="pu-item">
+				<p class="pu-ico"><span class="icon iconfont icon-paizhao"></span></p>
+				<p class="pu-item-til">拍照上架</p>
+				<p class="pu-item-dc">快捷上架<br />(不影响库存商品)</p>
+			</a>
+			
+		</div>
+	</div>
+
+	<!-- 发货信息填写 -->
+	<div class="cm-pop" id="J_pop_send">
+		<a href="javascript:;" class="J_pop_close cm-pop-bg" data-target="#J_pop_send"></a>
+		<div class="cm-pop-cont cm-pop-mid-cont pop-send">
+			<a href="javascript:;" class="J_pop_close cm-pop-midclose" data-target="#J_pop_send"></a>
+			<p class="ps-til">发货信息填写</p>
+			<p class="ps-input"><input class="J_blurscroll ps-ctrol" placeholder="请输入快递单号" id="J_mail" /></p>
+			<p class="ps-btns">
+				<a href="javascript:;" class="ps-btn cm-btn rd" id="J_sendmail">提交单号</a>
+				<a href="javascript:;" class="cm-btn o rd">快递面单拍照<input type="file" accept="image/*" class="ps-file" id="J_file" /></a>
+			</p>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		// app背景颜色设置
+		// callapp('bg')
+	</script>
+
+	<script language="javascript" type="text/javascript" src="./assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/javascript/tools.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			
+			// 列表加载
+			var params = {"page":1,"pagesize":10,type:'all'},
+				locked = false;//设置开关 防止重复提交;
+
+			//分类切换
+			$('.J_tab').click(function(){
+				var self = $(this),
+					type = self.attr('data-type');
+				if(type==params.type) return;
+				params.type = type;
+				getajax(true);
+				self.addClass('active').siblings().removeClass('active');
+			})
+
+			// 注册下拉滚动效果
+			var bm = new botmoreo({
+                num:400,
+                stop:false,
+                callback:function(){
+                    if(bm.stop) return;
+					bm.stop = true;
+					
+					params.page++;
+					getajax();
+                }
+			});
+
+			//列表相关js
+			var J_list = $('#J_list'),
+                J_botmore = $('#J_botmore'),
+				J_empty = $('#J_empty');
+			
+			function getajax(isfirstpage){
+				if(isfirstpage){
+					params.page = 1;
+					J_empty.hide();
+					J_botmore.show().attr('class','botmore');
+					J_list.html(''); //清空列表
+				}
+				$.ajax({ 
+					type: "GET",
+					url: "api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						if(res.code==0){
+
+							//虚拟返回模拟数据
+							var nt = new Date();
+							res.data = [
+								// uptype:上传方式
+								{status:1,uptype:1},
+								{status:2,uptype:1},
+								{status:3,uptype:2},
+								{status:4,uptype:2},
+								{status:5,uptype:2},
+								{status:6,uptype:1},
+								{status:7,uptype:1},
+								{status:8,uptype:2},
+								{status:1,uptype:1},
+								{status:1,uptype:1},
+							];
+
+							// 模拟加载完毕
+							if(params.page>=3){
+								res.data.splice(0,6);
+							}
+							//模拟少量数据
+							// res.data.splice(0,6)
+
+
+							var str = '',
+								len = res.data.length;
+							for(var i=0;i<len;i++){
+								var v = res.data[i];
+
+								str += '<div class="item">\
+									<div class="item-top">\
+										<span class="item-tname">南京包装</span>\
+										'+cmtools.timeFormat(new Date(),'y/m/d')+'-'+cmtools.timeFormat(new Date(),'y/m/d')+backState(v.status)+'\
+									</div>\
+									<a href="" class="item-mid">\
+										<p class="item-imgo">\
+											<img src="./img/img01.png" class="item-img" />\
+											<span class="item-stp item-stpbg">库存上架</span>\
+											<span class="item-stp bg">拍照上架</span>\
+										</p>\
+										<div class="item-tilh">\
+											<p class="item-til ellipsis">商品名称 CHINLECHINLECHINLE 单肩包 黄色</p>\
+											<p class="item-desc">商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，商品描述，</p>\
+										</div>\
+										<p class="item-price"><span class="item-ao">￥</span><span class="item-num">2500</span>/'+(v.status==6?'成交价':'清仓价')+'</p>\
+									</a>\
+									'+backBotStatus(v)+'\
+								</div>';
+							}
+
+							J_list.append(str);
+
+							setTimeout(function(){
+								if(len==0&&params.page==1){
+									J_empty.show();
+									J_botmore.hide();
+									bm.stop = true; // 关闭下拉加载
+								}else if(len<params.pagesize){// 判断返回数据是否是全部数据
+									J_botmore.addClass('botmore-all');
+									bm.stop = true; // 关闭下拉加载
+									if(J_list.find('.item').length<6){
+										J_botmore.hide()
+									}
+								}else{
+									bm.stop = false; // 打开下拉加载
+								}
+							},30);
+						}else{
+							CUES.alert({"msg":"此处可设置提示错误信息"})
+						}
+					}
+				})
+			}
+
+
+			// 获取第一屏数据
+			getajax(true)
+
+			function backState(status){
+				if(status==1){
+					return '<span class="item-status red">审核中</span>'
+				}else if(status==2){
+					return '<span class="item-status yellow">审核未通过</span>'
+				}else if(status==3){
+					return '<span class="item-status red">已上架</span>'
+				}else if(status==4){
+					return '<span class="item-status red">待我发货</span>'
+				}else if(status==5){
+					return '<span class="item-status yellow">买家拒收货</span>'
+				}else if(status==6){
+					return '<span class="item-status icoa">已成交</span>'
+				}else if(status==7){
+					return '<span class="item-status icob">未成交</span>'
+				}else if(status==8){
+					return '<span class="item-status">已下架</span>'
+				}else if(status==9){
+					return '<span class="item-status">已发货</span>'
+				}
+			}
+
+			function backBotStatus(data){
+				if(data.status==2){
+					return '<div class="item-bot">\
+								<a href="" class="item-btn" data-id="3">编辑</a>\
+								<a href="javascript:;" class="J_resetup item-btn" data-id="3">重新上架</a>\
+							</div>'
+				}else if(data.status==3){
+					return '<div class="item-bot">\
+								<a href="javascript:;" class="J_setdown item-btn" data-id="3">下架</a>\
+							</div>'
+				}else if(data.status==4){
+					return '<div class="item-bot">\
+								<a href="javascript:;" class="J_send item-btn" data-id="3">我已发货</a>\
+							</div>'
+				}else if(data.status==8){
+					return '<div class="item-bot">\
+								<a href="javascript:;" class="J_resetup item-btn" data-id="3">重新上架</a>\
+							</div>'
+				}else{
+					return ''
+				}
+			}
+
+			// 绑定事件
+			var sendData = {}; //全局定义发货对象
+			J_list.on('click','.J_resetup',function(){
+				//重新上架
+				if(locked) return;
+				var self = $(this),
+					id = self.attr('data-id');
+				locked = true;
+				$.ajax({
+                    url:'/api/callback.json?t='+(new Date().getTime()),
+                    success:function(rs){
+                        if(rs.code==0){
+							CUES.tip({msg:'上架成功'});
+							self.parent().parent().find('.item-status').replaceWith(backState(3));
+							self.parent().remove();
+                        }
+					},
+					complete:function(){
+						locked = false
+					}
+                })
+			}).on('click','.J_setdown',function(){
+				// 下架
+				if(locked) return;
+				var self = $(this),
+					id = self.attr('data-id');
+				locked = true;
+				$.ajax({
+                    url:'/api/callback.json?t='+(new Date().getTime()),
+                    success:function(rs){
+                        if(rs.code==0){
+							CUES.tip({msg:'下架成功'});
+							self.parent().parent().find('.item-status').replaceWith(backState(8));
+							self.parent().replaceWith(backBotStatus({id:id,status:8}));
+                        }
+					},
+					complete:function(){
+						locked = false
+					}
+                })
+			}).on('click','.J_send',function(){
+				sendData.elm = $(this);
+				sendData.id = $(this).attr('data-id');
+				pop_show($('#J_pop_send'))
+			})
+
+			//发送单号
+			$('#J_sendmail').click(function(){
+				if(locked) return;
+				var number = $('#J_mail').val().trim();
+				if(!number){
+					CUES.tip({msg:'请输入快递单号'})
+					return;
+				}
+				locked = true;
+				$.ajax({
+                    url:'/api/callback.json?t='+(new Date().getTime()),
+                    success:function(rs){
+                        if(rs.code==0){
+							CUES.tip({msg:'提交成功'});
+							pop_close($('#J_pop_send'))
+							sendData.elm.parent().parent().find('.item-status').replaceWith(backState(9));
+							sendData.elm.parent().remove();
+                        }
+					},
+					complete:function(){
+						locked = false
+					}
+                })
+			})
+
+			//快递单面拍照拍照
+			$('#J_file').on('change',function(){
+				// 此处上传图片代码，
+				// 上传成功后调用
+
+				// 上传提示
+				//开始上传时调用
+				CUES.loading({"msg":"正在上传···"});
+				// 结束上传是调用,外面的setTimeout只是做效果用，实际调用时只调用CUES.loadclose()
+				setTimeout(function(){
+					$('#J_file').val('');//清空上传组件
+					CUES.loadingclose();
+					CUES.tip({msg:'提交成功'});
+					pop_close($('#J_pop_send'))
+					sendData.elm.parent().parent().find('.item-status').replaceWith(backState(9));
+					sendData.elm.parent().remove();
+				},1000);
+			});
+
+
+		});
+	</script>
+</body>
+</html>
