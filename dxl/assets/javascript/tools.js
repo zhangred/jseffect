@@ -1834,4 +1834,22 @@ $(function(){
             $(window).scrollTop($(window).scrollTop())
         },10)
     })
+
+
+    // 展开弹层
+    $('.J_pop_show').click(function(){
+        var tar = $($(this).attr('data-target'));
+        tar.addClass('cm-pop-active');
+    });
+    //关闭弹层
+    $('.J_pop_close').click(function(){
+        $($(this).attr('data-target')).removeClass('cm-pop-active');
+    });    
 })
+
+function pop_close(tar){
+    tar.removeClass('cm-pop-active');
+};
+function pop_show(tar){
+    tar.addClass('cm-pop-active');
+};

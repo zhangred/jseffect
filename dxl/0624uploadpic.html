@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./assets/stylesheets/style.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="./assets/javascript/size.js"></script>
+	<title>我的</title>
+</head>
+<body>
+
+	<!-- 页面样式 -->
+	<style rel="stylesheet" type="text/css">
+	.html{ padding-top: 50px;}
+	</style>
+
+	<!-- 页面html -->
+	<div class="cm-topline" style="top:0;">
+        <a href="javascript:;" class="tl-back" id="J_back"></a>
+        <p class="tl-title">我的</p>
+    </div>
+	<div class="html">
+		这个页面和商品入库页面几乎一样  可以套用  我就不重复写了
+	</div>
+
+	<script type="text/javascript">
+		// app背景颜色设置
+		// callapp('bg')
+	</script>
+
+	<script language="javascript" type="text/javascript" src="./assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/javascript/tools.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			
+			// $.ajax({ 
+			// 		type: "GET",
+			// 		url: "/api/sres.json?v="+(new Date().getTime()),
+			// 		data: {},
+			// 		dataType: "json",
+			// 		success: function(res){
+			// 			if(res.code){
+			// 				var dt = res.data;
+			// 				if(dt && dt.length){
+			// 					var len = dt.length,str = '';
+			// 					for(var i=0;i<len;i++){
+			// 						str += '<a href="search.html?key='+dt[i].key+'" class="J_sresls sresls">'+dt[i].key+'</a>';
+			// 					};
+			// 					J_sres.html(str);
+			// 				}else{
+			// 					J_sres.html('<a href="javascript:;" class="sresls">无匹配结果</a>');
+			// 				};
+			// 				J_sres.show();
+			// 				J_hist.hide();
+			// 			}
+			// 		}
+			// 	});
+		});
+	</script>
+</body>
+</html>

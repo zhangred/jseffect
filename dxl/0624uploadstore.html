@@ -1,0 +1,392 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./assets/stylesheets/style.css" rel="stylesheet" type="text/css" />
+	<link href="./font/iconfont.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" type="text/javascript" src="./assets/javascript/size.js"></script>
+	<title>库存上架</title>
+</head>
+<body>
+
+	<!-- 页面样式 -->
+	<style rel="stylesheet" type="text/css">
+	.topfix{ position: fixed; left: 0; top: 0; width: 100%; background: #fff; z-index: 5;}
+	.tl-screen{ position: absolute; right: 0; top: 0; display: block; height: 44px; width: 44px; padding-top: 26px; background: url("./assets/images/ic40_screen.png") no-repeat center 8px; background-size: 16px 16px; font-size: 10px; color: #666; line-height: 14px; }
+	.tpsearch{ padding: 6px 14px;}
+	.tpinput{ display: block; width: 100%; height: 38px; padding-left: 34px; border: none; background: url(./assets/images/ico0624_search.png) no-repeat 10px center #f6f6f6; background-size: 14px 14px; border-radius: 4px;}
+	.html{ padding: 98px 0 50px;}
+	.botline{ position: fixed; left: 0; bottom: 0; right: 0; z-index: 3; padding: 0 134px 0 14px; background-color: #fff; border-top: 1px solid #eee; line-height: 50px;}
+	.botline .bl-all{ display: block; float: left; height: 50px;}
+	.botline .bl-alltx{ margin-left: 5px;}
+	.botline .bl-count{ float: right;}
+	.botline .bl-num{ margin:0 4px; font-size: 18px;}
+	.botline .bl-btn{ position: absolute; right: 0; top: -1px; bottom: 0; width: 120px; line-height: 50px;}
+	.radio::after{ content: "\e70f";}
+	.active .radio::after{content: "\e65a"; color: #85DBD8;}
+	.list{ background-color: #fff;}
+	.item{ position: relative; padding: 14px 14px 4px 50px; border-bottom: 1px solid #eee;}
+	.item:nth-last-child(1){ border-bottom: none;}
+	.item-l{ position: absolute; left: 0; top: 0; width: 50px; height: 100%;}
+	.item-ck{ position: absolute; left: 0; right: 0; top: 50%; line-height: 60px; margin-top: -30px; text-align: center; }
+	.item-rt{ position: relative; height: 120px; padding-left: 140px;}
+	.item-rimgo{position: absolute; left: 0; top: 0; width: 120px; height: 120px;}
+	.item-rimg{ display: block; height: 120px; width: 120px;}
+	.item-itp{ position: absolute; left: 0; bottom: 0; right: 0; z-index: 2; color: #fff; background-color: rgba(0,0,0,.3); font-size: 12px; line-height: 20px; text-align: center;}
+	.item-til{ line-height: 18px;}
+	.item-nob{ font-size: 12px; line-height: 24px; color: #999;}
+	.item-input{ padding: 10px 0 4px; line-height: 40px;}
+	.item-ctrol{ display: inline-block; height: 32px; width: 80px; border: 1px solid #eee; border-radius: 3px;  text-align: center;}
+	.item-pmon{ font-weight: bold;}
+	.item-pcost{ font-size: 12px; color: #999;}
+	.item-pnum{ float: right; font-size: 12px;}
+	.item-line{ position: relative; padding: 10px 0 10px 40px;}
+	.item-line.a{ padding-bottom: 4px;}
+	.item-lao{ position: absolute; left: 0; top: 10px; line-height: 22px; color: #999; }
+	.item-nlist{ overflow: hidden;}
+	.item-nli{ display: block; float: left; padding: 0 4px; margin: 0 10px 6px 0; padding: 0 7px; font-size: 12px; line-height: 20px; border: 1px solid #eee; border-radius: 12px;}
+	.item-nli.active{ border-color: #85DBD8; background-color: #85DBD8; color: #111;}
+	.item-pts{ text-align: right; height: 24px;}
+	.item-ptsw{ display: inline-block;}
+	.item-pts .cm-switch{ display: inline-block; top: -2px; margin-left: 8px; vertical-align: middle;}
+	</style>
+
+	<!-- 页面html -->
+	<div class="topfix">
+		<div class="cm-topline cm-topline-pr" style="top:0;">
+			<a href="javascript:;" class="tl-back" id="J_back"></a>
+			<p class="tl-title">库存上架</p>
+			<a href="javascript:;" class="J_showpop tl-screen" data-target="#J_pop_screen">筛选</a>
+		</div>
+		<p class="tpsearch"><input type="text" class="J_blurscroll tpinput" placeholder="商品关键词(可多个)、编号、店铺货号" id="J_tkey" /></p>
+	</div>
+	<div class="html pd-b70">
+		<div class="list" id="J_list">
+			<!-- <div class="item">
+				<div class="item-l"><a href="javascript:;" class="item-ck"><span class="iconfont radio"></span></a></div>
+				<div class="item-r">
+					<div class="item-rt">
+						<a href="" class="item-rimgo">
+							<img src="./img/img01.png" class="item-rimg" />
+							<span class="item-itp">补充商品细节</span>
+						</a>
+						<p class="item-til ellipsis">CHANle 单肩包 黄色 格格纹路</p>
+						<p class="item-nob">NO.5465767687</p>
+						<p class="item-input">
+							<span class="item-inpao">￥</span>
+							<input type="number" data-number="34" class="item-ctrol" data-id="4" />
+							<span>清仓价</span>
+						</p>
+						<p class="item-price">
+							<span class="item-pmon">￥1245</span>
+							<span class="item-pcost">￥3456</span>
+							<span class="item-pnum">x33</span>
+						</p>
+					</div>
+					<div class="item-line a">
+						<p class="item-lao">成色</p>
+						<p class="item-nlist">
+							<a href="javascript:;" class="item-nli" data-goodid="4" id="1">全新N级</a>
+							<a href="javascript:;" class="item-nli active" data-goodid="4" id="2">99新N级</a>
+							<a href="javascript:;" class="item-nli" data-goodid="4" id="3">88新N级</a>
+							<a href="javascript:;" class="item-nli" data-goodid="4" id="4">77新N级</a>
+							<a href="javascript:;" class="item-nli" data-goodid="4" id="5">66新N级</a>
+						</p>
+					</div>
+					<div class="item-line">
+						<p class="item-lao">会理</p>
+						<p class="item-pts">
+							<a href="javascript:;" class="item-ptsw"><span class="item-ptex">有护理</span><span class="cm-switch"></span></a>
+						</p>
+					</div>
+				</div>
+			</div> -->
+		</div>
+		<!-- 无数据 -->
+		<div class="cm-empty" id="J_empty"><img src="./assets/images/empty.png" class="empty-ico" /><p class="empty-tx">暂无数据</p></div>
+		<p class="botmore" id="J_botmore"><img src="assets/images/loading.gif" class="bmimg"><span class="load">正在加载更多···</span><span class="done">数据已全部加载完毕</span></p>
+
+	</div>
+	<div class="botline pd-b20 clearfix">
+		<a href="javascript:;" class="bl-all" id="J_chooseAll"><span class="iconfont radio"></span><span class="bl-alltx">全选</span></a>
+		<p class="bl-count">已选择<span class="bl-num" id="J_count">0</span></p>
+		<a href="javascript:;" class="bl-btn cm-btn disabled" id="J_save">商品上架</a>
+	</div>
+
+	<script type="text/javascript">
+		// app背景颜色设置
+		// callapp('bg')
+	</script>
+
+	<script language="javascript" type="text/javascript" src="./assets/javascript/jquery-2.1.4.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./assets/javascript/tools.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+			var chooseList = []; //预定义选中数组
+			// 列表加载
+			var params = {page:1,pagesize:10,key:''},
+				locked = false;//设置开关 防止重复提交;
+
+			// 注册下拉滚动效果
+			var bm = new botmoreo({
+                num:400,
+                stop:false,
+                callback:function(){
+                    if(bm.stop) return;
+					bm.stop = true;
+					
+					params.page++;
+					getajax();
+                }
+			});
+
+			//全选
+			var J_chooseAll = $('#J_chooseAll');
+			J_chooseAll.click(function(){
+				var items = $('.J_chooseitem');
+				chooseList = [];
+				if(J_chooseAll.hasClass('active')){
+					J_chooseAll.removeClass('active')
+					items.removeClass('active');
+					
+				}else{
+					J_chooseAll.addClass('active')
+					items.addClass('active');
+					for(var i=0;i<items.length;i++){
+						chooseList.push(items.eq(i).attr('data-id'));
+					}
+				}
+				count();
+				
+			})
+
+			//关键词搜索
+			$('#J_tkey').on('blur',function(){
+				var key = $(this).val().trim();
+				if(key==params.key) return;
+				params.key = key;
+				getajax(true)
+			})
+			//列表相关js
+			var J_list = $('#J_list'),
+                J_botmore = $('#J_botmore'),
+				J_empty = $('#J_empty');
+			
+			function getajax(isfirstpage){
+				if(isfirstpage){
+					params.page = 1;
+					J_empty.hide();
+					J_botmore.show().attr('class','botmore');
+					J_list.html(''); //清空列表
+				}
+				$.ajax({ 
+					type: "GET",
+					url: "api/callback.json?v="+(new Date().getTime()),
+					data: {},
+					dataType: "json",
+					success: function(res){
+						if(res.code==0){
+
+							//虚拟返回模拟数据
+							res.data = [
+								// uptype:上传方式
+								{id:Math.random(),huli:true,tag:[{id:1,name:'全新N级'},{id:2,name:'99N级'},{id:3,name:'88N级',active:true},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),tag:[{id:1,name:'全新N级'},{id:2,name:'99N级',active:true},{id:3,name:'88N级'},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),tag:[{id:1,name:'全新N级'},{id:2,name:'99N级'},{id:3,name:'88N级'},{id:4,name:'66N级',active:true},{id:5,name:'44N级'}]},
+								{id:Math.random(),huli:true,tag:[{id:1,name:'全新N级',active:true},{id:2,name:'99N级'},{id:3,name:'88N级'},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),huli:true,tag:[{id:1,name:'全新N级'},{id:2,name:'99N级'},{id:3,name:'88N级',active:true},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),tag:[{id:1,name:'全新N级'},{id:2,name:'99N级'},{id:3,name:'88N级',active:true},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),huli:true,tag:[{id:1,name:'全新N级',active:true},{id:2,name:'99N级'},{id:3,name:'88N级'},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),tag:[{id:1,name:'全新N级'},{id:2,name:'99N级',active:true},{id:3,name:'88N级'},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),tag:[{id:1,name:'全新N级'},{id:2,name:'99N级'},{id:3,name:'88N级',active:true},{id:4,name:'66N级'},{id:5,name:'44N级'}]},
+								{id:Math.random(),tag:[{id:1,name:'全新N级'},{id:2,name:'99N级'},{id:3,name:'88N级',active:true},{id:4,name:'66N级'},{id:5,name:'44N级'}]}
+							];
+
+							// 模拟加载完毕
+							if(params.page>=3){
+								res.data.splice(0,6);
+							}
+							//模拟少量数据
+							// res.data.splice(0,6)
+
+
+							var str = '',
+								len = res.data.length;
+							for(var i=0;i<len;i++){
+								var v = res.data[i];
+
+								str += '<div class="item">\
+										<div class="item-l"><a href="javascript:;" data-id="'+v.id+'" class="J_chooseitem item-ck"><span class="iconfont radio"></span></a></div>\
+										<div class="item-r">\
+											<div class="item-rt">\
+												<a href="" class="item-rimgo">\
+													<img src="./img/img01.png" class="item-rimg" />\
+													<span class="item-itp">补充商品细节</span>\
+												</a>\
+												<p class="item-til ellipsis">CHANle 单肩包 黄色 格格纹路</p>\
+												<p class="item-nob">NO.5465767687</p>\
+												<p class="item-input">\
+													<span class="item-inpao">￥</span>\
+													<input type="number" data-number="'+v.outprice+'" class="J_input item-ctrol" data-id="'+v.id+'" />\
+													<span>清仓价</span>\
+												</p>\
+												<p class="item-price">\
+													<span class="item-pmon">￥1245</span>\
+													<span class="item-pcost">￥3456</span>\
+													<span class="item-pnum">x33</span>\
+												</p>\
+											</div>\
+											<div class="item-line a">\
+												<p class="item-lao">成色</p>\
+												<p class="item-nlist">'+backTag(v.id,v.tag)+'</p>\
+											</div>\
+											<div class="item-line">\
+												<p class="item-lao">护理</p>\
+												<p class="item-pts">\
+													<a href="javascript:;" data-id="'+v.id+'" class="J_huli item-ptsw '+(v.huli?'active':'')+'"><span class="item-ptex">'+(v.huli?'护理过':'未护理')+'</span><span class="cm-switch"></span></a>\
+												</p>\
+											</div>\
+										</div>\
+									</div>';
+							}
+
+							J_list.append(str);
+							if(len){
+								J_chooseAll.removeClass('active')
+							}
+							setTimeout(function(){
+								if(len==0&&params.page==1){
+									J_empty.show();
+									J_botmore.hide();
+									bm.stop = true; // 关闭下拉加载
+								}else if(len<params.pagesize){// 判断返回数据是否是全部数据
+									J_botmore.addClass('botmore-all');
+									bm.stop = true; // 关闭下拉加载
+									if(J_list.find('.item').length<6){
+										J_botmore.hide()
+									}
+								}else{
+									bm.stop = false; // 打开下拉加载
+								}
+							},30);
+						}else{
+							CUES.alert({"msg":"此处可设置提示错误信息"})
+						}
+					}
+				})
+			}
+
+
+			// 获取第一屏数据
+			getajax(true)
+
+			function backTag(id,list){
+				var str = '';
+				for(var i=0;i<list.length;i++){
+					var v = list[i];
+					str += '<a href="javascript:;" class="J_tag item-nli '+(v.active?'active':'')+'" data-goodid="'+id+'" id="'+v.id+'">'+v.name+'</a>'
+				}
+				return str;
+			}
+			
+			//事件绑定
+			J_list.on('blur','.J_input',function(){
+				//更新清仓价
+				var self = $(this),
+					id = $(this).attr('data-id'),
+					val = parseFloat($(this).val().trim())||0,
+					oldval = parseFloat($(this).attr('data-number'))||0;
+				if(val&&val!=oldval){
+					$.ajax({
+						url:'./api/callback.json?t='+(new Date().getTime()),
+						success:function(rs){
+							if(rs.code==0){
+								self.attr('data-number',val);
+								CUES.tip({msg:'更新成功'});
+							}
+						}
+					})
+				}
+			}).on('click','.J_tag',function(){
+				//成色更新
+				if(!$(this).hasClass('active')){
+					var self = $(this),
+						goodid = self.attr('data-goodid'),
+						id = self.attr('data-id');
+					$.ajax({
+						url:'./api/callback.json?t='+(new Date().getTime()),
+						success:function(rs){
+							if(rs.code==0){
+								self.addClass('active').siblings().removeClass('active');
+								CUES.tip({msg:'更新成功'});
+							}
+						}
+					})
+				}
+			}).on('click','.J_huli',function(){
+				var self = $(this),
+					open = self.hasClass('active')?false:true,
+					id = self.attr('data-id');
+				$.ajax({
+					url:'./api/callback.json?t='+(new Date().getTime()),
+					success:function(rs){
+						if(rs.code==0){
+							open?self.addClass('active'):self.removeClass('active');
+							self.find('.item-ptex').html(open?'护理过':'未护理')
+							CUES.tip({msg:'更新成功'});
+						}
+					}
+				})
+			}).on('click','.J_chooseitem',function(){
+				var self = $(this),
+					id = self.attr('data-id'),
+					idx = chooseList.indexOf(id);
+
+				if(idx==-1){
+					chooseList.push(id);
+					self.addClass('active');
+				}else{
+					chooseList.splice(idx,1);
+					self.removeClass('active')
+				};
+				count()
+			})
+
+			function count(){
+				$('#J_count').html(chooseList.length||0)
+				if(chooseList.length){
+					$('#J_save').removeClass('disabled')
+				}else{
+					$('#J_save').addClass('disabled')
+				}
+			}
+
+			//上架商品
+			$('#J_save').click(function(){
+				if($(this).hasClass('disabled')) return;
+				locked = true;
+				$.ajax({
+                    url:'/api/callback.json?t='+(new Date().getTime()),
+                    success:function(rs){
+                        if(rs.code==0){
+							CUES.tip({msg:'提交成功'});
+                        }
+					},
+					complete:function(){
+						locked = false
+					}
+                })
+			})
+
+		
+		});
+	</script>
+</body>
+</html>
