@@ -102,7 +102,7 @@ setTimeout(()=>{
 
 setTimeout(()=>{
 
-    return
+    // return
     chartpic.drawCanvas({
         type:'pie',
         title:{

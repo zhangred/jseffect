@@ -93,8 +93,9 @@ MbChart.prototype = {
         this.type = options.type;
         this.xAxis = options.xAxis||{};
         this.series = options.series;
+        this.indicator = options.indicator||[];
 
-        console.log(45,newopts,this.series);
+        // console.log(45,newopts,this.series);
 
         if(newopts){
             this.resetRect();
@@ -109,6 +110,7 @@ MbChart.prototype = {
         }
 
         // this.showRectArea('blue')
+        console.log('here-true')
         this.transRect(true);
         
     },
@@ -124,7 +126,7 @@ MbChart.prototype = {
         posArr[0] = ['top','bottom'].indexOf(posArr[0])>-1?posArr[0]:'top';
         posArr[1] = ['left','center','right'].indexOf(posArr[1])>-1?posArr[1]:'center';
 
-        let y = {top:this.scale2(20),bottom:chartRect.height_o-this.scale2(16)}[posArr[0]],
+        let y = {top:this.scale2(26),bottom:chartRect.height_o-this.scale2(22)}[posArr[0]],
             x = {left:this.scale2(10),center:chartRect.width_o/2,right:chartRect.width_o-this.scale2(10)}[posArr[1]];
 
         ctx.font = this.scale2(18)+"px Arial";
@@ -169,7 +171,6 @@ MbChart.prototype = {
                     widthText = widthText +(tw+padding);
                 }
             }else{
-                console.log(5,['pie'].indexOf(this.type));
                 tw = ctx.measureText(item.name).width;
                 bgc = item.fillStyle||color[i].full;
                 item.color.push(bgc);
@@ -188,9 +189,9 @@ MbChart.prototype = {
             x,
             y,
             xy = {
-                top:this.scale2(12),
+                top:this.scale2(18),
                 right:chartRect.width_o - this.scale2(14),
-                bottom:chartRect.height_o-this.scale2(24),
+                bottom:chartRect.height_o-this.scale2(30),
                 left:this.scale2(14)
             };
         
@@ -252,9 +253,10 @@ MbChart.prototype = {
         this.transRect();
     },
     transRect:function(first){
+        console.log('transRect',first)
         if(['line','lineArea','lineSmooth','lineSmoothArea'].indexOf(this.type)>-1){
             this.transLineRect(first);
-        }else if(['pie'].indexOf(this.type)>-1){
+        }else if(['pie','radar'].indexOf(this.type)>-1){
             this.transPieRaFuRect(first);
         }
     },
@@ -279,7 +281,7 @@ MbChart.prototype = {
             length = series.length,
             chartRect = this.chartRect;
 
-        console.log('baseloc',baseLoc);
+        // console.log('baseloc',baseLoc);
         
         //设置最终xy坐标
         for(var i=0;i<length;i++){
@@ -315,7 +317,7 @@ MbChart.prototype = {
             })
         }
 
-        console.log('series',series);
+        // console.log('series',series);
 
         let time_rang = 0;
 
@@ -457,16 +459,14 @@ MbChart.prototype = {
                 this.setLineSingle(series[i].xyTrans,color,ctx);
             }
             this.setChartAxis();
-        }
-        if(this.type=='lineSmooth'||this.type=='lineSmoothArea'){
+        }else if(this.type=='lineSmooth'||this.type=='lineSmoothArea'){
             this.setChartGrid();
             for(var i=0;i<series.length;i++){
                 let color = series[i].fillStyle||this.color[i];
                 this.setLineSmoothSingle(series[i].xyTrans,series[i].bessel,color,ctx);
             }
             this.setChartAxis();
-        }
-        if(this.type=='bar'){
+        }else if(this.type=='bar'){
             this.setChartGrid(true);
             for(var i=0;i<series.length;i++){
                 let color = series[i].fillStyle||this.color[i];
@@ -645,20 +645,27 @@ MbChart.prototype = {
 
     //变化饼状图，雷达图，漏斗图数据
     transPieRaFuRect:function(first){
+        console.log('transPieRaFuRect',first)
         //计算中心最大间距轴数据
         let series = this.series,
             type = this.type,
+            indicator = this.indicator,
             chartRect = this.chartRect,
             maxRange = chartRect.width>chartRect.height?(chartRect.height/2):(chartRect.width/2),
-            ctx = this.ctx;
+            ctx = this.ctx,
+            color = this.color,
+            radar_sin=[],
+            radar_cos=[],
+            radar_split = this.options.split||5,
+            radar_fill = this.options.fill===undefined?true:this.options.fill;
         
         chartRect.centerX = (chartRect.left+chartRect.right)/2;
         chartRect.centerY = (chartRect.top+chartRect.bottom)/2;
         
-        console.log('chartrect',chartRect,maxRange);
+        // console.log('chartrect',chartRect,maxRange);
 
         if(type=='pie'){
-            //计算长半径，短半径，旋转角度
+            //饼图->计算长半径，短半径，旋转角度
             for(var i=0;i<series.length;i++){
                 let item = series[i];
                 // console.log(i)
@@ -684,7 +691,44 @@ MbChart.prototype = {
                     item.degNumRange.push(item.degNum[j]-item.degNumStart[j]);
                 }
             }
+        }else if(type=='radar'){
+            maxRange = maxRange*(this.options.radius||100)/100;
+            let indLen = indicator.length,
+                cx = chartRect.centerX,
+                cy = chartRect.centerY,
+                xa,ya;
+            for(var i=0;i<indLen;i++){
+                let deg = (i*360/indLen-90)*Math.PI/180,
+                    sin = Math.sin(deg),
+                    cos = Math.cos(deg);
+                radar_sin.push(sin);
+                radar_cos.push(cos);
+            }
+
+            console.log('first',first)
+            for(var i=0;i<series.length;i++){
+                let item = series[i];
+
+                //计算位移坐标
+                item.xyStart = first?[]:item.xy.concat([]);
+                //计算最终坐标并计算差值
+                item.xy = [];
+                item.xyRange = [];
+                item.strokeStyle = item.color&&item.color.full||color[i].full;
+                item.fillStyle = item.color&&item.color.half||color[i].half;
+                for(var k=0;k<item.data.length;k++){
+                    xa = cx + maxRange*(item.data[k]/indicator[k].max)*radar_cos[k];
+                    ya = cy + maxRange*(item.data[k]/indicator[k].max)*radar_sin[k];
+                    if(first) {item.xyStart.push([cx,cy])};
+                    item.xy.push([xa,ya])
+                    item.xyRange.push([xa-item.xyStart[k][0],ya-item.xyStart[k][1]]);
+                }
+            }
         }
+        // console.log(series,maxRange)
+
+
+
         let time_rang = 0;
 
         let inter = setInterval(()=>{
@@ -700,7 +744,9 @@ MbChart.prototype = {
                     this.setPieSingle(per,series,ctx,chartRect.centerX,chartRect.centerY);
                     break;
                 case 'radar':
-                    this.setRadarSingle(per,series,ctx,chartRect.centerX,chartRect.centerY);
+                    this.setRadarGrid(chartRect.centerX,chartRect.centerY,indicator,radar_split,maxRange,radar_sin,radar_cos,ctx);
+                    // this.showRectArea('red')
+                    this.setRadarSingle(per,series,ctx,radar_fill);
                     break;
                 default:
                     console.log('no');
@@ -747,8 +793,80 @@ MbChart.prototype = {
         }
     },
     //渲染雷达图
-    setRadarSingle:function(per,series,ctx,cx,cy){
+    //雷达图底图
+    setRadarGrid(cx,cy,indicator,split,range,sin,cos,ctx){
+        let len = indicator.length;
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#ddd';
+        ctx.textBaseline = 'middle';
+            
+        for(var i=0;i<split;i++){
+            ctx.beginPath()
+            let rg = range*(split-i)/split;
+            ctx.fillStyle = i%2?'#f6f6f6':'#ffffff';
+            for(var k=0;k<len;k++){
+                if(k==0){
+                    ctx.moveTo(cx+rg*cos[k],cy+rg*sin[k])
+                }else{
+                    ctx.lineTo(cx+rg*cos[k],cy+rg*sin[k])
+                }
+            }
+            ctx.closePath()
+            ctx.fill()
+            ctx.stroke()
+        }
+        for(var i=0;i<len;i++){
+            ctx.beginPath();
+            ctx.moveTo(cx,cy)
+            ctx.lineTo(cx+range*cos[i],cy+range*sin[i])
+            ctx.fillStyle = '#111111';
+            ctx.textAlign = cos[i]<0?'right':cos[i]<0.01?'center':'left';
+            ctx.fillText(indicator[i].name||'',cx+(range+this.scale2(10))*cos[i],cy+(range+this.scale2(10))*sin[i]);
+            ctx.closePath()
+            ctx.stroke()
+        }
+    },
+    setRadarSingle:function(per,series,ctx,fill){
+        for(var i=0;i<series.length;i++){
+            let item = series[i],
+                xyStart = item.xyStart,
+                xyRange = item.xyRange;
         
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = item.strokeStyle;
+            ctx.fillStyle = item.fillStyle;
+            ctx.beginPath();
+            for(var k=0;k<item.data.length;k++){
+                let x = xyStart[k][0]+xyRange[k][0]*per,
+                    y = xyStart[k][1]+xyRange[k][1]*per;
+                if(k==0){
+                    ctx.moveTo(x,y)
+                }else{
+                    ctx.lineTo(x,y)
+                }  
+            }
+            ctx.closePath()
+            fill&&ctx.fill()
+            ctx.stroke()
+        }
+
+        for(var i=0;i<series.length;i++){
+            let item = series[i],
+                xyStart = item.xyStart,
+                xyRange = item.xyRange;
+
+            ctx.fillStyle = '#ffffff';
+            for(var k=0;k<item.data.length;k++){
+                ctx.strokeStyle = item.strokeStyle;
+                let x = xyStart[k][0]+xyRange[k][0]*per,
+                    y = xyStart[k][1]+xyRange[k][1]*per;
+                ctx.beginPath();
+                ctx.arc(x,y,5,0,2*Math.PI)
+                ctx.closePath()
+                ctx.fill()
+                ctx.stroke() 
+            }
+        }
     }
 };
 
