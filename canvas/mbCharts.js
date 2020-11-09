@@ -110,7 +110,7 @@ MbChart.prototype = {
         }
 
         // this.showRectArea('blue')
-        console.log('here-true')
+        // console.log('here-true')
         this.transRect(true);
         
     },
@@ -156,7 +156,7 @@ MbChart.prototype = {
         for(var i=0;i<series.length;i++){
             var item = series[i];
             item.color = [];
-            if(['pie'].indexOf(this.type)>-1){
+            if(['pie','funnel'].indexOf(this.type)>-1){
                 let data = item.data,
                     len = textList.length;
                 for(var j=0;j<data.length;j++){
@@ -253,7 +253,7 @@ MbChart.prototype = {
         this.transRect();
     },
     transRect:function(first){
-        console.log('transRect',first)
+        // console.log('transRect',first)
         if(['line','lineArea','lineSmooth','lineSmoothArea'].indexOf(this.type)>-1){
             this.transLineRect(first);
         }else if(['pie','radar'].indexOf(this.type)>-1){
@@ -645,7 +645,7 @@ MbChart.prototype = {
 
     //变化饼状图，雷达图，漏斗图数据
     transPieRaFuRect:function(first){
-        console.log('transPieRaFuRect',first)
+        // console.log('transPieRaFuRect',first)
         //计算中心最大间距轴数据
         let series = this.series,
             type = this.type,
@@ -657,7 +657,10 @@ MbChart.prototype = {
             radar_sin=[],
             radar_cos=[],
             radar_split = this.options.split||5,
-            radar_fill = this.options.fill===undefined?true:this.options.fill;
+            radar_fill = this.options.fill===undefined?true:this.options.fill,
+            funnel_width = chartRect.width,
+            funnel_reverse = this.options.reverse||false,
+            funnel_max = this.options.max||0;
         
         chartRect.centerX = (chartRect.left+chartRect.right)/2;
         chartRect.centerY = (chartRect.top+chartRect.bottom)/2;
@@ -668,7 +671,6 @@ MbChart.prototype = {
             //饼图->计算长半径，短半径，旋转角度
             for(var i=0;i<series.length;i++){
                 let item = series[i];
-                // console.log(i)
                 if(item.radius[0]===undefined) {item.radius[0] = 0};
                 if(item.radius[1]===undefined) {item.radius[1] = 100};
 
@@ -704,8 +706,6 @@ MbChart.prototype = {
                 radar_sin.push(sin);
                 radar_cos.push(cos);
             }
-
-            console.log('first',first)
             for(var i=0;i<series.length;i++){
                 let item = series[i];
 
@@ -724,7 +724,40 @@ MbChart.prototype = {
                     item.xyRange.push([xa-item.xyStart[k][0],ya-item.xyStart[k][1]]);
                 }
             }
+        }else if(type=='funnel'){
+            funnel_width = funnel_width*(this.options.radius||100)/100;
+
+            let item = series[0],
+                y_top = chartRect.top,
+                y_bottom = chartRect.bottom,
+                x_center = chartRect.centerX,
+                sp_len = item.data.length,
+                sp_h = chartRect.height/sp_len,
+                k = funnel_reverse?1:0,
+                len = funnel_reverse?item.data.length:item.data.length-1,
+                xa = 0;
+
+            if(!funnel_max){
+                for(var i=0;i<sp_len;i++){
+                    if(item.data[i].value>funnel_max){
+                        funnel_max = item.data[i].value
+                    }
+                }
+            }
+
+            item.xyStart = first?[]:item.xy.concat([]);
+            item.xy = [];
+            item.xyRange = [];
+            for(k=0;k<len;k++){
+                xa = funnel_width*item.data[k]/(2*funnel_max)
+
+                if(first) {item.xyStart.push([cx,cx,y_top+k*sp_h])};
+                item.xy.push([cx-xa,cx+xa,y_top+k*sp_h])
+                item.xyRange.push([]);
+            }
         }
+
+
         // console.log(series,maxRange)
 
 
@@ -745,8 +778,11 @@ MbChart.prototype = {
                     break;
                 case 'radar':
                     this.setRadarGrid(chartRect.centerX,chartRect.centerY,indicator,radar_split,maxRange,radar_sin,radar_cos,ctx);
-                    // this.showRectArea('red')
                     this.setRadarSingle(per,series,ctx,radar_fill);
+                    break;
+                case 'funnel':
+                    // this.setRadarGrid(chartRect.centerX,chartRect.centerY,indicator,radar_split,maxRange,radar_sin,radar_cos,ctx);
+                    // this.setRadarSingle(per,series,ctx,radar_fill);
                     break;
                 default:
                     console.log('no');

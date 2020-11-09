@@ -1,0 +1,84 @@
+﻿//雷达图标
+let optionspic = {
+    canvasId:'chartFunnel',
+    type:'funnel',
+    title:{
+        text:'漏斗图测试',
+        position:'top',
+        fillStyle:'#222'
+    },
+    legend:{
+        align:'left'
+    },
+    grid:{
+        top:40,
+        right:14,
+        bottom:14,
+        left:80
+    },
+    radius:80,
+    series:[
+        {
+            data:[
+                {value:100,name:'展现'},
+                {value:80,name:'点击',fillStyle:'#000'},
+                {value:60,name:'访问'},
+                {value:40,name:'咨询'},
+                {value:20,name:'订单'}
+            ],
+        },
+    ],
+}
+// return
+let chartfunnel = new MbChart(optionspic)
+
+setTimeout(()=>{
+    return
+    chartfunnel.updata({
+        series:[
+            {
+                data:[
+                    {value:100,name:'展现'},
+                    {value:60,name:'点击'},
+                    {value:50,name:'访问'},
+                    {value:40,name:'咨询'},
+                    {value:10,name:'订单'}
+                ],
+            },
+        ],
+    })
+},2000)
+
+setTimeout(()=>{
+    return
+    chartfunnel.drawCanvas({
+        type:'funnel',
+        title:{
+            text:'雷达图测试',
+            position:'top',
+            fillStyle:'#222'
+        },
+        legend:{
+            align:'left'
+        },
+        grid:{
+            top:40,
+            right:14,
+            bottom:14,
+            left:80
+        },
+        radius:80,
+        reverse:true,
+        series:[
+            {
+                data:[
+                    {value:100,name:'展现'},
+                    {value:80,name:'点击'},
+                    {value:60,name:'访问'},
+                    {value:40,name:'咨询'},
+                    {value:20,name:'订单'}
+                ],
+            },
+        ],
+    })
+},4000)
