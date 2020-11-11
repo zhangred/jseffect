@@ -256,7 +256,7 @@ MbChart.prototype = {
         // console.log('transRect',first)
         if(['line','lineArea','lineSmooth','lineSmoothArea'].indexOf(this.type)>-1){
             this.transLineRect(first);
-        }else if(['pie','radar'].indexOf(this.type)>-1){
+        }else if(['pie','radar','funnel'].indexOf(this.type)>-1){
             this.transPieRaFuRect(first);
         }
     },
@@ -660,7 +660,8 @@ MbChart.prototype = {
             radar_fill = this.options.fill===undefined?true:this.options.fill,
             funnel_width = chartRect.width,
             funnel_reverse = this.options.reverse||false,
-            funnel_max = this.options.max||0;
+            funnel_max = this.options.max||0,
+            funnel_h = 0;
         
         chartRect.centerX = (chartRect.left+chartRect.right)/2;
         chartRect.centerY = (chartRect.top+chartRect.bottom)/2;
@@ -726,41 +727,47 @@ MbChart.prototype = {
             }
         }else if(type=='funnel'){
             funnel_width = funnel_width*(this.options.radius||100)/100;
+            funnel_h = chartRect.height/series[0].data.length;
 
             let item = series[0],
-                y_top = chartRect.top,
-                y_bottom = chartRect.bottom,
-                x_center = chartRect.centerX,
-                sp_len = item.data.length,
-                sp_h = chartRect.height/sp_len,
-                k = funnel_reverse?1:0,
-                len = funnel_reverse?item.data.length:item.data.length-1,
+                cx = chartRect.centerX,
                 xa = 0;
 
             if(!funnel_max){
-                for(var i=0;i<sp_len;i++){
+                for(var i=0;i<item.data.length;i++){
                     if(item.data[i].value>funnel_max){
                         funnel_max = item.data[i].value
                     }
                 }
             }
 
-            item.xyStart = first?[]:item.xy.concat([]);
+            console.log(funnel_width,chartRect.width,funnel_max)
+
+            item.xyStart = first?[{}]:item.xy.concat([]);
             item.xy = [];
             item.xyRange = [];
-            for(k=0;k<len;k++){
-                xa = funnel_width*item.data[k]/(2*funnel_max)
-
-                if(first) {item.xyStart.push([cx,cx,y_top+k*sp_h])};
-                item.xy.push([cx-xa,cx+xa,y_top+k*sp_h])
-                item.xyRange.push([]);
+            if(funnel_reverse){
+                item.xyStart.shift();
+            }else{
+                item.xyStart.pop();
+            }
+            for(let k=0;k<item.data.length;k++){
+                xa = funnel_width*item.data[k].value/(2*funnel_max)
+                if(first) {item.xyStart.push([cx,cx])};
+                item.xy.push([cx-xa,cx+xa])
+                item.xyRange.push([cx-xa-item.xyStart[k][0],cx+xa-item.xyStart[k][1]]);
+            }
+            if(funnel_reverse){
+                item.xy.unshift([cx,cx])
+                item.xyRange.unshift([0,0]);
+                item.xyStart.unshift([cx,cx])
+            }else{
+                item.xy.push([cx,cx])
+                item.xyRange.push([0,0]);
+                item.xyStart.push([cx,cx])
             }
         }
-
-
-        // console.log(series,maxRange)
-
-
+        console.log('series',series)
 
         let time_rang = 0;
 
@@ -781,8 +788,7 @@ MbChart.prototype = {
                     this.setRadarSingle(per,series,ctx,radar_fill);
                     break;
                 case 'funnel':
-                    // this.setRadarGrid(chartRect.centerX,chartRect.centerY,indicator,radar_split,maxRange,radar_sin,radar_cos,ctx);
-                    // this.setRadarSingle(per,series,ctx,radar_fill);
+                    this.setFunnelSingle(per,series[0],chartRect.top,funnel_h,chartRect.centerX,ctx)
                     break;
                 default:
                     console.log('no');
@@ -892,6 +898,8 @@ MbChart.prototype = {
                 xyRange = item.xyRange;
 
             ctx.fillStyle = '#ffffff';
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
             for(var k=0;k<item.data.length;k++){
                 ctx.strokeStyle = item.strokeStyle;
                 let x = xyStart[k][0]+xyRange[k][0]*per,
@@ -902,6 +910,28 @@ MbChart.prototype = {
                 ctx.fill()
                 ctx.stroke() 
             }
+        }
+    },
+    //渲染漏斗图
+    setFunnelSingle(per,item,top,sph,cx,ctx){
+        let xyStart = item.xyStart,
+            xyRange = item.xyRange,
+            xy = item.xy,
+            color = item.color,
+            data = item.data;
+        ctx.strokeStyle = '#fff';
+        for(var i=0;i<item.data.length;i++){
+            ctx.fillStyle = color[i];
+            ctx.beginPath();
+            ctx.moveTo(xyStart[i][0]+xyRange[i][0]*per,top+sph*i);
+            ctx.lineTo(xyStart[i][1]+xyRange[i][1]*per,top+sph*i);
+            ctx.lineTo(xyStart[i+1][1]+xyRange[i+1][1]*per,top+sph*(i+1));
+            ctx.lineTo(xyStart[i+1][0]+xyRange[i+1][0]*per,top+sph*(i+1));
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = '#fff';
+            ctx.fillText(data[i].name||'',cx,top+sph*(i+.5));
         }
     }
 };

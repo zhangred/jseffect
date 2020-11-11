@@ -11,20 +11,21 @@ let optionspic = {
         align:'left'
     },
     grid:{
-        top:40,
+        top:80,
         right:14,
-        bottom:14,
+        bottom:80,
         left:80
     },
-    radius:80,
+    radius:100,
+    reverse:true,
     series:[
         {
             data:[
-                {value:100,name:'展现'},
+                {value:30,name:'展现'},
                 {value:80,name:'点击',fillStyle:'#000'},
                 {value:60,name:'访问'},
-                {value:40,name:'咨询'},
-                {value:20,name:'订单'}
+                {value:80,name:'咨询'},
+                {value:100,name:'订单'}
             ],
         },
     ],
@@ -33,7 +34,7 @@ let optionspic = {
 let chartfunnel = new MbChart(optionspic)
 
 setTimeout(()=>{
-    return
+    // return
     chartfunnel.updata({
         series:[
             {
@@ -42,7 +43,7 @@ setTimeout(()=>{
                     {value:60,name:'点击'},
                     {value:50,name:'访问'},
                     {value:40,name:'咨询'},
-                    {value:10,name:'订单'}
+                    {value:50,name:'订单'}
                 ],
             },
         ],
@@ -50,21 +51,21 @@ setTimeout(()=>{
 },2000)
 
 setTimeout(()=>{
-    return
+    // return
     chartfunnel.drawCanvas({
         type:'funnel',
         title:{
-            text:'雷达图测试',
-            position:'top',
+            text:'漏斗图嗯测试',
+            position:'bottom',
             fillStyle:'#222'
         },
         legend:{
             align:'left'
         },
         grid:{
-            top:40,
+            top:60,
             right:14,
-            bottom:14,
+            bottom:80,
             left:80
         },
         radius:80,
