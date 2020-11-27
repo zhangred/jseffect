@@ -1,5 +1,5 @@
 ﻿//线框图标
-let optionspic = {
+let optionspie = {
     canvasId:'chartPie',
     type:'pie',
     title:{
@@ -42,7 +42,7 @@ let optionspic = {
 
 }
 // return
-let chartpic = new MbChart(optionspic)
+let chartpic = new MbChart(optionspie)
 
 setTimeout(()=>{
     // return

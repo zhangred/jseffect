@@ -1,5 +1,5 @@
 ﻿//雷达图标
-let optionspic = {
+let optionsfunnel = {
     canvasId:'chartFunnel',
     type:'funnel',
     title:{
@@ -31,7 +31,7 @@ let optionspic = {
     ],
 }
 // return
-let chartfunnel = new MbChart(optionspic)
+let chartfunnel = new MbChart(optionsfunnel)
 
 setTimeout(()=>{
     // return

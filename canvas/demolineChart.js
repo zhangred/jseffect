@@ -1,5 +1,5 @@
 ﻿//线框图标
-let options = {
+let optionsline = {
     canvasId:'chartLine',
     // type:'line',
     // type:'lineArea',
@@ -25,7 +25,8 @@ let options = {
     series:[
         {
             data:[-102,40,80,-40,-80,20,60],
-            name: '营销销'
+            name: '营销销',
+            fillStyle:{full:'#ff0000',half:'rgba(255,0,0,.1)'}
         },
         {
             data:[70,20,120,150,120,200,260],
@@ -46,7 +47,7 @@ let options = {
 
 }
 // return
-let chart = new MbChart(options)
+let chart = new MbChart(optionsline)
 
 setTimeout(()=>{
     // return

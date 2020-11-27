@@ -1,5 +1,5 @@
 ﻿//雷达图标
-let optionspic = {
+let optionsradar = {
     canvasId:'chartRadar',
     type:'radar',
     title:{
@@ -43,7 +43,7 @@ let optionspic = {
     ],
 }
 // return
-let chartradar = new MbChart(optionspic)
+let chartradar = new MbChart(optionsradar)
 
 setTimeout(()=>{
     chartradar.updata({
