@@ -1,0 +1,124 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<script src="./js/size.js"></script>
+	<link href="./css/style.css" rel="stylesheet" type="text/css" />
+	<link href="./css/animation.css" rel="stylesheet" type="text/css" />
+	<title>teset</title>
+	<style>
+		.a { position: absolute; left: 0; top: 0; width: 500px; height: 500px; overflow: hidden; background-color: red;}
+		.c {width: 1000px; height: 1000px; overflow-y: scroll; border: 1px solid #aaa;}
+		.xxx {}
+		.xxx {}
+		.xxx {}
+	</style>
+</head>
+<body>
+	<div class="page">
+		<div class="a" id="a">
+			<div class="c" id="c">
+				<!-- <div  style="height: 2000px; width: 100px; background-color: #ccc;"></div> -->
+			</div>
+			<div style="height: 2000px; width: 1000px; background-color: #ddd;"></div>
+		</div>
+	</div>
+	<script src="./js/jquery-2.1.4.min.js"></script>
+	<script>
+		$(function(){
+
+			// $('#a').on('mousewheel',function(e){
+			// 	console.log(e)
+			// })
+			// $('#c').on('mousewheel',function(e){
+			// 	console.log(3)
+			// 	e.stopPropagation()
+			// 	e.preventDefault()
+			// })
+			let a = document.getElementById('a')
+			a.addEventListener('mousewheel',function(e){
+				console.log(e)
+			},false)
+			
+			// let c =document.getElementById('c')
+			// c.addEventListener('mousewheel', function(e){
+			// 	e.stopPropagation()
+			// 	e.preventDefault()
+			// 	console.log(34)
+			// })
+			// let prev = $('#J_prev')
+			// let next = $('#J_next')
+			// let jump = $('#J_jump')
+			
+
+			// prev.click(function(){
+				
+			// 	if(cur-1>=0) {
+			// 		content.eq(cur).addClass('right or')
+			// 		content.eq(cur-1).removeClass('left ol')
+			// 		cur--
+			// 	}
+			// })
+
+			// next.click(function(){
+			// 	if(cur+1<content.length) {
+			// 		content.eq(cur).addClass('left ol')
+			// 		content.eq(cur+1).removeClass('right or')
+			// 		cur++
+			// 	}
+			// })
+
+			// jump.click(function(){
+			// 	content.eq(4).prevAll().removeClass('right or').addClass('left ol')
+			// 	content.eq(4).removeClass('right or')
+			// 	cur = 4
+			// })
+
+			// let content = $('.content')
+			// let cur = 0
+
+			// function goNext() {
+			// 	if(cur+1<content.length) {
+			// 		content.eq(cur).addClass('left ol')
+			// 		content.eq(cur+1).removeClass('right or')
+			// 		cur++
+			// 	}
+			// }
+
+			// function goPrev() {
+			// 	if(cur-1>=0) {
+			// 		content.eq(cur).addClass('right or')
+			// 		content.eq(cur-1).removeClass('left ol')
+			// 		cur--
+			// 	}
+			// }
+
+			// $("#J_begin").click(function(){
+			// 	goNext()
+			// })
+
+			// $('.J_gonext').click(function(){
+			// 	goNext()
+			// })
+			// $('.J_goprev').click(function(){
+			// 	goPrev()
+			// })
+
+			// $('#J_save_answer').click(function(){
+			// 	goNext()
+			// })
+
+			// $('#J_save_coupon').click(function(){
+			// 	goNext()
+			// })
+		})
+	</script>
+</body>
+</html>
+

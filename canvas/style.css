@@ -7,7 +7,7 @@ a{ text-decoration:none; color: #222;}
 ul{ list-style: none; }
 dl,ul,p{ -webkit-margin-before:0em; -webkit-margin-after:0em;}
 input,select,textarea{-webkit-appearance: none; font-size: 14px; outline: none; color: #333; font-family:Helvetica, "Helvetica Neue",  STHeiTi, sans-serif;}
-body{ font-size: 14px; line-height: 24px; color: #333; background: #ddd; }
+body{ font-size: 14px; line-height: 24px; color: #333; background: #eee; }
 body,html{ height: 100%;}
 body{
     padding-top: constant(safe-area-inset-top);
@@ -41,3 +41,6 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .in{ position: absolute; left: 40%; top: 20%; height: 100px; width: 100px; background-color: aqua;}
 .canvas{ position: relative; z-index: 2; background-color: #fff; width: 100%; height: 400px;}
 /* .ce{ position: absolute; left: 0; top: 0; height: 200px; width: 360px; border-radius: 50%; background-color: #aaa;} */
+
+.btnlist { padding: 20px; text-align: center;}
+.btnlist a{ display: block; line-height: 44px; background-color: #fff; border-top-right-radius: 4px; margin-bottom: 20px;}
