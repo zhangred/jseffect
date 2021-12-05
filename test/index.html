@@ -1,0 +1,86 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>营销通</title>
+	<style>
+		html, body{ margin: 0; padding: 0; width: 100%;}
+		.html { position: fixed; left: 0; top: 0; bottom: 0; right: 0; overflow-y: scroll; -webkit-overflow-scrolling: touch;}
+		/* html{ pointer-events: none;} */
+		.btn {
+			position: fixed; right: 0; top: 0; z-index: 2; padding: 20px;
+		}
+		.noScroll { overflow: hidden; background-color: #ddd;}
+		.pop { position: fixed; right: 0; top: 0; bottom: 0; overflow: hidden; width: 0;}
+		.pop.active { width: 100%;}
+		.pop .pop-bg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #000; opacity: .1;}
+		.pop-cont { position: absolute; right: 0; top: 0; width: 70%; height: 100%; background-color: #fff; line-height: 50px; overflow-y: scroll; -webkit-overflow-scrolling: touch;}
+	</style>
+</head>
+<body>
+	<div  id="html">
+		<div class="pop" id="J_pop">
+			<a href="javascript:;" class="pop-bg" id="J_close">点击</a>
+			<div class="pop-cont">
+				<div>1fsdsffs</div>
+				<div>2fsdsffs</div>
+				<div>3fsdsffs</div>
+				<div>f4sdsffs</div>
+				<div>f5sdsffs</div>
+				<div>f6sdsffs</div>
+				<div>f7sdsffs</div>
+				<div>fsdsffs</div>
+				<div>f7sdsffs</div>
+				<div>8fsdsffs</div>
+				<div>fsdsffs</div>
+				<div>fsdsffs</div><div>fsdsffs</div>
+				<div>fsdsffs</div>
+				<div>f9sdsffs</div>
+				<div>fsdsffs</div>
+				<div>0fsdsffs</div>
+				<div>fsd12sffs</div>
+				<div>fs121dsffs</div>
+				<div>fsdsffs</div>
+				<div>f14sdsffs</div>
+				<div>fsdsffs</div><div>fsdsffs</div>
+				<div>f14sdsffs</div>
+			</div>
+		</div>
+		<div style="height: 500px;">sdf</div><div style="height: 500px;">sdf</div><div style="height: 500px;">sdf<div id="J_open">open</div></div><div style="height: 500px;">sdf</div>
+	</div>
+	<script type="text/javascript">
+		let J_open = document.getElementById('J_open')
+		let html = document.getElementById('html')
+		let pop = document.getElementById('J_pop')
+		let J_close = document.getElementById('J_close')
+		
+		let st = 0;
+		J_open.addEventListener('click', function(){
+			st = document.body.scrollTop
+			console.log(st)
+			let body = document.body
+			body.style.position = 'fixed'
+			body.style.top = -st;
+			if (pop.classList.contains('active')) {
+				pop.classList.remove('active')
+			} else {
+				pop.classList.add('active')
+			}
+		})
+
+		J_close.addEventListener('click',function(){
+			pop.classList.remove('active')
+			let body = document.body
+			body.style.position = 'relative'
+			body.style.top = 0;
+			body.scrollTop = st
+		})
+	</script>
+</body>
+</html>
