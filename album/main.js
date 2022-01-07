@@ -165,3 +165,5 @@ swipe.prototype = {
 	}
 
 };
+
+console.log(1110)
