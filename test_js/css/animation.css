@@ -1,0 +1,125 @@
+@keyframes zoom {
+    0% { transform: scale(1,1);}
+    50% { transform: scale(1.2,1.2);}
+    100% { transform: scale(1,1);}
+}
+
+@keyframes swinga {
+    0% { transform: rotate(20deg);}
+    50% { transform: rotate(-20deg);}
+    100% { transform: rotate(20deg);}
+}
+
+@keyframes swingb {
+    0% { transform: rotate(15deg);}
+    50% { transform: rotate(-25deg);}
+    100% { transform: rotate(15deg);}
+}
+@keyframes swingc {
+    0% { transform: rotate(15deg);}
+    50% { transform: rotate(-15deg);}
+    100% { transform: rotate(15deg);}
+}
+@keyframes swingd {
+    0% { transform: rotate(10deg);}
+    50% { transform: rotate(-10deg);}
+    100% { transform: rotate(10deg);}
+}
+@keyframes swinge {
+    0% { transform: rotate(30deg);}
+    50% { transform: rotate(10deg);}
+    100% { transform: rotate(30deg);}
+}
+@keyframes swingf {
+    0% { transform: rotate(3deg);}
+    50% { transform: rotate(-3deg);}
+    100% { transform: rotate(3deg);}
+}
+
+@keyframes twinkle {
+    0% { opacity: 1;}
+    20% { opacity: 1;}
+    50% { opacity: .2;}
+    80% { opacity: 1;}
+    100% { opacity: 1;}
+}
+@keyframes leftin {
+    0% {transform: translateX(-.8rem);}
+    70% { transform: translateX(0);}
+    80% { transform:  translateX(0) rotate(-10deg);}
+    90% { transform:  translateX(0) rotate(0deg);}
+    100% { transform:  translateX(0) rotate(-10deg);}
+}
+
+@keyframes twinklea {
+    0% { opacity: 1;}
+    50% { opacity: 0;}
+    100% { opacity: 1;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

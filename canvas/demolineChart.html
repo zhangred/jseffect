@@ -1,0 +1,103 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./style.css" rel="stylesheet" type="text/css" />
+	<title>canvas</title>
+</head>
+<body>
+	<div class="canvas" id="chartLine"></div>
+	<br /><br />
+	<!-- <canvas class="canvas" id="curveChart" width="375" height="200"></canvas> -->
+	<div class="ce"></div>
+	<script src="./vconsole.min.js"></script>
+	<script src="./mbCharts.js"></script>
+	<script>
+		// color: ["#c23531", "#2f4554", "#61a0a8", "#d48265", "#91c7ae", "#749f83", "#ca8622", "#bda29a", "#6e7074", "#546570", "#c4ccd3"],
+		let optionsline = {
+			canvasId:'chartLine',
+			type:'line',
+			// type:'lineArea',
+			// type:'lineSmooth',
+			// type:'lineSmoothArea',
+			title:{
+				text:'线条表格测试',
+				position:'top',
+				fillStyle:'#222'
+			},
+			legend:{
+				align:'bottom-center'
+			},
+			xAxis: {
+				data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+			},
+			grid:{
+				top:40,
+				right:14,
+				bottom:36,
+				left:14
+			},
+			series:[
+				{
+					data:[-102,40,80,-40,-80,20,60],
+					name: '营销销',
+					fillStyle:{full:'#ff0000',half:'rgba(255,0,0,.1)'}
+				},
+				{
+					data:[70,20,120,150,120,200,260],
+					name: '联盟',
+					areaStyle: {},
+				},
+				{
+					data:[50,50,40,100,140,180,180],
+					name: '视频销',
+					areaStyle: {},
+				},
+				{
+					data:[40,20,10,50,80,120,140],
+					name: '访问销销',
+					areaStyle: {},
+				}
+			],
+
+		}
+		// return
+		let chart = new MbChart(optionsline)
+
+		setTimeout(()=>{
+			// return
+			chart.updata({
+				series:[
+					{
+						data:[242,140,80,40,80,0,60],
+						name: '营销销'
+					},
+					{
+						data:[80,20,180,0,240,300,420],
+						name: '联盟',
+						areaStyle: {},
+					},
+					{
+						data:[70,60,0,50,180,220,260],
+						name: '视频销',
+						areaStyle: {},
+					},
+					{
+						data:[50,50,40,100,120,180,180],
+						name: '访问销销',
+						areaStyle: {},
+					}
+				]
+			})
+		},2000)
+
+
+	</script>
+</body>
+</html>

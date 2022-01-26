@@ -1,0 +1,1000 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no">
+	<meta content="telephone=no" name="format-detection">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link href="./assets/stylesheets/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="./assets/stylesheets/vant.css" />
+	<script language="javascript" type="text/javascript" src="./assets/javascripts/size.js"></script>
+	<title>商品详情</title>
+</head>
+<body>
+	<!-- 页面样式 -->
+	<style rel="stylesheet" type="text/css">
+		.html { padding: .56rem .1rem .7rem;}
+		.top-warp { background: #fff; border-radius: .04rem;}
+		.top-warp .gl-pic { height: 1.2rem; width: 1.2rem; flex: 0 0 1.2rem;}
+		.top-warp .gl-img {height: 1.2rem; width: 1.2rem;}
+		.top-warp .gl-info { flex-direction: column; justify-content: space-between;}
+		.top-warp .gl-title {display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:2; white-space: normal;}
+		.top-warp .gl-line-number { padding-top: .05rem; font-size: .12rem; height: .23rem;}
+		.top-warp .tw-share { justify-content: space-between; padding: .12rem .04rem; font-size: .12rem; color: #999; white-space: nowrap; text-align: center; font-size: .1rem; align-items: center;}
+		.top-warp .ts-ico {display: block; width: .18rem; margin: 0 auto;}
+		.top-warp .ts-sp {height: .2rem; width: 1px; background: #E6EBEA;}
+
+		.price-bar { align-items: center; height: .6rem; border-radius: .04rem; background-color: #fff; margin-top: .12rem; text-align: center; font-size: .12rem;}
+		.price-bar .pb-item { width: 20%; flex: 0 0 20%;}
+		.price-bar .pb-itop { font-size: .16rem; font-weight: bold; color: #37C2BB; font-family: 'numberFont';}
+		.price-bar .pb-iao { font-size: .12rem;}
+		.price-bar .pb-ibot { color: #666;}
+		.price-bar .pb-other { position: relative; flex: 1;}
+		.price-bar .pb-other .pb-item { width: 25%; flex: 0 0 25%;}
+		.price-bar .pb-other .pb-itop { color: #666;}
+		.price-bar .pb-cover {
+			position: absolute; left: 0; top: 0; height: 100%; width: 100%; z-index: 1; 
+			background-color: #fff; border-radius: .04rem; justify-content: center; align-items: center;
+			font-size: .12rem; color: #666; opacity: 0;
+		}
+		.price-bar .pb-eye { width: .14rem; margin-right: .04rem; opacity: .6;}
+		.price-bar .pb-cover.show { opacity: 1;}
+
+		.tab-warp { z-index: 5; background-color: #F5F5F5; height: .52rem; left: 0; top: .44rem; align-items: center; text-align: center;}
+		.tab-warp .tab-item { position: relative; height: .3rem; width: 33.3%; flex: 0 0 33.3%; line-height: .3rem; color: #666; transition: all .1s;}
+		.tab-warp .tab-item.active { font-size: .16rem; font-weight: bold; color: #000; line-height: .24rem;}
+		.tab-warp .tab-item.active::after { content: ""; display: block; position: absolute; left: 50%; bottom: 0; width: .24rem; height: .02rem; margin-left: -.12rem; background: #37C2BB;}
+
+		.tab-cont { display: none;}
+		.tab-cont.show {display: block;}
+
+		.tab-detail {}
+		.tab-detail .td-warp { padding: 0 .12rem; background: #fff; border-radius: .04rem; overflow: hidden; margin-bottom: .12rem;}
+		.tab-detail .td-warp:nth-last-child(1) {margin-bottom: 0;}
+		.tab-detail .td-line { display: flex; align-items: baseline; padding: .12rem 0; flex-wrap: wrap;}
+		.tab-detail .td-line:nth-last-child(1)::after { display: none;}
+		.tab-detail .td-ao { position: relative; font-weight: bold; width: 1rem;}
+		.tab-detail .td-content { flex: 1; text-align: right;}
+		.tab-detail .td-tags { flex-wrap: wrap; justify-content: flex-end; position: relative; margin-top: -.08rem;}
+		.tab-detail .td-tag { padding: 0 .1rem; line-height: .22rem; margin: .08rem 0 0 .08rem; border: 1px solid #37C2BB; color: #37C2BB; border-radius: .04rem;}
+		.tab-detail .td-ao-line { width: 100%; flex: 0 0 100%; margin-bottom: .1rem;}
+		.tab-detail .td-textarea { text-align: left; background: #F5F7F7; border-radius: .04rem; padding: .08rem .12rem;}
+		.tab-detail .td-img { position: relative; float: left; width: .7rem; height: .7rem; margin: .14rem .14rem 0 0;}
+		.tab-detail .td-img:nth-child(1),.tab-detail .td-img:nth-child(2),.tab-detail .td-img:nth-child(3),.tab-detail .td-img:nth-child(4) {margin-top: 0;}
+		.tab-detail .td-img:nth-child(4n) {margin-right: 0;}
+		.tab-detail .td-img-th { width: .7rem; height: .7rem; border-radius: .04rem; object-fit: cover;}
+		.tab-detail .td-image { width: 100%; flex: 0 0 100%;overflow: hidden;}
+		.tab-detail .td-ao-down { position: absolute; right: 0; top: 0; font-weight: normal; color: #37C2BB;}
+		.tab-detail .td-icon-d { position: relative; top: -.01rem; width: .14rem; height: .14rem; margin-right: .01rem;}
+		.tab-detail .td-img-main .td-img:nth-child(1)::after{ 
+			content: ""; display: block; position: absolute; left: 0; top: 0; width: .32rem; height: .16rem;
+			background: url(./assets/images/tag-main.png); background-size: 100% 100%; z-index: 2;
+		}
+		.tab-detail .td-play::before { 
+			content: ""; display: block; position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 2;
+			background: url(./assets/images/icon_play.png) no-repeat center center; background-size: .46rem .46rem;
+		}
+		
+		.botbtn-warp { position: fixed; left: 0; bottom: 0; width: 100%; z-index: 5; background:#fff;box-shadow: 0px 0px 1px 1px #E6EBEA;}
+		.botbtn-warp .bw-warp { height: .56rem; align-items: center; text-align: center; padding-right: .1rem;}
+		.botbtn-warp .bw-btn { width: .5rem; flex: 0 0 .5rem;}
+		.botbtn-warp .bw-ico { width: .24rem; display: block; margin: 0 auto;}
+		.botbtn-warp .bw-tx { padding-top: .02rem; font-size: .1rem; line-height: .14rem;}
+		.botbtn-warp .bw-btns { flex: 1; text-align: center;}
+		.botbtn-warp .bw-inbtn { flex: 1; margin: 0 .05rem; line-height: .38rem; color: #37C2BB; border: 1px solid #37C2BB; border-radius: .04rem;}
+		.botbtn-warp .bw-inbtn.o {background: linear-gradient(180deg, #46D1CA 0%, #32BFB8 100%); color: #fff;}
+		.botbtn-warp .bw-inbtn:nth-last-child(1) { margin-right: 0;}
+		.botbtn-warp .bw-inbtn.disabled { background: #C8CCCC; border-color: #C8CCCC; color: #fff;}
+
+		.tab-action { justify-content: space-between; align-items: center;}
+		.tab-action .tab-switch{ background: #EDF9F9; border-radius: .04rem; line-height: .24rem; color: #9ABCBA;}
+		.tab-action .ts-btn{ border-radius: .04rem; padding: 0 .12rem;}
+		.tab-action .ts-btn.active{ background: #37C2BB; color: #fff;}
+
+		.tab-status {background: #FFFFFF; border-radius: .04rem; padding: .12rem;}
+		.tab-status .tbc-item { padding-top: .28rem;}
+		.tab-status .tbc-i-top { justify-content: space-between;}
+		.tab-status .tbc-it-l {align-items: center;}
+		.tab-status .tbc-it-til { font-weight: bold; color: #000;}
+		.tab-status .tbc-it-count { font-size: .12rem; color: #999; margin-left: .02rem;}
+		.tab-status .tbc-it-time { font-size: .12rem; color: #999;}
+		.tab-status .tbc-il-item { padding-top: .12rem;}
+		.tab-status .tbc-ili-t { padding-bottom: .08rem; font-size: .12rem; color: #999; justify-content: space-between;}
+		.tab-status .tbc-ili-b { position: relative; background: #F5F7F7; padding: .05rem .1rem; border-radius: .04rem; overflow: hidden; flex-wrap: wrap; justify-content: space-between; font-size: .11rem; color: #999;}
+		.tab-status .tbc-ilink::after {
+			position: absolute; right: .1rem; top: 50%; transform: translateY(-50%) rotate(45deg);
+			content: ""; display: block; width: .07rem; height: .07rem; border-top: 1px solid #BCC2C2; border-right: 1px solid #BCC2C2;
+		}
+		.tab-status .tbc-ili-dline { width: 48%; flex: 0 0 48%;}
+		.tab-status .tbc-ili-dline.is-line { width: 90%; flex: 0 0 90%;}
+		.tab-status .tbc-ili-dao { white-space: nowrap;}
+		.tab-status .tbc-ili-dcont { padding-left: .08rem; color: #333;}
+		.tab-status .tbc-tag { margin-left: .1rem; line-height: .18rem; height: .18rem; padding: 0 .04rem; font-size: .12rem; border-radius: .02rem;}
+		.tab-status .tbc-tag.a { color: #37C2BB; background: #f0fcfc;}
+		.tab-status .tbc-tag.b {color: #9a9a9a; background: #f3f3f3;}
+		.tab-status .tbc-ili-dline.type-line { flex-direction: column; width: 97%; flex: 0 0 97%;}
+		.tab-status .tbc-ili-dline.type-line .tbc-ili-dcont { padding-left: 0;}
+		.tab-status .tbc-ili-dnone { color: #999;}
+		.tab-status .tbc-ili-dplist { color: #999;}
+		.tab-status .tbc-ili-dpitem { position: relative; padding-left: .1rem; justify-content: space-between;}
+		.tab-status .tbc-ili-dpitem::before {
+			content: ""; display: block; position: absolute; left: 0; top: 50%; width: .05rem; height: .05rem;
+			border-radius: 50%; background: #37C2BB;  transform: translateY(-50%);
+		}
+		.tab-status .tbc-ili-dao.a { justify-content: space-between;}
+		.tab-status .tbc-ili-dao-d { color: #37C2BB; align-items: center;}
+		.tab-status .tbc-ili-dao-ico { width: .14rem; height: .14rem; margin-right: .03rem;}
+		.tab-status .tbc-ili-dilist { padding-bottom: .04rem;}
+		.tab-status .tbc-ili-diitem { width: .7rem; height: .7rem; margin: .04rem .07rem 0 0; border-radius: .04rem; object-fit: cover;}
+		.tab-status .tbc-ili-diitem:nth-child(4n) { margin-right: 0;}
+
+		.das-tback { position: absolute; left: 0; top: 0; font-size: .14rem; font-weight: normal;}
+
+		.cm-dxl-action-sheet.ow { padding: 0 .16rem .34rem;}
+		.other-warp {}
+		.other-warp .ow-line { height: .52rem; align-items: center; justify-content: space-between;}
+		.other-warp .ow-ao { color: #000;}
+		.other-warp .ow-time { padding-right: .16rem; background: url(./assets/images/arr-r03.png) no-repeat right center; background-size: .08rem .2rem;}
+		.other-warp .ow-cont { padding: .08rem 0 .16rem;}
+		.other-warp .ow-text { display: block; width: 100%; height: .8rem; border: none; font-size: .12rem; border-radius: .04rem; background: #F5F7F7; padding: .05rem .12rem;}
+		.other-warp .ow-btn { line-height: .4rem; border-radius: .04rem; background: linear-gradient(180deg, #47D2CB 0%, #32C0B9 100%); color: #fff; text-align: center;}
+		
+		.donw {  background: #fff;}
+	</style>
+
+	<!-- 页面html -->
+	<div class="html pd-b90" id="app"  v-cloak>
+		<!-- 顶部搜索 -->
+		<div class="cm-topline" style="top:0;">
+			<a href="javascript:;" class="tl-back" v-back></a>
+			<div class="tl-title">商品详情</div>
+			<a href="javascript:;" class="tl-cate" @click="popShow.more=true"></a>
+		</div>
+		<div class="cm-good-list top-warp">
+			<div class="gl-item">
+				<div class="gl-pic">
+					<img src="./img/img01.png" class="gl-img" />
+					<div class="gl-img-tp">{{detailData.status_display}}</div>
+				</div>
+				<div class="gl-info flex">
+					<div>
+						<div class="gl-title"><img v-if="detailData.isprotect" src="./assets/images/mark-hu.png" class="gl-ico-hu">{{detailData.title}}</div>
+						<div class="gl-line-number">
+							<span>{{detailData.bianhao}}</span>
+							<span class="gl-sp o"></span>
+							<span>{{detailData.keya}}</span>
+						</div>
+					</div>
+					<div>
+						<div class="gl-tags">
+							<img :src="'./assets/images/icon-tag0'+tag+'.png'" class="gl-tag" v-for="(tag,index) in detailData.tags" :key="index" />
+						</div>
+						<div class="gl-price">
+							<div class="gl-pri-pay"><span class="gl-pri-f">￥</span><span class="nface">{{price_hide ?'-' : detailData.price_sell || '-'}}</span><img src="./assets/images/mark.png" class="gl-pri-mark" /></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tw-share flex">
+				<div class="ts-item" @click="onAddNew(false)"><img class="ts-ico" src="./assets/images/icon-item001a.png" /><span>添加鉴定</span></div>
+				<div class="ts-item" @click="onAddNew(true,'http://www.baidu.com')"><img class="ts-ico" src="./assets/images/icon-item001b.png" /><span>添加养护</span></div>
+				<div class="ts-item" @click="onAddNew(true,'http://www.baidu.com')"><img class="ts-ico" src="./assets/images/icon-item001c.png" /><span>添加预订</span></div>
+				<div class="ts-sp"></div>
+				<div class="ts-item" @click="onShare(1,'分享给微信好友')"><img class="ts-ico" src="./assets/images/share-friend.png" /><span>微信好友</span></div>
+				<div class="ts-item" @click="onShare(2,'分享到朋友圈')"><img class="ts-ico" src="./assets/images/share-quan.png" /><span>朋友圈</span></div>
+				<div class="ts-item" @click="onShare(3)"><img class="ts-ico" src="./assets/images/share-down.png" /><span>一键下载</span></div>
+			</div>
+		</div>
+
+		<div class="price-bar flex">
+			<div class="pb-item">
+				<div class="pb-itop"><span class="pb-iao">￥</span>{{detailData.price_sell||'-'}}</div>
+				<div class="pb-ibot">销售价</div>
+			</div>
+			<div class="pb-other flex">
+				<div class="pb-item">
+					<div class="pb-itop"><span class="pb-iao">￥</span>{{detailData.price_deal||'-'}}</div>
+					<div class="pb-ibot">成交价</div>
+				</div>
+				<div class="pb-item">
+					<div class="pb-itop"><span class="pb-iao">￥</span>{{detailData.price_shop||'-'}}</div>
+					<div class="pb-ibot">同行价</div>
+				</div>
+				<div class="pb-item">
+					<div class="pb-itop"><span class="pb-iao">￥</span>{{detailData.price_live||'-'}}</div>
+					<div class="pb-ibot">直播价</div>
+				</div>
+				<div class="pb-item">
+					<div class="pb-itop"><span class="pb-iao">￥</span>{{detailData.price_counter||'-'}}</div>
+					<div class="pb-ibot">专柜价</div>
+				</div>
+
+				<div :class="['pb-cover', 'flex', {show: price_hide}]" @click="price_hide=!price_hide">
+					<img src="./assets/images/eye.png" class="pb-eye" />
+					<span>点击显示/隐藏更多价格</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-warp flex sticky">
+			<div :class="['tab-item', {active: tab_name=='detail'}]" @click="onChangeTab('detail')">商品信息</div>
+			<div :class="['tab-item', {active: tab_name=='statusData'}]" @click="onChangeTab('statusData')">业务状态</div>
+			<div :class="['tab-item', {active: tab_name=='historyData'}]" @click="onChangeTab('historyData')">操作记录</div>
+		</div>
+		
+		<!-- 商品详情tab -->
+		<div v-if="detailData.info_group" :class="['tab-cont', 'tab-detail', {show: tab_name=='detail'}]">
+			<div class="td-warp" v-for="(item, index) in detailData.info_group" :key="index">
+				<div class="td-line after05" v-for="(sitem, sindex) in item" :key="sindex">
+					<!-- 常规类 -->
+					<template  v-if="!sitem.showType">
+						<div class="td-ao">{{sitem.label}}</div>
+						<div class="td-content">{{sitem.content||'--'}}</div>
+					</template>
+
+					<!-- 标签类 -->
+					<template  v-if="sitem.showType=='tag'">
+						<div class="td-ao">{{sitem.label}}</div>
+						<div class="td-content td-tags flex">
+							<div class="td-tag" v-for="tag in sitem.tags" :key="tag.id">{{tag.title}}</div>
+						</div>
+					</template>
+
+					<!-- 长文本类 -->
+					<template  v-if="sitem.showType=='textarea'">
+						<div class="td-ao td-ao-line">{{sitem.label}}</div>
+						<div class="td-content td-textarea">{{sitem.content||'--'}}</div>
+					</template>
+
+					<!-- 图片类 -->
+					<template  v-if="sitem.showType=='image'">
+						<div class="td-ao td-ao-line">
+							<span>{{sitem.label}}</span>
+							<div v-if="sitem.canDown" @click="onDonwImage(sitem.images)" class="td-ao-down">
+								<img src="./assets/images/down.png" class="td-icon-d" />
+								<span>一键下载</span>
+							</div>
+						</div>
+						<div :class="['td-content', 'td-image', {'td-img-main': sitem.hasMain}]">
+							<div class="td-img" v-for="(img, imgidx) in sitem.images" :key="imgidx" @click="onSeeImage(sitem.images, imgidx)"><img :src="img.thumb" class="td-img-th" /></div>
+							<!-- 是否有视频文件 -->
+							<div class="td-img td-play" v-if="sitem.video" @click="onSeeVideo(sitem.video)"><img :src="sitem.video+'?vframe/jpg/offset/0/w/200/h/200'" class="td-img-th" /></div>
+						</div>
+					</template>
+				</div>
+			</div>
+		</div>
+
+		<!-- 业务状态 操作记录 -->
+		<div :class="['tab-cont', 'tab-status', {show: tab_name!='detail'}]">
+			<div class="tab-action flex">
+				<!-- 业务状态tab -->
+				<div class="tab-switch flex" v-if="tab_name=='statusData'">
+					<div :class="['ts-btn', {active: statusData.curTab=='time'}]" @click="onChangeSubTab('time')">时间轴</div>
+					<div :class="['ts-btn', {active: statusData.curTab=='type'}]" @click="onChangeSubTab('type')">业务类型</div>
+				</div>
+
+				<!-- 操作及记录tab -->
+				<div class="tab-switch flex" v-if="tab_name=='historyData'">
+					<div :class="['ts-btn', {active: historyData.curTab=='time'}]" @click="onChangeSubTab('time')">时间轴</div>
+					<div :class="['ts-btn', {active: historyData.curTab=='type'}]" @click="onChangeSubTab('type')">修改内容</div>
+				</div>
+
+				<!-- 右侧排序 -->
+				<div class=""><pop-over-sort :data="sortData.list" show-text="操作时间" :sort-value="sortData.value"  :sort-type="sortData.type" v-on:onselect="onSortChange" ></pop-over-sort></div>
+			</div>
+			<!-- 内容循环 -->
+			<div class="tbc-list">
+				<div class="tbc-item" v-for="(item, index) in tabList" :key="index">
+					<div class="tbc-i-top flex">
+						<div class="tbc-it-l flex">
+							<span class="tbc-it-til">{{item.label+'-'+tab_name}}</span>
+							<span class="tbc-it-count" v-if="item.count">({{item.count}})</span>
+							<page-tag :tag-type="item.tag_type" v-if="item.tag_type"></page-tag>
+						</div>
+						<div class="tbc-it-time" v-if="item.time">{{item.time}}</div>
+					</div>
+					<div class="tbc-i-list">
+						<div class="tbc-il-item" v-for="(sitem, sindex) in item.list">
+							<div class="tbc-ili-t flex" v-if="sitem.time||sitem.tag_type">
+								<div class="tbc-ili-time"><span v-if="sitem.time">{{sitem.time}}</span></div>
+								<page-tag :tag-type="sitem.tag_type" v-if="sitem.tag_type"></page-tag>
+							</div>
+							<a :href="sitem.link_url ? sitem.link_url : 'javascript:;'" :class="['tbc-ili-b', 'flex', {'tbc-ilink':sitem.link_url}]">
+								<div :class="['tbc-ili-dline','flex', {'is-line': d.is_line}, {'type-line': d.type && d.content && d.content.length}]" v-for="(d, didx) in sitem.detail" :key="didx">
+									<!-- 支付类 -->
+									<template v-if="d.type=='paylist'">
+										<div class="tbc-ili-dao">{{d.label}}:</div>
+										<div class="tbc-ili-dcont tbc-ili-dplist">
+											<template v-if="d.content && d.content.length">
+												<div class="tbc-ili-dpitem flex" v-for="(p, pidx) in d.content" :key="index">
+													<div>{{p.label}}<span v-if="p.labelb">：{{p.labelb}}</span></div>
+													<div>￥{{p.amount}}</div>
+												</div>
+											</template>
+											<div class="tbc-ili-dnone" v-else>暂无付款明细</div>
+										</div>
+									</template>
+									<!-- 图片类 -->
+									<template  v-else-if="d.type=='piclist'">
+										<div class="tbc-ili-dao a flex">
+											<span>{{d.label}}:</span>
+											<div class="tbc-ili-dao-d flex" v-if="d.content && d.content.length" @click="onDonwImage(d.content)">
+												<img src="./assets/images/down.png" class="tbc-ili-dao-ico" />
+												<span>一键下载</span>
+											</div>
+										</div>
+										<div class="tbc-ili-dcont tbc-ili-dilist">
+											<template v-if="d.content && d.content.length">
+												<img class="tbc-ili-diitem" :src="p.thumb" v-for="(p, pidx) in d.content" :key="pidx"  @click="onSeeImage(d.content, pidx)" />
+											</template>
+											<div class="tbc-ili-dnone" v-else>暂无付款凭证</div>
+										</div>
+									</template>
+									<!-- 文本类 -->
+									<template v-else>
+										<div class="tbc-ili-dao">{{d.label}}:</div>
+										<div class="tbc-ili-dcont">{{d.content}}</div>
+									</template>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<loading :show="loading" status="loading" loading-text="正在加载···"></loading>
+		</div>
+
+		<!-- 底部按钮 -->
+		<div class="botbtn-warp">
+			<div class="bw-warp flex">
+				<a :href="'http://www.baidu.com?id='+detailData.id" class="bw-btn">
+					<img src="./assets/images/edit.png" class="bw-ico" />
+					<div class="bw-tx">编辑</div>
+				</a>
+				<div class="bw-btn" v-if="detailData.canEditStock" @click="popShow.stock=true">
+					<img src="./assets/images/kucun.png" class="bw-ico" />
+					<div class="bw-tx">改库存</div>
+				</div>
+				<div class="bw-btn" @click="onPrint">
+					<img src="./assets/images/print.png" class="bw-ico" />
+					<div class="bw-tx">打印</div>
+				</div>
+
+				<div class="bw-btns flex">
+					<div v-if="detailData.btnType==1" class="bw-inbtn">取消上架</div>
+					<div v-if="detailData.btnType==1" class="bw-inbtn o">去开单</div>
+
+					<div v-if="detailData.btnType==2" class="bw-inbtn">上架</div>
+
+					<div v-if="detailData.btnType==3" class="bw-inbtn disabled">盘点中</div>
+
+					<div v-if="detailData.btnType==4" class="bw-inbtn disabled">请在定金找货中操作</div>
+
+					<div v-if="detailData.btnType==5" class="bw-inbtn">下架</div>
+					<div v-if="detailData.btnType==5" class="bw-inbtn o">去开单</div>
+				</div>
+
+
+			</div>
+			<!-- 占位 -->
+			<div class="pd-b20"></div>
+		</div>
+
+		<!-- 更多操作弹框 -->
+		<van-popup v-model="popShow.more" get-container="body" position="bottom" class="bgni">
+			<div><dxl-action-sheet :data="actionlist" title="更多操作" v-on:cancel="popShow.more=false" v-on:select="onSelect" /></div>
+		</van-popup>
+
+		<!-- 一键下载弹框 -->
+		<van-popup v-model="popShow.down" get-container="body" position="bottom" class="bgni">
+			<div><dxl-action-sheet :data="actionDown" title="选择图片类型" v-on:cancel="popShow.down=false" v-on:select="onSelect" /></div>
+		</van-popup>
+
+		<!-- 修改库存 -->
+		<van-popup v-model="popShow.stock" get-container="body" position="bottom" class="bgni">
+			<div><dxl-action-sheet :data="actionStock" title="改库存" v-on:cancel="popShow.stock=false" v-on:select="onSelect" /></div>
+		</van-popup>
+
+		<!-- 其他修改 -->
+		<van-popup v-model="popShow.other" get-container="body" position="bottom" class="bgni">
+			<div class="cm-dxl-action-sheet ow">
+				<div class="das-title">
+					其他修改
+					<div class="das-tback" @click="popShow.other=false;popShow.stock=true;">返回</div>
+					<div class="das-close" @click="popShow.other=false"></div>
+				</div>
+				<div class="other-warp">
+					<div class="ow-line flex">
+						<div class="ow-ao">商品数量调整为</div>
+						<van-stepper min="1" v-model="otherChangeData.number" />
+					</div>
+					<div class="ow-line flex">
+						<div class="ow-ao">改库存时间</div>
+						<div class="ow-time" @click="popShow.calendar=true">{{otherChangeData.time}}</div>
+					</div>
+					<div class="ow-cont">
+						<textarea v-model="otherChangeData.content" class="ow-text" placeholder="请填写备注"></textarea>
+					</div>
+					<div class="ow-btn" @click="onComfirmOther">确定</div>
+				</div>
+			</div>
+		</van-popup>
+
+		<!-- 日期组件 用全标签闭合模式 -->
+		<van-calendar
+			v-model="popShow.calendar"
+			get-container="body" 
+			@confirm="onCalendarConfirm"  
+			:min-date="timeRangeLimit.min" 
+			:max-date="timeRangeLimit.max"
+			color="#37C2BB" ></van-calendar>
+
+		<!-- 测试调试组件 -->
+		<!-- <over-touch>
+			<div class="cm-ov-list">
+				<div class="ol-item" @click="detailData.canEditStock=!detailData.canEditStock">是否显示改库存</div>
+				<div class="ol-item" @click="detailData.btnType=1">按钮状态01</div>
+				<div class="ol-item" @click="detailData.btnType=2">按钮状态02</div>
+				<div class="ol-item" @click="detailData.btnType=3">按钮状态03</div>
+				<div class="ol-item" @click="detailData.btnType=4">按钮状态04</div>
+				<div class="ol-item" @click="detailData.btnType=5">按钮状态05</div>
+			</div>
+		</over-touch> -->
+
+		<!-- 图片预览改为组件调用模式 -->
+		<van-image-preview v-model="imagePreview.show" :images="imagePreview.images" :start-position="imagePreview.index" @change="onImageChange" class="cm-van-image-preview" >
+			<template v-slot:cover><img @click="onDownImage" src="./assets/images/down01.png" /></template>
+		</van-image-preview>
+
+		<!-- 视频播放弹框 -->
+		<van-popup v-model="popShow.video" get-container="body" class="cm-pop-video-play" closeable>
+			<video
+				:poster="videoUrl+'?vframe/jpg/offset/0/w/750'"
+				:src="videoUrl" 
+				x5-video-player-type="h5"
+				x5-video-player-fullscreen="true" playsinline="" webkit-playsinline="" autoplay="autoplay" controls="controls" 
+				style="width:100%;height:100%">您的浏览器不支持 video 标签。</video>
+		</van-popup>
+
+		
+		
+	</div>
+	<script src="./assets/javascripts/vue.js"></script>
+	<script src="./assets/javascripts/vant.js"></script>
+	<script src="./assets/javascripts/axios.js"></script>
+	<script src="./assets/javascripts/tools.js"></script>
+	<script src="./assets/vuefunc/directive.js"></script>
+	<script src="./assets/vuefunc/components.js"></script>
+	<!-- <script src="./assets/javascripts/vconsole.min.js"></script> -->
+	<script>
+		// 页面组件注册
+		Vue.component('page-tag',{
+			props: {
+				tagType: {
+					type: Number,
+					default: undefined
+				}
+			},
+			template: `<div v-if="tagType!=undefined">
+					<div class="tbc-tag a" v-if="tagType==1">已付</div>
+					<div class="tbc-tag a" v-if="tagType==2">已收</div>
+					<div class="tbc-tag b" v-if="tagType==3">收款作废</div>
+				</div>`
+		})
+	</script>
+	<script type="text/javascript">
+		// 获取url参数  商品id 等信息
+		let urlparams = getUrlParams()
+
+		// 更多操作
+		let actionlist = [
+			{id:1, title: '复制新建', value: 'new'},
+			{id:2, title: '删除', value:'delete'},
+		]
+
+		// 一键下载图片
+		let actionDown = [
+			{id:1, title: '商品图片', value: 'product'},
+			{id: 2, title: '朋友圈图片', value: 'wx'}
+		]
+
+		// 修改库存
+		let actionStock = [
+			{id:1, title: '退还来源方', value: 'backfrom'},
+			{id: 2, title: '其他修改', value: 'stockother'}
+		]
+
+		let timeSort = {
+			statusData: [
+				{title: '操作时间最晚', type:'desc', value: 'caozuo.desc'},
+				{title: '操作时间最早', type:'asc', value: 'caozuo.asc'},
+				{title: '业务时间最晚', type:'desc', value: 'yewu.desc'},
+				{title: '业务时间最早', type:'asc', value: 'yewu.asc'},
+			],
+			historyData: [
+				{title: '操作时间最晚', type:'desc', value: 'caozuo.desc'},
+				{title: '操作时间最早', type:'asc', value: 'caozuo.asc'},
+			]
+		}
+
+		let timeRangeLimit = {
+			min: new eTime().shifting('year', -2).data.time,
+			max: new eTime().shifting('year', 1).data.time,
+		}
+
+		new Vue({
+			el: '#app',
+			data: {
+				detailData: {}, // 商品详情载体
+				popShow: {more: false, down: false, stock: false, other: false, calendar: false, video: false}, // 弹出框开关集合载体
+				price_hide: false, // 是否隐藏价格
+				tab_name: 'detail', // 当前激活tab
+				statusData: { // 业务状态数据
+					time: { // 时间轴
+						sort: '',
+						data: []
+					},
+					type: { // 业务类型
+						sort: '',
+						data: []
+					},
+					curTab: 'time'
+				},
+				historyData: { // 操作记录数据
+					time: {
+						sort: '',
+						data: []
+					},
+					type: {
+						sort: '',
+						data: []
+					},
+					curTab: 'time'
+				},
+				sortData: { // 排序数据
+					list: timeSort.statusData,
+					value: undefined,
+					type: undefined
+				},
+				tabList:[], // 业务状态-操作记录展示累不
+				loading: true, // 列表加载
+				otherChangeData: {
+					number: 1,
+					time: new eTime().format('YYYY-MM-DD'),
+					content: ''
+				},
+				imagePreview: {show: false, images: [], index: 0}, // 定义图片预览区域
+				videoUrl: ''
+			},
+			mounted: function () {
+				// 获取商品详情
+				this.getDetail()
+
+				// 模拟切换tab
+				// this.onChangeTab('statusData')
+			},
+			methods: {
+				getDetail: function(){
+					let _this = this;
+					axios.get('./api/callback.json')
+						.then(function (res) {
+							// 模拟数据
+							let data = {
+								id: 1002,
+								title: 'CHANEL 荔枝牛皮口盖包名荔枝牛皮口盖包名荔枝牛皮口盖包名荔枝牛皮口盖牛皮口盖包名荔枝牛皮口盖包名',
+								bianhao: '235454545',
+								keya: '芯工大仓成色极好芯工大仓成色极好',
+								tags: [1,2,3,4],
+								status_display: '未上架',
+								isprotect: true,
+								isPay: true,
+								price_sell: 25800,
+								price_deal: 25800,
+								price_shop: 39000,
+								price_live: 0,
+								price_counter: 0,
+								canEditStock: true, // 底部按钮 是否显示修改库存按钮
+								btnType: 1, // 底部按钮组的状态，详细可看测试调试部分，可自行修改对应值
+								info_group: [
+									[
+										{label: '到货时间', content: '2021-12-12'},
+										{label: '入库时间', content: '2021-12-12'},
+										{label: '商品来源', content: '上海集中大仓'},
+										{label: '商品来源方', content: '段小狸'},
+										{label: '空信息字段', content: ''},
+										{label: '测试长文本', content: '长文本内容长文本内容长文本内容长文本内容长文本内容长文本内容长文本内容长文本内容长文本内容'},
+									],
+									[
+										{label: '品牌', content: '这是内容，这是内容'},
+										{label: '成色', content: '这是内容，这是内容'},
+										{label: '附件情况', showType: 'tag', tags: [{id: 1, title: '有小票'},{id: 2, title: '99新'},{id: 3, title: '包装盒'},{id: 4, title: '防尘袋'},{id: 5, title: '带卡券'},{id: 6, title: '有配件'}]},
+										{label: '商品备注', showType: 'textarea', content: '这是一条预设信息这'}
+									],
+									[
+										{
+											label: '商品图片',
+											canDown: true,
+											hasMain: true,
+											showType: 'image',
+											images: [
+												{thumb: './img/img01.png', origin: './img/img01.png'},
+												{thumb: './img/img02.png', origin: './img/img02.png'},
+												{thumb: './img/p01.jpg', origin: './img/p01.jpg'},
+											],
+											video: 'http://dxlimg.duanxiaoli.com/42f95bd2d042fa92331e4f6d02c74b7f'
+										},
+										{
+											label: '对外展示图',
+											canDown: true,
+											showType: 'image',
+											images: [
+												{thumb: './img/img01.png', origin: './img/img01.png'},
+												{thumb: './img/img02.png', origin: './img/img02.png'},
+												{thumb: './img/p01.jpg', origin: './img/p01.jpg'},
+												{thumb: './img/p02.jpg', origin: './img/p02.jpg'},
+												{thumb: './img/p03.jpg', origin: './img/p03.jpg'},
+											]
+										},
+										{label: '综合描述', showType: 'textarea', content: '这是一条预设信息预设预设预设预设预谁都积极的去诶恶气大扫除看发完i饿的附件我'}
+									]
+								]
+							};
+							_this.detailData = data;
+						})
+				},
+				// [更多操作 改库存 一键下载 修改库存] 选择
+				onSelect: function(idx, item){
+					let _this = this;
+					if (item.value=='delete') {// 删除商品
+						vant.Dialog.confirm({
+							message: '确认删除？ 删除后将不可恢复',
+							// confirmButtonColor: '#37C2BB'
+						})
+						.then(() => {
+							let ld = vant.Toast.loading({
+								message: '删除中...',
+								forbidClick: true,
+								duration: 0,
+							});
+							axios.get('./api/callback.json').then(function (res) {
+								setTimeout(()=>{
+									ld.clear()
+									vant.Toast.success({
+										type: 'success',
+										message: '删除成功',
+										onClose: function(){
+											window.history.go(-1)
+										}
+									})
+								},1000)
+							})
+						})
+					} else if (item.value=='new') {
+						vant.Toast(item.title)
+					} else if (item.value=="product") {
+						vant.Toast('无该类型图片，请上传后下载')
+					} else if (item.value=='wx') {
+						vant.Toast('下载朋友圈图')
+					} else if (item.value=='backfrom'){
+						vant.Toast(item.title)
+					} else if (item.value=='stockother'){
+						this.popShow.other = true
+					}
+				},
+				// 分享好友 朋友圈 一键下载
+				onShare: function(type, text) {
+					if (type==1) {
+						vant.Toast(text)
+					} else if (type==2) {
+						vant.Toast(text)
+					} else if (type==3) {
+						this.popShow.down = true
+					}
+				},
+				// 切换tab
+				onChangeTab: function(name){
+					if (name==this.tab_name) return
+					this.tab_name = name
+					if (name!='detail') {
+						// 判断对应的tab是否有值
+						let cur_module = this[this.tab_name]
+						let dt = cur_module[cur_module.curTab].data
+						this.setTimeSort(cur_module, true)
+						if(!dt || dt.length==0) {
+							this.getTabDetail()
+						}
+					}
+				},
+				// 下载图片
+				onDonwImage: function(list){
+					if (!list || list.length==0) {
+						vant.Toast('无该类型图片，请上传后下载')
+						return
+					}
+					let rs = []
+					for (let i=0; i<list.length;i++) {
+						rs.push(list[i].origin)
+					}
+					vant.Toast('下载图片'+JSON.stringify(rs.join(',')))
+				},
+				// 图片预览
+				onSeeImage: function(list, idx){
+					let rs = []
+					for (let i=0; i<list.length;i++) {
+						rs.push(list[i].origin)
+					}
+					// vant.ImagePreview({
+					// 	maxZoom: 100, // 设置可放大倍数
+					// 	images: rs,
+					// 	startPosition: idx,
+					// });
+					this.imagePreview.images = rs;
+					this.imagePreview.index = idx;
+					this.imagePreview.downIdx = idx;
+					this.imagePreview.show = true
+
+					console.log(this.imagePreview)
+				},
+				// 打印
+				onPrint: function(){
+					vant.Toast('打印')
+				},
+				// 切换业务类型tab
+				onChangeSubTab: function(tab){
+					let cur_module = this[this.tab_name]
+					cur_module.curTab = tab;
+					this.setTimeSort(cur_module, false)
+
+					// 判断是否需要加载数据
+					let dt = cur_module[cur_module.curTab].data
+					if(!dt || dt.length==0) {
+						this.getTabDetail()
+					}
+				},
+				// 获取tab详情
+				getTabDetail: function(){
+					let _this = this;
+					let cur_module = this[this.tab_name]
+					// 组合参数 可根据情况定义
+					let params = {
+						tab_name: this.tab_name,
+						type_name: cur_module.curTab,
+					}
+					if (cur_module.sortValue) {
+						params.sort = cur_module.sortValue
+					}
+
+					console.log('params',params)
+					this.loading = true
+					axios.get('./api/callback.json')
+						.then(function (res) {
+							// 模拟数据
+							let data = [
+									{
+										label: '展示类型1',
+										time: '2021-08-10T23:35:57+08:00',
+										list: [
+											{
+												detail: [
+													{label: '操作人', content: '张晓峰'},
+													{label: '操作时间', content: '2021-08-10T23:35:57+08:00'},
+													{label: '入库数量', content: '22'}
+												]
+											}
+										]
+									},
+									{
+										label: '展示类型2',
+										time: '2021-08-10T23:35:57+08:00',
+										tag_type: 1,
+										count: 3,
+										list: [
+											{
+												link_url: 'http://www.baidu.com',
+												detail: [
+													{label: '操作人', content: '张晓峰张晓峰张晓峰张晓峰张晓峰'},
+													{label: '操作时间', content: '2021-08-10T23:35:57+08:00'},
+													{label: '入库数量', content: '22', is_line: true},
+													{label: '业务员', content: '李晓明'}
+												]
+											},
+											{
+												detail: [
+													{label: '付款人', content: '张晓峰'},
+													{label: '操作时间', content: '2021-08-10T23:35:57+08:00'},
+													{
+														label: '付款明细', 
+														content: [
+															{label: '支付宝', labelb: '支付宝没手续费', amount: 88888},
+															{label: '微信', labelb: '微信有手续费', amount: 6666},
+															{label: '现金', labelb: '', amount: 1111},
+														], 
+														is_line: true,
+														type: 'paylist'
+													},
+													{
+														label: '付款凭证', 
+														content: [
+															{thumb: './img/img01.png', origin: './img/img01.png'},
+															{thumb: './img/img02.png', origin: './img/img02.png'},
+															{thumb: './img/p01.jpg', origin: './img/p01.jpg'},
+															{thumb: './img/p02.jpg', origin: './img/p02.jpg'},
+															{thumb: './img/p03.jpg', origin: './img/p03.jpg'},
+														],
+														is_line: true,
+														type: 'piclist'
+													},
+													{
+														label: '付款明细', 
+														content: [], 
+														is_line: true,
+														type: 'paylist'
+													},
+													{
+														label: '付款凭证', 
+														content: [],
+														is_line: true,
+														type: 'piclist'
+													}
+												]
+											}
+										]
+									},
+									{
+										label: '展示类型3',
+										time: '2021-08-10T23:35:57+08:00',
+										tag_type: 3,
+										list: [
+											{
+												detail: [
+													{label: '操作人', content: '张晓峰'},
+													{label: '操作时间', content: '2021-08-10T23:35:57+08:00'},
+													{label: '入库数量', content: '22', is_line: true},
+													{label: '业务员', content: '李晓明'}
+												]
+											}
+										]
+									},
+									{
+										label: '展示类型4',
+										time: '2021-08-10T23:35:57+08:00',
+										count: 3,
+										list: [
+											{
+												time: '2021-08-10T23:35:57+08:00',
+												link_url: 'http://www.baidu.com',
+												detail: [
+													{label: '操作人', content: '张晓峰'},
+													{label: '操作时间', content: '2021-08-10T23:35:57+08:00'},
+													{label: '入库数量', content: '22', is_line: true},
+													{label: '业务员', content: '李晓明'}
+												]
+											},
+											{
+												time: '2021-08-10T23:35:57+08:00',
+												tag_type: 2,
+												detail: [
+													{label: '操作人', content: '张晓峰'},
+													{label: '操作时间', content: '2021-08-10T23:35:57+08:00'},
+													{label: '入库数量', content: '22', is_line: true},
+													{label: '业务员', content: '李晓明'}
+												]
+											}
+										]
+									},
+								]
+
+
+							// 循环解析日期 可以根据实际情况调整
+							for (let i=0; i<data.length; i++) {
+								let one = data[i]
+								if (one.time) {
+									one.time = new eTime(one.time).format('YYYY-MM-DD')
+								}
+								for (let j=0;j<one.list.length; j++) {
+									let two = one.list[j]
+									if (two.time) {
+										two.time = new eTime(two.time).format('YYYY-MM-DD')
+									}
+									for (let k=0; k<two.detail.length; k++) {
+										let three = two.detail[k]
+										if (['操作时间'].indexOf(three.label)>-1 && three.content) {
+											three.content = new eTime(three.content).format('YYYY-MM-DD')
+										}
+									}
+								}
+							}
+
+							// 赋值
+							cur_module[cur_module.curTab].data = data;
+							_this.loading = false
+							_this.tabList = data
+
+						})
+				},
+				// 排序更新
+				onSortChange: function(rs) {
+					let cur_module = this[this.tab_name]
+					cur_module[cur_module.curTab].sort = rs.data ? rs.data.value : undefined
+					this.sortData.value = rs.data ? rs.data.value : undefined
+					this.sortData.type = rs.data ? rs.data.type : undefined					
+					// // 重新获取列表
+					this.getTabDetail()
+				},
+				// 同步当前tab的排序
+				setTimeSort: function(cur_module, isType){
+					if (isType) {
+						this.sortData.list = timeSort[this.tab_name]
+					}
+					let tar = cur_module[cur_module.curTab]
+					let sortType = undefined
+					for (let i=0; i<timeSort[this.tab_name].length; i++) {
+						if (timeSort[this.tab_name][i].value==tar.sort) {
+							sortType = timeSort[this.tab_name][i].type
+						}
+					}
+
+					this.sortData.value = tar.sort ? tar.sort : undefined
+					this.sortData.type = sortType ? sortType : undefined
+				},
+				// 日期修改
+				onCalendarConfirm: function(rs){
+					this.otherChangeData.time = new eTime(rs).format('YYYY-MM-DD')
+					this.popShow.calendar = false
+				},
+				// 确认其他修改
+				onComfirmOther: function(){
+					console.log('其他修改信息',this.otherChangeData)
+					let ld = vant.Toast.loading({
+						message: '提交中...',
+						forbidClick: true,
+						duration: 0,
+					});
+					let _this = this;
+					axios.get('./api/callback.json').then(function (res) {
+						// 延时模拟
+						setTimeout(()=>{
+							ld.clear()
+							vant.Toast.success({
+								type: 'success',
+								message: '提交成功',
+								onClose: function(){
+									_this.popShow.other = false
+								}
+							})
+						},1000)
+					})
+				},
+				// 图片预览切换时触发
+				onImageChange: function(rs){
+					// 标记当前图片预览下标
+					this.imagePreview.downIdx = rs
+				},
+				// 点击图片下载
+				onDownImage: function(){
+					console.log(5)
+					let rs = this.imagePreview.images;
+					vant.Toast(`当前图片为：${rs[this.imagePreview.downIdx]}`)
+				},
+				// 添加功能相关
+				onAddNew: function(status, url){
+					if (!status) {
+						vant.Toast(`无该功能权限`)
+						return
+					}
+					window.location.href = url
+				},
+				// 查看视频
+				onSeeVideo: function(url){
+					this.videoUrl = url
+					this.popShow.video = true
+				}
+			}
+		});
+	</script>
+</body>
+</html>
