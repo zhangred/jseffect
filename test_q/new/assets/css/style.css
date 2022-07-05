@@ -249,7 +249,7 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .cm-slbox{ position: relative; overflow: hidden; text-align: center; padding: 10px 0; position: relative; background: #f6f6f6;}
 .cm-slbox-nom{ position: relative; padding: 0; background: none;}
 .cm-slbox-dis:before{ content: ""; display: block; position: absolute; z-index: 3; left: 0; top: 0; height: 100%; width: 100%; opacity: 0; }
-.cm-slbox .cp-li{ display: block; width: 100%; float: left; line-height: 36px; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.cm-slbox .cp-li{line-height: 36px; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .cm-slbox .cp-case{ position: relative; overflow: hidden; height: 252px;}
 .cm-slbox .cp-ul{ position: relative;}
 .cm-slbox .cp-case:before{content: ""; display: block; position: absolute; left: 0; top: 0; height: 108px; width: 100%; background:-webkit-linear-gradient(180deg,rgba(246,246,246,1) 0%,rgba(246,246,246,.4) 100%); background:linear-gradient(180deg,rgba(246,246,246,1) 0%,rgba(246,246,246,.4) 100%); border-bottom: 1px solid #aaa; z-index: 2;}
