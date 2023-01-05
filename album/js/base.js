@@ -4,7 +4,8 @@
     pageName: 'base',
     pageShow: false,
     hasRender: false,
-    redChart: []
+    redChart: [],
+    blueChart: [],
   },
   mounted: function(){
   },
@@ -20,23 +21,10 @@
       }
     },
     initData: function(){
-      let redCount = {};
-		  let blueCount = {};
-      for (let i = 0; i < allData.length; i++) {
-        let reds = allData[i].reds;
-        reds.forEach((item) => {
-          if (!redCount[item]) {
-            redCount[item] = 0;
-          }
-          redCount[item]++;
-        })
-        if (!blueCount[allData[i].blue]) {
-          blueCount[allData[i].blue] = 0;
-        }
-        blueCount[allData[i].blue]++;
-      }
-      let max = this.getMax(redCount) * 1.2;
-      this.redChart = this.getList(redCount, 33, max)
+      let redmax = this.getMax(redCount) * 1.2;
+      this.redChart = this.getList(redCount, 33, redmax)
+      let bluemax = this.getMax(blueCount) * 1.2;
+      this.blueChart = this.getList(blueCount, 16, bluemax);
     },
     getMax: function(obj){
       let max = 1;

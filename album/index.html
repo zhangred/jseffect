@@ -21,21 +21,74 @@
 				<div class="ct-btns" @click="initData">清除缓存并初始化</div>
 				<div class="ct-btns" @click="initData">初始化</div>
 			</div>
-			<div class="base-content">
-				<div class="flex">
-					<div class="chart">
-						<div class="cls-wrap" v-for="item in redChart" key="item.name">
-							<div class="cls-inner" :style="`width:${item.width}%`">
-								<span class="cn">{{item.name}}</span>
-								<span class="cn">{{item.count}}</span>
-							</div>
+			<div class="base-content flex">
+				<div class="chart">
+					<div class="cls-wrap" v-for="item in redChart" key="item.name">
+						<div class="cls-inner" :style="`width:${item.width}%`">
+							<span class="cls-name">{{item.name}}</span>
+							<span class="cls-count">{{item.count}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="chart">
+					<div class="cls-wrap" v-for="item in blueChart" key="item.name">
+						<div class="cls-inner" :style="`width:${item.width}%`">
+							<span class="cls-name">{{item.name}}</span>
+							<span class="cls-count">{{item.count}}</span>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- <div class="swipe" id="chart01" style="height: 2000px;">
+		</div>
+
+		<div v-show="pageShow" id="vue_count">
+			<div class="flex">
+				<div class="left-btn-wrap">
+					<div class="cm-topbtns">
+						<div class="ct-btns" @click="initData">清除缓存并初始化</div>
+						<div class="ct-btns" @click="initData">初始化</div>
+					</div>
+					<div class="cm-topbtns">
+						<div class="flex lb-line">
+							<div class="ct-btns" @click="initData">6</div>
+							<div class="ct-btns" @click="initData">7</div>
+							<div class="ct-btns" @click="initData">8</div>
+							<div class="ct-btns" @click="initData">9</div>
+						</div>
+						<div class="flex lb-line">
+							<div class="ct-btns" @click="initData">常规顺位</div>
+							<div class="ct-btns" @click="initData">排除首1位</div>
+							<div class="ct-btns" @click="initData">排除首2位</div>
+							<div class="ct-btns" @click="initData">排除首3位</div>
+						</div>
+					</div>
+					<div class="cm-topbtns">
+						<div class="flex lb-line">
+							<div class="ct-btns" @click="initData">1</div>
+							<div class="ct-btns" @click="initData">2</div>
+							<div class="ct-btns" @click="initData">3</div>
+						</div>
+						<div class="flex lb-line">
+							<div class="ct-btns" @click="initData">常规顺位</div>
+							<div class="ct-btns" @click="initData">排除首1位</div>
+							<div class="ct-btns" @click="initData">排除首2位</div>
+							<div class="ct-btns" @click="initData">排除首3位</div>
+						</div>
+					</div>
+				</div>
+				<div class="table-wrap cm-table" :style="`height:${tableHeight}px`">
+					<table cellspacing="0" border="0"  cellpadding="0">
+						<thead>
+							<th v-for="column in columns" key="column.key">{{column.label}}</th>
+						</thead>
+						<tbody>
+							<tr v-for="data in allData" key="data.time">
+								<td v-for="column in columns" key="column.key">{{data[column.key] === undefined ? '--' : data[column.key]}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<div class="swipe" id="chart02"></div> -->
 		</div>
 	</div>
 	<script src="./data/2018.js"></script>
@@ -43,48 +96,17 @@
 	<script src="./data/2020.js"></script>
 	<script src="./data/2021.js"></script>
 	<script src="./data/2022.js"></script>
+	<script src="./js/utils.js"></script>
 	<script type="text/javascript">
-		const allData = [ ...y2022,...y2021,...y2020,...y2019,...y2018];
+		const res = reBuildData([ ...y2022,...y2021,...y2020,...y2019,...y2018]);
+		const allData = res.allData
+		const blueCount = res.blueCount;
+		const redCount = res.redCount;
 		window.vues = {};
 	</script>
 	<script src="./lib/vue.js"></script>
 	<script src="./js/base.js"></script>
+	<script src="./js/count.js"></script>
 	<script src="./js/layout.js"></script>
-	<script type="text/javascript">
-
-		// let allData = [ ...y2022,...y2021,...y2020,...y2019,...y2018];
-		// let redCount = {};
-		// let blueCount = {};
-		// let str = '';
-		// let strblue = '';
-		// for (let i = 1; i <= 33; i ++) {
-		// 	redCount[i] = 0;
-		// 	str += `<div class="sls" data-key="${i}">0</div>`;
-		// 	if (i < 17) {
-		// 		blueCount[i] = 0;
-		// 		strblue += `<div class="sls" data-key="${i}">0</div>`;
-		// 	}
-		// }
-		// document.getElementById('chart01').innerHTML = str;
-		// document.getElementById('chart02').innerHTML = strblue
-		// let redsls = document.getElementById('chart01').getElementsByClassName('sls');
-		// let bluesls = document.getElementById('chart02').getElementsByClassName('sls');
-
-		// for (let i = 0; i < allData.length; i++) {
-		// 	let reds = allData[i].reds;
-		// 	reds.forEach((item) => {
-		// 		redCount[item]++;
-		// 	})
-		// 	blueCount[allData[i].blue]++;
-		// }
-		// Object.keys(redCount).forEach((k) => {
-		// 	redsls[k - 1].innerHTML = redCount[k]
-		// 	redsls[k - 1].style.width = `${redCount[k]*2}px`
-		// });
-		// Object.keys(blueCount).forEach((k) => {
-		// 	bluesls[k - 1].innerHTML = blueCount[k]
-		// 	bluesls[k - 1].style.width = `${blueCount[k]*2}px`
-		// });
-	</script>
 </body>
 </html>
