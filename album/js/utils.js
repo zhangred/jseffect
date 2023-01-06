@@ -151,6 +151,7 @@ function getNumbers(list, len, start, exclude) {
       break;
     }
   }
+  res.sort((a, b) => a - b)
   return res;
 }
 
