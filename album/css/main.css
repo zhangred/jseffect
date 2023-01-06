@@ -24,7 +24,7 @@ div,p,span,a,ul,li,nav,input{ -webkit-box-sizing: border-box;  -moz-box-sizing: 
 .top-tab-wrap .ttw-item.active { background: rgba(255, 255, 255, 1);}
 
 .cm-topbtns { padding: 16px; column-gap: 20px; border-bottom: 1px solid #f0f0f0;}
-.cm-topbtns .ct-btns { line-height: 32px; padding: 0 20px; border: 1px solid #eee; border-radius: 4px; cursor: pointer; transition: all .2s;}
+.cm-topbtns .ct-btns { line-height: 32px; padding: 0 20px; border: 1px solid #eee; border-radius: 4px; cursor: pointer; transition: all .2s; text-align: center;}
 .cm-topbtns .ct-btns.active { color: #fff; background: var(--tj-primary); border-color: var(--tj-primary);}
 
 .base-content { padding: 20px;}
@@ -33,10 +33,21 @@ div,p,span,a,ul,li,nav,input{ -webkit-box-sizing: border-box;  -moz-box-sizing: 
 .base-content .cls-inner { position: absolute; background-color: #ddd; height: 16px; text-align: right; }
 .base-content .cls-name { position: absolute; left: -30px; text-align: right; width:26px;}
 
-.cm-table table{border-collapse:collapse;}
-
+.cm-table table{border-collapse:collapse; border: 1px solid #ddd; width: 100%;}
+.cm-table table td, .cm-table table th { border-left: 1px solid #ddd; border-top: 1px solid #ddd;}
+.cm-table table th { line-height: 40px; background-color: #eee; padding: 0 10px; text-align: left;}
+.cm-table table td { line-height: 32px; white-space: nowrap; font-size: 12px; padding: 0 10px;}
 .table-wrap { border-left: 1px solid #aaa; padding: 16px; overflow-y: scroll; flex: 1;}
+
+.td-numbers-wrap { column-gap: 5px;}
+.td-numbers-wrap .td-numbers-red { flex: 0 0 24px; height: 24px; border: 1px solid #c31a00; border-radius: 50%;}
+.td-numbers-wrap .td-numbers-red.blue { border-color: #0092dd;}
 
 .left-btn-wrap { width: 300px;}
 .left-btn-wrap .cm-topbtns {display: flex; display: -webkit-flex; flex-direction: column; row-gap: 10px;}
 .left-btn-wrap .lb-line { flex-wrap: wrap; row-gap: 10px; column-gap: 10px;}
+
+.profit-plus { color: var(--tj-primary);}
+.profit-minus { color: green;}
+.profit-none { height: 16px; width: 16px; background-color: #666; border-radius: 50%;}
+.profit-full {height: 16px; width: 16px; background-color: var(--tj-primary); border-radius: 50%; }

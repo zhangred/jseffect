@@ -49,30 +49,58 @@
 						<div class="ct-btns" @click="initData">初始化</div>
 					</div>
 					<div class="cm-topbtns">
+						<div class="cover-num">红</div>
 						<div class="flex lb-line">
-							<div class="ct-btns" @click="initData">6</div>
-							<div class="ct-btns" @click="initData">7</div>
-							<div class="ct-btns" @click="initData">8</div>
-							<div class="ct-btns" @click="initData">9</div>
+							<div :class="['ct-btns', {active: params.redLen === 6}]" @click="changeParams('redLen', 6)">6</div>
+							<div :class="['ct-btns', {active: params.redLen === 7}]" @click="changeParams('redLen', 7)">7</div>
+							<div :class="['ct-btns', {active: params.redLen === 8}]" @click="changeParams('redLen', 8)">8</div>
+							<div :class="['ct-btns', {active: params.redLen === 9}]" @click="changeParams('redLen', 9)">9</div>
 						</div>
 						<div class="flex lb-line">
-							<div class="ct-btns" @click="initData">常规顺位</div>
-							<div class="ct-btns" @click="initData">排除首1位</div>
-							<div class="ct-btns" @click="initData">排除首2位</div>
-							<div class="ct-btns" @click="initData">排除首3位</div>
+							<div :class="['ct-btns', {active: params.redStart === 0}]" @click="changeParams('redStart', 0)">常规顺位</div>
+							<div :class="['ct-btns', {active: params.redStart === 1}]" @click="changeParams('redStart', 1)">排除首1位</div>
+							<div :class="['ct-btns', {active: params.redStart === 2}]" @click="changeParams('redStart', 2)">排除首2位</div>
+							<div :class="['ct-btns', {active: params.redStart === 3}]" @click="changeParams('redStart', 3)">排除首3位</div>
+							<div :class="['ct-btns', {active: params.redStart === 4}]" @click="changeParams('redStart', 4)">排除首4位</div>
+							<div :class="['ct-btns', {active: params.redStart === 5}]" @click="changeParams('redStart', 5)">排除首5位</div>
+							<div :class="['ct-btns', {active: params.redStart === 6}]" @click="changeParams('redStart', 6)">排除首6位</div>
+							<div :class="['ct-btns', {active: params.redStart === 7}]" @click="changeParams('redStart', 7)">排除首7位</div>
 						</div>
 					</div>
 					<div class="cm-topbtns">
+						<div class="cover-num">蓝</div>
 						<div class="flex lb-line">
-							<div class="ct-btns" @click="initData">1</div>
-							<div class="ct-btns" @click="initData">2</div>
-							<div class="ct-btns" @click="initData">3</div>
+							<div :class="['ct-btns', {active: params.blueLen === 1}]" @click="changeParams('blueLen', 1)">1</div>
+							<div :class="['ct-btns', {active: params.blueLen === 2}]" @click="changeParams('blueLen', 2)">2</div>
+							<div :class="['ct-btns', {active: params.blueLen === 3}]" @click="changeParams('blueLen', 3)">3</div>
 						</div>
 						<div class="flex lb-line">
-							<div class="ct-btns" @click="initData">常规顺位</div>
-							<div class="ct-btns" @click="initData">排除首1位</div>
-							<div class="ct-btns" @click="initData">排除首2位</div>
-							<div class="ct-btns" @click="initData">排除首3位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 0}]" @click="changeParams('blueStart', 0)">常规顺位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 1}]" @click="changeParams('blueStart', 1)">排除首1位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 2}]" @click="changeParams('blueStart', 2)">排除首2位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 3}]" @click="changeParams('blueStart', 3)">排除首3位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 4}]" @click="changeParams('blueStart', 4)">排除首4位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 5}]" @click="changeParams('blueStart', 5)">排除首5位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 6}]" @click="changeParams('blueStart', 6)">排除首6位</div>
+							<div :class="['ct-btns', {active: params.blueStart === 7}]" @click="changeParams('blueStart', 7)">排除首7位</div>
+						</div>
+					</div>
+					<div class="cm-topbtns">
+						<div class="cover-num">排除红</div>
+						<div class="flex lb-line">
+							<div :class="['ct-btns', {active: params.redExclude === 0}]" @click="changeParams('redExclude', 0)">无排除</div>
+							<div :class="['ct-btns', {active: params.redExclude === 1}]" @click="changeParams('redExclude', 1)">排除最近1次</div>
+							<div :class="['ct-btns', {active: params.redExclude === 2}]" @click="changeParams('redExclude', 2)">排除最近2次</div>
+							<div :class="['ct-btns', {active: params.redExclude === 3}]" @click="changeParams('redExclude', 3)">排除最近3次</div>
+						</div>
+					</div>
+					<div class="cm-topbtns">
+						<div class="cover-num">排除蓝</div>
+						<div class="flex lb-line">
+							<div :class="['ct-btns', {active: params.blueExclude === 0}]" @click="changeParams('blueExclude', 0)">无排除</div>
+							<div :class="['ct-btns', {active: params.blueExclude === 1}]" @click="changeParams('blueExclude', 1)">排除最近1次</div>
+							<div :class="['ct-btns', {active: params.blueExclude === 2}]" @click="changeParams('blueExclude', 2)">排除最近2次</div>
+							<div :class="['ct-btns', {active: params.blueExclude === 3}]" @click="changeParams('blueExclude', 3)">排除最近3次</div>
 						</div>
 					</div>
 				</div>
@@ -82,8 +110,36 @@
 							<th v-for="column in columns" key="column.key">{{column.label}}</th>
 						</thead>
 						<tbody>
-							<tr v-for="data in allData" key="data.time">
-								<td v-for="column in columns" key="column.key">{{data[column.key] === undefined ? '--' : data[column.key]}}</td>
+							<tr v-for="(data, index) in allData" key="data.time">
+								<td v-for="column in columns" key="column.key">
+									<span v-if="column.key === 'time'">{{data[column.key]}}</span>
+									<div v-else-if="column.key==='originData.numbers'" class="flex td-numbers-wrap" style="width: 203px">
+										<div :class="['td-numbers-red', 'flex-ac-jc', {blue: nidx === 6}]" v-for="(num, nidx) in data.originData.numbers" key="num">{{num}}</div>
+									</div>
+									<div v-else-if="column.key==='prevCost'">
+										<div>{{countData[data.time]?.prevCost || '--'}}</div>
+									</div>
+									<div v-else-if="column.key==='forecastNumber' && countData[data.time] && countData[data.time].forecastNumber">
+										<div
+											class="flex td-numbers-wrap"
+											:style="`width:${(countData[data.time].forecastNumber.reds.length + countData[data.time].forecastNumber.blues.length)*29}px`"
+										>
+											<div class="td-numbers-red flex-ac-jc" v-for="num in countData[data.time].forecastNumber.reds" key="num">{{num}}</div>
+											<div class="td-numbers-red flex-ac-jc blue" v-for="num in countData[data.time].forecastNumber.blues" key="num">{{num}}</div>
+										</div>
+									</div>
+									<div v-else-if="column.key==='forecastCost'">
+										<div>{{countData[data.time] ? countData[data.time].forecastCost : '--'}}</div>
+									</div>
+									<div v-else-if="column.key==='prevProfit' && countData[data.time] && countData[data.time].prevProfit">
+										<div v-if="countData[data.time].prevProfit.type === 1" class="profit-full">一</div>
+										<div v-else-if="countData[data.time].prevProfit.type === 2" class="profit-full">二</div>
+										<div v-else-if="countData[data.time].prevProfit.type === 3" class="profit-plus">{{countData[data.time].prevProfit.money}}</div>
+										<div v-else-if="countData[data.time].prevProfit.type === 4" class="profit-minus">{{countData[data.time].prevProfit.money}}</div>
+										<div v-else-if="countData[data.time].prevProfit.type === 5" class="profit-none"></div>
+									</div>
+									
+								</td>
 							</tr>
 						</tbody>
 					</table>
