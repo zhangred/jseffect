@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta name="format-detection" content="telephone=no">
+  <meta content="telephone=no" name="format-detection">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link rel="stylesheet" href="./assets/css/eui.css" type="text/css" /> 
+  <link rel="stylesheet" href="./assets/css/main.css" type="text/css" /> 
+  <script language="javascript" type="text/javascript" src="./assets/js/size.js"></script>
+  <title>房态管理-漫园生活</title>
+</head>
+<body>
+  <style>
+    body { background-color: #fff;}
+    .left-bar { position: fixed; left: 0; top: 0; bottom: .56rem; width: .56rem; padding-bottom: .48rem; overflow-y: auto; -webkit-overflow-scrolling: touch; background-color: #eee;}
+    .left-bar .lb-time { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff;}
+    .left-bar .lb-time::after { position: relative; top: 2px; display: inline-block; content: ""; border: 4px solid #fff; border-color: #fff transparent transparent transparent; vertical-align: middle; margin-left: .02rem;}
+    .left-bar .lb-part { border-bottom: 1px solid #fff; height: 1.3rem; color: #666; padding: .2rem 0 0 .06rem;}
+    .left-bar .lb-part-nm { font-size: .16rem; color: #111; padding-bottom: .14rem;}
+    .left-bar .lb-part-sp { line-height: .1rem;}
+    .right-table { position: fixed; left: .56rem; top: 0; right: 0; bottom: .56rem; overflow: auto; -webkit-overflow-scrolling: touch; padding-bottom: .48rem;}
+    .right-table .rt-item { white-space: nowrap;}
+    .right-table .rt-item:nth-last-child(1) .rt-name { border: none;}
+    .right-table .rt-name { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff; padding: 0 .14rem; font-size: .16rem;}
+    .right-table .rt-part { position: relative; border-right: 1px solid #eee; border-bottom: 1px solid #eee; height: 1.3rem; display: flex; display: -webkit-flex; align-items: center; justify-content: center; padding: .12rem;}
+    .right-table .rt-part > div { position: relative; z-index: 2;}
+    .right-table .rt-part.advanced::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #def4e8; border-radius: .06rem;}
+    .right-table .rt-part.choosed::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #def4e8; border: 1px dashed #58b586; border-radius: .06rem;}
+    .right-table .rt-user-name { color: #58b586; font-weight: bold; padding-bottom: .04rem; align-items: center;}
+    .right-table .rt-user-name img { width: .12rem; margin-right: .04rem;}
+    .right-table .rt-user-plat { color: #999;}
+    .bookline { position: fixed; left: 0; bottom: .56rem; right: 0; height: .48rem; background: rgba(0,0,0,.8); align-items: center; padding: 0 .14rem; color: #fff; transform: translateY(100%); opacity: 1; transition: all .2s;}
+    .bookline.active { opacity: 1; transform: translateY(0);}
+    .bookline .bl-left { flex: 1; overflow: hidden;}
+    .bookline .bl-time { padding: 0 .1rem; font-size: .12rem; color: #aaa;}
+
+    .pop-edit-wrap .eui-pop-content {border-radius: .12rem; padding: .2rem 0; top: 50%!important;}
+    .pop-edit .pe-title { font-size: .16rem; font-weight: bold; text-align: center; padding-bottom: .2rem;}
+    .pop-edit .cm-form { padding: 0 .2rem; max-height: 60vh; overflow-y: scroll; -webkit-overflow-scrolling: touch;}
+    .pop-edit .pe-close { position: absolute; right: .05rem; top: .05rem; width: .24rem; opacity: .5;}
+    .pop-edit .pe-btn { margin: .2rem .2rem 0;}
+    .pop-edit .pe-mao { font-size: .12rem; color: #999; margin-left: .02rem;}
+    .pop-edit .hastip { padding-bottom: .2rem; position: relative;}
+    .pop-edit .cut-tip { display: none; position: absolute; right: 0; bottom: 0; font-size: .12rem; color: #ec5f5f;}
+    .pop-edit .hastip .cut-tip { display: block;}
+    .pop-edit .pe-cancel-tip {font-size: .12rem; color: #ec5f5f; text-align: center; padding-top: .1rem;}
+
+  </style>
+  <div class="html">
+    <!-- 左侧固定栏 -->
+    <div class="left-bar">
+      <div class="lb-time" id="J_time" >28/08</div>
+      <div class="lb-part"><div><div class="lb-part-nm">上午</div><div class="lb-part-time">09:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">12:00</div></div></div>
+      <div class="lb-part"><div><div class="lb-part-nm">下午</div><div class="lb-part-time">13:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">17:00</div></div></div>
+      <div class="lb-part"><div><div class="lb-part-nm">晚上</div><div class="lb-part-time">18:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">21:00</div></div></div>
+    </div>
+    <!-- 右侧列表 -->
+    <div class="right-table flex" id="J_table"></div>
+
+    <!-- 预定按钮 -->
+    <div class="bookline flex" id="J_bookline">
+      <div class="bl-left flex">
+        <div class="bl-name ellipsis"></div>
+        <div class="bl-time"></div>
+      </div>
+      <div class="bl-btn cm-btn primary" id="J_advance">预定/开房</div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="cm-botnav">
+      <a href="./room-advance.html" class="cbt-item active"><div class="cbt-icon cbt-icon-house"></div><div class="cbt-tx">房态管理</div></a>
+      <a href="./chart-list.html" class="cbt-item"><div class="cbt-icon cbt-icon-chart"></div><div class="cbt-tx">经营看板</div></a>
+      <a href="javascript:;" id="J_logout" class="cbt-item"><div class="cbt-icon cbt-icon-log"></div><div class="cbt-tx">退出管理</div></a>
+    </div>
+  </div>
+
+
+  <!-- 编辑-新增-弹框 -->
+  <div class="pop-edit" id="J_popup_edit">
+    <img src="./assets/images/close01.png" class="pe-close" id="J_pe_close" />
+    <div class="pe-title">预订/开房</div>
+    <div class="cm-form alri">
+      <div class="cfm-line cfm-lineselect" id="J_form_vip">
+        <div class="cfm-ao">客户类型</div>
+        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择客户类型" /></div>
+      </div>
+      <div class="cfm-line cfm-lineselect" id="J_form_user">
+        <div class="cfm-ao">相关会员</div>
+        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择相关会员" /></div>
+      </div>
+      <div class="cfm-line cfm-lineselect" id="J_form_room">
+        <div class="cfm-ao">使用包房</div>
+        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择使用包房" /></div>
+      </div>
+      <div class="cfm-line cfm-lineselect" id="J_form_date">
+        <div class="cfm-ao">使用日期</div>
+        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择使用日期" /></div>
+      </div>
+      <div class="cfm-line cfm-lineselect" id="J_form_time">
+        <div class="cfm-ao">场次时间</div>
+        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择场次时间" /></div>
+      </div>
+      <div class="cfm-line" id="J_form_action">
+        <div class="cfm-ao">费用价格</div>
+        <div class="cfm-linetext"><span>222</span><span class="pe-mao">元</span></div>
+      </div>
+      <div class="cfm-line cfm-lineselect" id="J_form_cut">
+        <div class="cfm-ao">权益抵扣</div>
+        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择协作动作" /></div>
+      </div>
+      <div class="cfm-line">
+        <div class="cfm-ao">余额抵扣</div>
+        <div class="cfm-linetext"><span>222</span><span class="pe-mao">元</span></div>
+      </div>
+      <div class="cfm-line hastip">
+        <div class="cfm-ao">余额抵扣-有提示</div>
+        <div class="cfm-linetext"><span>222</span><span class="pe-mao">元</span></div>
+        <div class="cut-tip">账户余额 500 元，最多抵扣100元</div>
+      </div>
+      <div class="cfm-line">
+        <div class="cfm-ao">应付金额</div>
+        <div class="cfm-linetext"><span>222</span><span class="pe-mao">元</span></div>
+      </div>
+      <div class="cfm-line cfm-lineselect" id="J_form_pay">
+        <div class="cfm-ao">支付途径</div>
+        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择支付途径" /></div>
+      </div>
+    </div>
+    <div class="pe-btn cm-btn block primary" id="J_create">创建</div>
+  </div>
+
+  <!-- 查看-弹框 -->
+  <div class="pop-edit" id="J_popup_detail">
+    <img src="./assets/images/close01.png" class="pe-close" id="J_pe_detail_close" />
+    <div class="pe-title">查看预订/开房信息</div>
+    <div class="cm-form alri">
+      <div class="cfm-line">
+        <div class="cfm-ao">客户类型</div>
+        <div class="cfm-linetext">会员</div>
+      </div>
+      <div class="cfm-line">
+        <div class="cfm-ao">相关会员</div>
+        <div class="cfm-linetext">张先生(15899997777)</div>
+      </div>
+      <div class="cfm-line">
+        <div class="cfm-ao">使用包房</div>
+        <div class="cfm-linetext">无量山露天山景房</div>
+      </div>
+      <div class="cfm-line">
+        <div class="cfm-ao">使用日期</div>
+        <div class="cfm-linetext">2023/06/06</div>
+      </div>
+      <div class="cfm-line" id="J_form_time">
+        <div class="cfm-ao">场次时间</div>
+        <div class="cfm-linetext">13:00~17:00</div>
+      </div>
+      <div class="cfm-line" id="J_form_action">
+        <div class="cfm-ao">费用价格</div>
+        <div class="cfm-linetext"><span>222</span><span class="pe-mao">元</span></div>
+      </div>
+      <div class="cfm-line" id="J_form_cut">
+        <div class="cfm-ao">权益抵扣</div>
+        <div class="cfm-linetext">使用场次卡抵扣</div>
+      </div>
+      <div class="cfm-line">
+        <div class="cfm-ao">余额抵扣</div>
+        <div class="cfm-linetext"><span>-222</span><span class="pe-mao">元</span></div>
+      </div>
+      <div class="cfm-line hastip">
+        <div class="cfm-ao">余额抵扣-有提示</div>
+        <div class="cfm-linetext"><span>222</span><span class="pe-mao">元</span></div>
+        <div class="cut-tip">账户余额 500 元，最多抵扣100元</div>
+      </div>
+      <div class="cfm-line">
+        <div class="cfm-ao">应付金额</div>
+        <div class="cfm-linetext"><span>222</span><span class="pe-mao">元</span></div>
+      </div>
+      <div class="cfm-line" id="J_form_pay">
+        <div class="cfm-ao">支付途径</div>
+        <div class="cfm-linetext">支付宝</div>
+      </div>
+    </div>
+    <div class="pe-btn cm-btn block primary" id="J_cancel">取消订单</div>
+    <div class="pe-cancel-tip">取消后，系统自动退还款项至客户的微信支付和余额</div>
+  </div>
+
+  <!-- 相关会员弹框 -->
+  <div class="cm-popup-screen" id="J_popup_user">
+    <div class="cm-user-select">
+      <div class="cus-list">
+        <div class="cus-list-item" data-name="相关会员名称001" data-id="1">相关会员名称001</div>
+        <div class="cus-list-item" data-name="相关会员名称002" data-id="2">相关会员名称002</div>
+        <div class="cus-list-item" data-name="相关会员名称003" data-id="3">相关会员名称003</div>
+        <div class="cus-list-item" data-name="相关会员名称004" data-id="4">相关会员名称004</div>
+        <div class="cus-list-item" data-name="相关会员名称005" data-id="5">相关会员名称005</div>
+      </div>
+    </div>
+  </div>
+
+  <script language="javascript" type="text/javascript" src="./assets/js/jquery-2.1.4.min.js"></script>
+  <script  language="javascript" type="text/javascript" src="./assets/js/eui.js"></script>
+  <script  language="javascript" type="text/javascript" src="./assets/js/main.js"></script>
+  <script>
+    $(function(){
+
+      // 标记当页日期数据
+      let currentData = Eui.time().format('YYYY-MM-DD');
+      // 数据映射集合
+      const idMap = {}
+      // 当前编辑参数
+      let params = {};
+
+      // 时间段类型，用于渲染顺序
+      const timeType = ['morning', 'afternoon', 'night'];
+      // 时间段类型，用于下拉选择
+      const timeTypeList = [
+        {id: 'morning', name: '09:00~12:00'},
+        {id: 'afternoon', name: '13:00~17:00'},
+        {id: 'night', name: '18:00~21:00'},
+      ]
+      // 时间段数据，用于选择
+      const timeTypeMap = {
+        morning: '09:00~12:00',
+        afternoon: '13:00~17:00',
+        night: '18:00~21:00',
+      }
+
+      // 房间列表，用于选择
+      const roomListMap = {};
+      const roomList = [
+        {id: 1, name: '无量山大平房01'},
+        {id: 2, name: '无量山大平房02'},
+        {id: 3, name: '无量山大平房03'},
+        {id: 4, name: '无量山大平房04'},
+      ]
+
+      const J_time = $('#J_time');
+      J_time.html(Eui.time().format('MM/DD'));
+
+      const J_table = $('#J_table');
+      const J_bookline = $('#J_bookline');
+
+      // 添加默认房间展示效果
+      let roomstr = '';
+      for(let i =0 ; i < roomList.length; i++) {
+        roomListMap[roomList[i].id] = roomList[i];
+        roomstr += `
+          <div class="rt-item">
+            <div class="rt-name">${roomList[i].name}</div>
+          </div>
+        `;
+      }
+      J_table.html(roomstr);
+
+      // 定义获取当页数据
+      function getPageData(){
+        const toast = Eui.toast({type: 'loading', message: '加载中···', mask: true, duration: 0,});
+        $.ajax({
+          type: "GET",
+          url: "api/callback.json?v="+(new Date().getTime()),
+          data: {},
+          dataType: "json",
+          success: function(res){
+            if(res.code==0){
+              // 模拟延迟数据
+              setTimeout(() => {
+                toast.hide();
+                
+                // 模拟数据
+                const data = [
+                  {
+                    roomId: 1,
+                    roomName: '无量山大平房01',
+                    orders: [
+                      { id: 11, date: currentData, timeType: 'morning'},
+                      { id: 12, date: currentData, timeType: 'afternoon'},
+                      { id: 13, date: currentData, timeType: 'night'}
+                    ]
+                  },
+                  {
+                    roomId: 2,
+                    roomName: '无量山大平房02',
+                    orders: [
+                      { id: 22, date: currentData, timeType: 'afternoon'},
+                    ]
+                  },
+                  {
+                    roomId: 3,
+                    roomName: '无量山大平房03',
+                    orders: [
+                    ]
+                  },
+                  {
+                    roomId: 4,
+                    roomName: '无量山大平房04',
+                    orders: [
+                      { id: 41, date: currentData, timeType: 'morning'},
+                      { id: 42, date: currentData, timeType: 'afternoon'},
+                    ]
+                  }
+                ]
+
+                // 循环处理渲染数据
+                let str = '';
+                for (let i = 0; i < data.length; i++) {
+                  let room = data[i];
+                  // 订单映射，根据时间类型-早中晚
+                  let timeMap = {};
+                  room.orders.forEach(item => {
+                    idMap[item.id] = {...item, roomId: room.roomId, roomName: room.roomName};
+                    timeMap[item.timeType] = item;
+                  });
+                  console.log(8, timeMap)
+                  // 订单字符串
+                  let str_order = ''
+                  for (let k = 0; k < timeType.length; k++) {
+                    if (timeMap[timeType[k]]) {
+                      let order = timeMap[timeType[k]];
+                      str_order += `
+                      <div data-oid=${order.id} data-timeType="${order.timeType}" data-roomId="${room.roomId}" class="J_part rt-part advanced">
+                        <div>
+                          <div class="rt-user-name flex"><img src="./assets/images/user01.png" />张先生</div>
+                          <div class="rt-user-money">800元</div>
+                          <div class="rt-user-pay">折扣+会员+现金</div>
+                          <div class="rt-user-cols">小程序收</div>
+                          <div class="rt-user-plat">小程序</div>
+                        </div>
+                      </div>
+                      `;
+                    } else {
+                      str_order += `<div class="J_part rt-part" data-timeType="${timeType[k]}" data-roomId="${room.roomId}"></div>`
+                    }
+                  }
+
+                  // 拼接房间数据
+                  str += `
+                  <div class="rt-item">
+                    <div class="rt-name">${room.roomName}</div>
+                    ${str_order}
+                  </div>
+                  `;
+                }
+                J_table.html(str);
+              }, 1000);
+            }
+          }
+        });
+      }
+
+      // 获取当页数据
+      getPageData();
+
+      // 切换日期并获取数据
+      Eui.datetimePicker({
+        trigger: document.getElementById('J_time'),
+        title: '选择日期',
+        format: 'MM/DD',
+        columns:['year','month','date'],
+        defaultTime: currentData,
+        onConfirm: function(rs){
+          currentData = Eui.time(rs.time.getTime()).format('YYYY-MM-DD');
+          J_time.html(rs.timeString);
+          getPageData();
+        },
+      })
+
+      // 选择时间段
+      J_table.on('click', '.J_part', function(){
+        let dom = $(this);
+        let oid = dom.attr('data-oid');
+        let type = dom.attr('data-timeType');
+        let roomid = dom.attr('data-roomId');
+        if (oid) {
+          $('.J_part.choosed').removeClass('choosed');
+          console.log('当前订单信息', idMap[oid])
+          // 根据当前订单信息填充弹框
+          popDetail.show();
+        } else if (dom.hasClass('choosed')) {
+          // 取消选择
+          dom.removeClass('choosed');
+          J_bookline.removeClass('active');
+        } else {
+          $('.J_part.choosed').removeClass('choosed')
+          // 选择空余，可以创建订单
+          dom.addClass('choosed');
+          J_bookline.addClass('active');
+          // 记录当前数据
+          console.log(46, type)
+          params = {
+            isVip: true,
+            roomid: roomid,
+            timeType: type,
+            date: currentData,
+          };
+          setBottomInfo();
+        }
+      })
+
+      // 设置底部弹出栏信息
+      function setBottomInfo(){
+        J_bookline.find('.bl-left').html(`
+          <div class="bl-name ellipsis">${roomListMap[params.roomid].name}</div>
+          <div class="bl-time">${timeTypeMap[params.timeType]}</div>
+        `)
+      }
+
+      // 预定开放
+      $('#J_advance').click(function(){
+        // 处理表单默认值
+        $('#J_form_vip input').val('会员');
+        vipPop.resetPicker({defaultValue: true})
+
+        $('#J_form_user input').val('');
+        userlist.removeClass('active');
+
+        $('#J_form_room input').val('');
+        roomPop.resetPicker({defaultValue: ''})
+
+        $('#J_form_date input').val('');
+        pickerDate.resetDefaultTime(params.date)
+
+        $('#J_form_pay input').val('');
+        payPop.resetPicker({defaultValue: ''})
+
+        $('#J_form_cut input').val('');
+        cutPop.resetPicker({defaultValue: ''})
+
+
+        popEdit.show();
+      })
+
+      // 编辑弹框
+      let popEdit = Eui.popup({
+        triggerClose: document.getElementById('J_pe_close'),
+        containerId: 'J_popup_edit',
+        position: 'center',
+        className: 'pop-edit-wrap',
+        closeOnMask: false
+      });
+
+      // 查看弹框
+      let popDetail = Eui.popup({
+        triggerClose: document.getElementById('J_pe_detail_close'),
+        containerId: 'J_popup_detail',
+        position: 'center',
+        className: 'pop-edit-wrap',
+        closeOnMask: false
+      });
+
+      // 客户类型
+      const vipList = [
+        {id: true, name: '会员'},
+        {id: false, name: '非会员'}
+      ]
+      let vipPop = new Eui.picker({
+        trigger: document.getElementById('J_form_vip'),
+        options: vipList,
+        title: '选择客户类型',
+        onConfirm: function(rs){
+          params.isVip = rs.value;
+          $('#J_form_vip input').val(rs.value ? '会员' : '非会员');
+        },
+      })
+
+      // 相关会员弹框
+      let popUser = Eui.popup({
+        trigger: document.getElementById('J_form_user'),
+        containerId: 'J_popup_user',
+        position: 'right',
+        className: 'cm-popup-right-pop',
+      });
+      const userlist = $('#J_popup_user .cus-list-item');
+      userlist.click(function(){
+        let dom = $(this);
+        userlist.removeClass('active');
+        dom.addClass('active');
+        params.user = dom.attr('data-id');
+        $('#J_form_user input').val(dom.attr('data-name'));
+        popUser.hide();
+      })
+
+      // 包房弹框
+      let roomPop = new Eui.picker({
+        trigger: document.getElementById('J_form_room'),
+        options: roomList,
+        title: '选择包房',
+        onConfirm: function(rs){
+          params.roomid = rs.value;
+          $('#J_form_room input').val(rs.data.name);
+        },
+      })
+
+      // 使用日期
+      let pickerDate = new Eui.calendar({
+        trigger: document.getElementById('J_form_date'),
+        title: '选择日期',
+        format: 'YYYY/MM/DD',
+        onConfirm: function(rs){
+          params.date = rs.format;
+          $('#J_form_date input').val(rs.format);
+        },
+      })
+
+      // 场次时间
+      let timePop = new Eui.picker({
+        trigger: document.getElementById('J_form_time'),
+        options: timeTypeList,
+        title: '选择场次时间',
+        onConfirm: function(rs){
+          params.timeType = rs.value;
+          $('#J_form_time input').val(rs.data.name);
+        },
+      })
+
+      // 权益抵扣
+      const cutList = [
+        {id: 'a', name: '使用场次卡抵扣'},
+        {id: 'b', name: '使用会员8折权益'},
+        {id: 'c', name: '不使用任何权益'}
+      ]
+      let cutPop = new Eui.picker({
+        trigger: document.getElementById('J_form_cut'),
+        options: cutList,
+        title: '选择抵扣方式',
+        onConfirm: function(rs){
+          params.cut = rs.value;
+          $('#J_form_cut input').val(rs.data.name);
+        },
+      })
+
+      // 支付方式
+      const payList = [
+        {id: 'wx', name: '微信支付'},
+        {id: 'ali', name: '支付宝'},
+        {id: 'other', name: '其他'}
+      ]
+      let payPop = new Eui.picker({
+        trigger: document.getElementById('J_form_pay'),
+        options: payList,
+        title: '选择支付方式',
+        onConfirm: function(rs){
+          params.pay = rs.value;
+          $('#J_form_pay input').val(rs.data.name);
+        },
+      })
+
+      // 创建订单
+      $('#J_create').click(function(){
+        // if (!params.name) {
+        //   Eui.toast({message: '必填，请输入项目名称', type: 'fail'});
+        //   return;
+        // }
+        const toast = Eui.toast({
+          type: 'loading',
+          message: '创建中···',
+          mask: true,
+          duration: 0,
+        });
+        $.ajax({
+          type: "GET",
+          url: "api/callback.json?v="+(new Date().getTime()),
+          data: {},
+          dataType: "json",
+          success: function(res){
+            if(res.code==0){
+              // 模拟请求延迟
+              setTimeout(() => {
+                toast.hide();
+                Eui.toast({message: '创建成功', type: 'success', onClose: function(){
+                  popEdit.hide();
+                  getPageData();
+                }});
+              }, 1000);
+            }
+          }
+        });
+      })
+
+      // 取消订单
+      $('#J_cancel').click(function(){
+        Eui.dialog({
+          type:'confirm',
+          btnType: 'round',
+          title: "提示",
+          content: '确认取消此订单吗？该操作无法撤销！',
+          confirmBtnTextAsync: '操作中···',
+          onAsyncConfirm: function(close){
+            $.ajax({
+              type: "GET",
+              url: "api/callback.json?v="+(new Date().getTime()),
+              data: {},
+              dataType: "json",
+              success: function(res){
+                if(res.code==0){
+                  setTimeout(() => {
+                    close(true)
+                    Eui.toast({message: '取消成功', type: 'success', onClose: function(){
+                      popDetail.hide();
+                      getPageData();
+                    }});
+                  }, 1000);
+                }
+              }
+            });
+          },
+        })
+      })
+     
+    })
+  </script>
+</body>
+</html>

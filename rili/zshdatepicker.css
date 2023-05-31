@@ -9,50 +9,20 @@ div{font-size:12px;line-height:20px; color: #333;}
 html, body { height: 100%}
 img {vertical-align: middle;border: none; -ms-interpolation-mode: bicubic;}
 div,p,span,a,ul,li,nav,input{ -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;}
+.ls {
+    padding: 10px 0;
+}
+.btn {
+    position: fixed; left: 0; top: 0; z-index: 2; background: rgba(0,0,0,.3); padding: 30; cursor: pointer;
+}
+.eui-body-hidden {
+    overflow: hidden;
+}
 
-
-
-.datepicker_div{ background: #41b29c; text-align: center; color: #fff;}
-.datepicker_div .dp-top{ height: 40px; line-height: 40px; position: relative; text-align: center;}
-.datepicker_div .dp-top .prev{ display: block; height: 40px; width: 40px; position: absolute; left: 0; top: 0; text-align: center; line-height: 40px; color: #fff; background: rgba(255,255,255,0.3);}
-.datepicker_div .dp-top .next{ display: block; height: 40px; width: 40px; position: absolute; right: 0; top: 0; text-align: center; line-height: 40px; color: #fff; background: rgba(255,255,255,0.3);}
-.datepicker_div .dp-top .year,.datepicker_div .dp-top .m{ color: #fff; padding: 0 5px; font-weight: bold;}
-.datepicker_div .weekline{ overflow: hidden;}
-.datepicker_div .week_li{ float: left; width: 14.28%; line-height: 28px;}
-.datepicker_div .td{ border:1px solid #42c0a7; width: 14.28%;}
-.datepicker_div .a{ display: block; height: 30px; padding: 0 5px 0 0; text-align: right; font-size: 12px; line-height: 30px; height: 30px; color: #fff; text-align: center;}
-.datepicker_div .a.today{ background: #42c0a7;}
-.datepicker_div .a.active{ background: #359280;}
-.datepicker_div table{border-collapse:collapse;}
-
-
-.datepicker_input_box{ position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0); z-index: 10; display: none;}
-.datepicker_input{position: absolute;   width: 100%;  bottom: 0; left: 0; background: #d1d4dd;}
-.datepicker_input .dpls{ overflow: hidden; text-align: center; padding: 10px 0; position: relative;}
-.datepicker_input .dp-select{ width: 16.6%; float: left; position: relative; height: 120px; overflow: hidden;}
-.datepicker_input .dp-select:before{content: ""; display: block; position: absolute; left: 0; top: 0; height: 46px; width: 100%; background: rgba(209,212,221,.8); border-bottom: 1px solid #aaadb6; z-index: 2;}
-.datepicker_input .dp-select:after{content: ""; display: block; position: absolute; left: 0; bottom: 0; height: 46px; width: 100%; background: rgba(209,212,221,.8); border-top: 1px solid #aaadb6; z-index: 2;}
-.datepicker_input .dpls1 .dp-select{ width: 100%;}
-.datepicker_input .dpls2 .dp-select{ width: 50%;}
-.datepicker_input .dpls3 .dp-select{ width: 33.3%;}
-.datepicker_input .dpls4 .dp-select{ width: 25%;}
-.datepicker_input .dpls5 .dp-select{ width: 20%;}
-.datepicker_input .dpls6 .dp-select{ width: 16.6%;}
-.datepicker_input .dp-select-ul{ position: relative;}
-.datepicker_input .dp-option{ line-height: 24px;}
-
-.datepicker_input .dp-btns{ height: 40px; border-top: 1px solid #fff; z-index: 5;}
-.datepicker_input .dp-btn{ display: block; float: left; width: 50%; background: #f0f1f3; height: 39px; border-left: 1px solid #fff; text-align: center; line-height: 39px; color: #3f94ee; font-weight: bold;}
-.datepicker_input .dp-btn:nth-child(1){ border: none;}
-
-
-
-
-
-
-
-
-
-
-
-
+.scroll {
+    width: 506px;
+    height: 500px;
+    margin: 0 auto;
+    overflow: scroll;
+    background-color: #ddd;
+}

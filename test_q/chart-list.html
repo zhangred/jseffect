@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta name="format-detection" content="telephone=no">
+  <meta content="telephone=no" name="format-detection">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link rel="stylesheet" href="./assets/css/eui.css" type="text/css" /> 
+  <link rel="stylesheet" href="./assets/css/main.css" type="text/css" /> 
+  <script language="javascript" type="text/javascript" src="./assets/js/size.js"></script>
+  <title>经营看板</title>
+</head>
+<body>
+  <style>
+    body { background-color: #fff;}
+    .html { padding-bottom: .66rem;}
+    .top-date { padding: .18rem .14rem; background:linear-gradient(-135deg, #20e080 0%,#58b586 100%);}
+    .top-date .td-text { font-size: .18rem; color: #fff;}
+    .top-date .td-ico { height: .14rem; position: relative; top: -.01rem; margin-right: .04rem;}
+    .top-date .td-list { padding-top: .16rem; color: rgba(255, 255, 255, .8);}
+    .top-date .td-item { margin-right: .16rem; transition: all .2s;}
+    .top-date .td-item.active { color: #fff; font-weight: bold; font-size: .16rem;}
+    .top-date .td-text span { margin: 0 .06rem;}
+    .count-tab { text-align: center; padding: .16rem 0; border-bottom: .1rem solid #eee;}
+    .count-tab .ct-item { position: relative; flex: 1;}
+    .count-tab .ct-item::after {content: ""; position: absolute; left: 0; top: 50%; height: .28rem; width: 1px; margin-top: -.14rem; background-color: #eee;}
+    .count-tab .ct-item:nth-child(1)::after { display: none;}
+    .count-tab .ct-tx { color: #999; padding-bottom: .06rem;}
+    .count-tab .ct-num { font-size: .18rem;}
+    .count-tab .ct-ao { color: #999; margin-right: .02rem; margin-left: -.06rem;}
+  
+    .cate-tab { text-align: center; line-height: .4rem;}
+    .cate-tab .ct-item { position: relative; flex: 1;}
+    .cate-tab .ct-item.active { color: #58b586;}
+    .cate-tab .ct-item.active::after { content: ""; position: absolute; left: 50%; bottom: .04rem; width: .28rem; height: 3px; margin-left: -.14rem; background:linear-gradient(90deg, #58b586 0%,rgb(88, 181, 134, 0) 100%);}
+
+    /* .cell-wa { flex: 0 0 .32rem!important;} */
+    .cell-auto { flex: 1;}
+    .cell-wa { flex: 0 0 1rem;}
+    .cell-wb { flex: 0 0 1rem;}
+    .cell-wc { flex: 0 0 .5rem;}
+    .cell-wd { flex: 0 0 .8rem;}
+
+    .stickywrap { background: #fff;}
+
+    .head-line { display: none; padding: 0 .14rem; text-align: center; font-size: .12rem; color: #666; line-height: .32rem;}
+    .head-line.active { display: flex; display: -webkit-flex;}
+    .pglist { padding: 0 .14rem; text-align: center;}
+    .pglist .pl-item { line-height: .4rem;}
+
+  </style>
+  <div class="html">
+    <div class="top-date">
+      <div class="td-text flex-aic dinfont">
+        <img src="./assets/images/date01.png" class="td-ico" />
+        <div id="J_current_date">--</div>
+      </div>
+      <div class="td-list flex-aic">
+        <div data-type="today" class="J_date_item td-item">今天</div>
+        <div data-type="yesterday" class="J_date_item td-item">昨天</div>
+        <div data-type="lastweek" class="J_date_item td-item">近7天</div>
+        <div data-type="lastmonth" class="J_date_item td-item">近30天</div>
+        <div data-type="custom" class="J_date_item td-item">自定义</div>
+      </div>
+    </div>
+    <div class="count-tab flex">
+      <div class="ct-item">
+        <div class="ct-tx">总营业收入</div>
+        <div class="ct-money dinfont"><span class="ct-ao">￥</span><span class="J_num_count ct-num" data-type="total">--</span></div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-tx">房间收入</div>
+        <div class="ct-money dinfont"><span class="ct-ao">￥</span><span class="J_num_count ct-num" data-type="room">--</span></div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-tx">商品销售</div>
+        <div class="ct-money dinfont"><span class="ct-ao">￥</span><span class="J_num_count ct-num" data-type="product">--</span></div>
+      </div>
+    </div>
+    <div class="stickywrap cm-sticky">
+      <div class="cate-tab flex-aic">
+        <div class="J_count_type ct-item" data-type="room">房间统计</div>
+        <div class="J_count_type ct-item" data-type="product">商品统计</div>
+        <div class="J_count_type ct-item" data-type="channel">收款渠道</div>
+      </div>
+      <div class="J_head_line head-line flex" data-type="room">
+        <div class="cell-auto">房间</div>
+        <div class="cell-wa">收入</div>
+        <div class="cell-wa">订单场次数</div>
+      </div>
+      <div class="J_head_line head-line flex" data-type="product">
+        <div class="cell-auto">商品</div>
+        <div class="cell-wc">数量</div>
+        <div class="cell-wd">金额</div>
+        <div class="cell-wc">比例</div>
+      </div>
+      <div class="J_head_line head-line flex" data-type="channel">
+        <div class="cell-auto">渠道</div>
+        <div class="cell-wd">金额</div>
+        <div class="cell-wc">笔数</div>
+        <div class="cell-wc">比例</div>
+      </div>
+    </div>
+
+    <div class="pglist" id="J_list"></div>
+
+    <!-- 底部导航 -->
+    <div class="cm-botnav">
+      <a href="./room-advance.html" class="cbt-item"><div class="cbt-icon cbt-icon-house"></div><div class="cbt-tx">房态管理</div></a>
+      <a href="./chart-list.html" class="cbt-item active"><div class="cbt-icon cbt-icon-chart"></div><div class="cbt-tx">经营看板</div></a>
+      <a href="javascript:;" id="J_logout" class="cbt-item"><div class="cbt-icon cbt-icon-log"></div><div class="cbt-tx">退出管理</div></a>
+    </div>
+  </div>
+  <script language="javascript" type="text/javascript" src="./assets/js/jquery-2.1.4.min.js"></script>
+  <script  language="javascript" type="text/javascript" src="./assets/js/eui.js"></script>
+  <script  language="javascript" type="text/javascript" src="./assets/js/main.js"></script>
+  <script>
+    $(function(){
+
+      // 页面参数
+      let params = {};
+
+      // 高亮并填充所选日期
+      const J_current_date = $('#J_current_date');
+      const J_date_item = $('.J_date_item');
+      function resetDate(type){
+        if (type === 'today') {
+          let time = Eui.time();
+          params.date = time.format('YYYY-MM-DD');
+          J_current_date.html(time.format('YYYY/MM/DD'));
+        } else if (type === 'yesterday') {
+          let time = Eui.time().shifting('date', -1);
+          params.date = time.format('YYYY-MM-DD');
+          J_current_date.html(time.format('YYYY/MM/DD'));
+        } else if (type === 'lastweek') {
+          let time = [Eui.time().shifting('date', -7), Eui.time()];
+          params.date = time.map(tm => tm.format('YYYY-MM-DD'));
+          J_current_date.html(`${time[0].format('YYYY/MM/DD')}<span>~</span>${time[1].format('YYYY/MM/DD')}`);
+        } else if (type === 'lastmonth') {
+          let time = [Eui.time().shifting('date', -30), Eui.time()];
+          params.date = time.map(tm => tm.format('YYYY-MM-DD'));
+          J_current_date.html(`${time[0].format('YYYY/MM/DD')}<span>~</span>${time[1].format('YYYY/MM/DD')}`);
+        } else if (type === 'custom') {
+          let time = [Eui.time(params.date[0]), Eui.time(params.date[1])];
+          J_current_date.html(`${time[0].format('YYYY/MM/DD')}<span>~</span>${time[1].format('YYYY/MM/DD')}`);
+        }
+        J_date_item.each(function(index){
+          J_date_item.eq(index)[J_date_item.eq(index).attr('data-type') === type ? 'addClass' : 'removeClass']('active')
+        })
+      }
+      // 高亮今天
+      resetDate('today');
+
+      // 初始化日期组件
+      let calendar = new Eui.calendar({
+        className: 'cuspicker',
+        title: '选择日期',
+        format: 'YYYY-MM-DD',
+        required: true,
+        type:'range',
+        onConfirm: function(rs){
+          params.date = rs.map(tm => tm.format);
+          resetDate('custom');
+          getList();
+        },
+      })
+      // 切换日期
+      J_date_item.click(function(){
+        const type = $(this).attr('data-type');
+        if (type !== 'custom') {
+          resetDate(type);
+          getList();
+        } else {
+          calendar.show();
+        }
+      })
+
+      // 统计类型
+      const J_count_type = $('.J_count_type');
+      const J_head_line = $('.J_head_line')
+      function resetCountType(type){
+        params.countType = type;
+        J_count_type.each(function(index){
+          J_count_type.eq(index)[J_count_type.eq(index).attr('data-type') === type ? 'addClass' : 'removeClass']('active')
+        })
+        J_head_line.each(function(index){
+          J_head_line.eq(index)[J_head_line.eq(index).attr('data-type') === type ? 'addClass' : 'removeClass']('active')
+        })
+      }
+      // 高亮房间统计
+      resetCountType('room');
+      J_count_type.click(function(){
+        const type = $(this).attr('data-type');
+        resetCountType(type);
+        $('#J_list').html('');
+        getList()
+      })
+
+      // 获取数据
+      function getList(){
+        console.log(params)
+        const toast = Eui.toast({
+          type: 'loading',
+          message: '请求中···',
+          mask: true,
+          duration: 0,
+        });
+        $.ajax({
+          type: "GET",
+          url: "api/callback.json?v="+(new Date().getTime()),
+          data: {},
+          dataType: "json",
+          success: function(res){
+            if(res.code==0){
+              setTimeout(() => {
+                toast.hide();
+                
+                // 模拟数据
+                let data = {
+                  count: {
+                    total: parseInt(Math.random()*9999),
+                    room: parseInt(Math.random()*9999),
+                    product: parseInt(Math.random()*9999)
+                  },
+                  list: []
+                }
+                for (let i = 0; i < 20; i++) {
+                  data.list.push({
+                    roomName: '无量山大平房山景房',
+                    productName: '商品名称武夷山大白茶',
+                    channelName: '支付渠道名称',
+                    money: parseInt(Math.random()*9999),
+                    quantity: parseInt(Math.random()*99),
+                    rate: parseInt(Math.random()*99)
+                  })
+                }
+
+                // 渲染数据
+                // 渲染统计数据
+                $('.J_num_count').each(function(index, dom){
+                  let elm = $(dom);
+                  elm.html(data.count[elm.attr('data-type')]);
+                })
+                // 渲染列表
+                let str = '';
+                for (let i = 0; i < data.list.length; i++) {
+                  let item = data.list[i];
+                  if (params.countType === 'room') {
+                    str += `
+                    <div class="pl-item flex">
+                      <div class="cell-auto">${item.roomName}</div>
+                      <div class="cell-wa">￥${item.money}</div>
+                      <div class="cell-wa">${item.quantity}</div>
+                    </div>
+                    `
+                  } else if (params.countType === 'product') {
+                    str += `
+                    <div class="pl-item flex">
+                      <div class="cell-auto">${item.roomName}</div>
+                      <div class="cell-wc">${item.quantity}</div>
+                      <div class="cell-wd">￥${item.money}</div>
+                      <div class="cell-wc">${item.rate}%</div>
+                    </div>
+                    `
+                  } else if (params.countType === 'channel') {
+                    str += `
+                    <div class="pl-item flex">
+                      <div class="cell-auto">${item.roomName}</div>
+                      <div class="cell-wd">￥${item.money}</div>
+                      <div class="cell-wc">${item.quantity}</div>
+                      <div class="cell-wc">${item.rate}%</div>
+                    </div>
+                    `
+                  }
+                }
+                $('#J_list').html(str);
+              }, 1000);
+            }
+          }
+        });
+      }
+
+      // 获取数据
+      getList();
+
+    })
+  </script>
+</body>
+</html>
