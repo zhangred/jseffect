@@ -1,35 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta content="black" name="apple-mobile-web-app-status-bar-style">
-	<meta name="format-detection" content="telephone=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>iphonex适配测试</title>
-	<link rel="stylesheet" type="text/css" href="style.css?v=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>iphonex适配测试</title>
+  <link rel="stylesheet" type="text/css" href="style.css?v=1">
 </head>
 <body>
-	<div style="padding: 20px;">
-		<div class="boxc">css-iphonex适配-适配失败</div>
-		<div class="boxa">css-iphonex适配-适配成功</div>
-		<br />
-		<div class="">屏幕大小：<span id="J_screen"></span></div>
-		<br />
-		<div class="">window大小：<span id="J_win"></span></div>
-		<br />
-	</div>
-	<div style="height: 1000px;"></div>
-	
-	<script>
+  
+  <div class="arr"><i id="arr" class="cm-arr-ud active"></i></div>
+  <div class="box">
+    <div class="btna" id="b">下载-link模式</div>
+    <div class="btna" id="c">下载-bolb模式</div>
+    <div class="btna" id="a">切换箭头方向</div>
+  </div>
 
-		var J_screen = document.getElementById('J_screen')
-		J_screen.innerHTML = '宽：'+screen.availWidth+'，高：'+screen.availHeight;
+  <div class="scroll">
+    <div>dfasdfa11111阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发</div>
+    <div>dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发</div>
+    <div>dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发</div>
+    <div>dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发</div>
+    <div>dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发</div>
+    <div>dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发</div>
+    <div>dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发dfasdfa阿斯顿发是的发生大法师的发生的发送到发</div>
+  </div>
 
-		var J_win = document.getElementById('J_win')
-		J_win.innerHTML = '宽：'+window.innerWidth+'，高：'+window.innerHeight;
+  <div id="table">
+    <table border>
+      <thead>
+        <tr>
+          <th>name</th>
+          <th>age</th>
+          <th>sex</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="2">张</td><td>3</td><td>男</td></tr>
+        <tr><td>3</td><td>男</td></tr>
+        <tr><td>张</td><td>3</td><td>男</td></tr>
+        <tr><td>张</td><td colspan="2">￥3</td></tr>
+        <tr><td>张</td><td>￥3</td><td>男</td></tr>
+        <tr><td>张</td><td>￥3</td><td>男</td></tr>
+      </tbody>
+    </table>
+  </div>
 
-	</script>
+  <script>
+    const a = document.getElementById('a');
+    const b = document.getElementById('b');
+    const c = document.getElementById('c');
+    const table = document.getElementById('table');
+
+    html = `<html xmlns:x="urn:schemas-microsoft-com:office:excel">
+      <head>
+        <xml>
+          <x:ExcelWorkbook>
+            <x:ExcelWorksheets>
+              <x:ExcelWorksheet>
+                <x:WorksheetOptions>
+                  <x:Print><x:ValidPrinterInfo /></x:Print>
+                </x:WorksheetOptions>
+              </x:ExcelWorksheet>
+            </x:ExcelWorksheets>
+          </x:ExcelWorkbook>
+        </xml>
+      </head>
+      <style>
+        table{vnd.ms-excel.numberformat:@;}
+      </style>
+        ${table.innerHTML}
+      </html>`
+
+    b.addEventListener('click',function(){
+      const url = 'data:application/vnd.ms-excel;base64,' + window.btoa(unescape(encodeURIComponent(table.innerHTML)));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `测试下载名称-${new Date().getTime()}.xlsx`;
+      link.click();
+    })
+
+    c.addEventListener('click',function(){
+      const excelBlob = new Blob([html], { type: 'application/vnd.ms-excel;base64' })
+      // const url = 'data:application/vnd.ms-excel;base64,' + window.btoa(unescape(encodeURIComponent(table.innerHTML)));
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(excelBlob);
+      link.download = `测试下载名称-${new Date().getTime()}.xlsx`;
+      document.body.appendChild(link)
+      link.click();
+      URL.revokeObjectURL(link.href) // 释放资源
+      link.remove();
+    })
+
+    a.addEventListener('click',function(){
+      const arr = document.getElementById('arr');
+      arr.classList.toggle('active');
+    })
+    // Element.prototype._attachShadow = Element.prototype.attachShadow;
+    // Element.prototype.attachShadow = function () {
+    //   return this._attachShadow({mode:'open'});
+    // };
+
+    // let dom = document.getElementById('a');
+    //   dom.aax = dom.attachShadow;
+    //   dom.attachShadow = function(){
+    //     return dom.aax({mode:'open'});
+    //   };
+    // let root = dom.attachShadow({ mode: 'closed'});
+    // console.log(root)
+    // root.innerHTML = 'aa啊啊啊啊啊'
+    // console.log(dom.shadowRoot.innerHTML)
+
+    // function isSupportSticky() {
+    //   let vendorList = ['', '-webkit-', '-ms-', '-moz-', '-o-'];
+    //   let vendorLen = vendorList.length;
+    //   let dom = document.createElement('div');
+    //   for (var i = 0; i < vendorLen; i++) {
+    //     dom.style.position = vendorList[i] + 'sticky';
+    //     if (dom.style.position !== '') {
+    //       console.log(i);
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // }
+
+    // isSupportSticky();
+    
+
+  </script>
+
 </body>
 </html>
