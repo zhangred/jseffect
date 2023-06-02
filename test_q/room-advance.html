@@ -16,17 +16,17 @@
 <body>
   <style>
     body { background-color: #fff;}
-    .left-bar { position: fixed; left: 0; top: 0; bottom: .56rem; width: .56rem; padding-bottom: .48rem; overflow-y: auto; -webkit-overflow-scrolling: touch; background-color: #eee;}
+    .left-bar { position: fixed; left: 0; top: 0; bottom: .56rem; width: .56rem; flex-direction: column; padding-bottom: .68rem; overflow-y: auto; -webkit-overflow-scrolling: touch; background-color: #eee;}
     .left-bar .lb-time { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff;}
     .left-bar .lb-time::after { position: relative; top: 2px; display: inline-block; content: ""; border: 4px solid #fff; border-color: #fff transparent transparent transparent; vertical-align: middle; margin-left: .02rem;}
-    .left-bar .lb-part { border-bottom: 1px solid #fff; height: 1.3rem; color: #666; padding: .2rem 0 0 .06rem;}
+    .left-bar .lb-part { flex: 1; align-items: center; border-bottom: 1px solid #fff; height: 1.3rem; color: #666; padding: 0 0 0 .06rem;}
     .left-bar .lb-part-nm { font-size: .14rem; color: #111; padding-bottom: .14rem;}
     .left-bar .lb-part-sp { line-height: .1rem;}
-    .right-table { position: fixed; left: .56rem; top: 0; right: 0; bottom: .56rem; overflow: auto; -webkit-overflow-scrolling: touch; padding-bottom: .48rem;}
-    .right-table .rt-item { white-space: nowrap;}
+    .right-table { position: fixed; left: .56rem; top: 0; right: 0; bottom: .56rem; overflow: auto; -webkit-overflow-scrolling: touch; padding-bottom: .68rem;}
+    .right-table .rt-item { white-space: nowrap; flex-direction: column;}
     .right-table .rt-item:nth-last-child(1) .rt-name { border: none;}
     .right-table .rt-name { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff; padding: 0 .14rem; font-size: .14rem;}
-    .right-table .rt-part { position: relative; border-right: 1px solid #eee; border-bottom: 1px solid #eee; height: 1.3rem; display: flex; display: -webkit-flex; align-items: center; justify-content: center; padding: .12rem;}
+    .right-table .rt-part { position: relative; flex: 1; border-right: 1px solid #eee; border-bottom: 1px solid #eee; height: 1.3rem; display: flex; display: -webkit-flex; align-items: center; justify-content: center; padding: .12rem; line-height: .24rem;}
     .right-table .rt-part > div { position: relative; z-index: 2;}
     .right-table .rt-part.advanced::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #def4e8; border-radius: .06rem;}
     .right-table .rt-part.choosed::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #def4e8; border: 1px dashed #58b586; border-radius: .06rem;}
@@ -52,11 +52,11 @@
   </style>
   <div class="html">
     <!-- 左侧固定栏 -->
-    <div class="left-bar">
+    <div class="left-bar flex">
       <div class="lb-time" id="J_time" >28/08</div>
-      <div class="lb-part"><div><div class="lb-part-nm">上午</div><div class="lb-part-time">09:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">12:00</div></div></div>
-      <div class="lb-part"><div><div class="lb-part-nm">下午</div><div class="lb-part-time">13:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">17:00</div></div></div>
-      <div class="lb-part"><div><div class="lb-part-nm">晚上</div><div class="lb-part-time">18:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">21:00</div></div></div>
+      <div class="lb-part flex"><div><div class="lb-part-nm">上午</div><div class="lb-part-time">09:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">12:00</div></div></div>
+      <div class="lb-part flex"><div><div class="lb-part-nm">下午</div><div class="lb-part-time">13:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">17:00</div></div></div>
+      <div class="lb-part flex"><div><div class="lb-part-nm">晚上</div><div class="lb-part-time">18:00</div><div class="lb-part-sp">~</div><div class="lb-part-time">21:00</div></div></div>
     </div>
     <!-- 右侧列表 -->
     <div class="right-table flex" id="J_table"></div>
@@ -344,7 +344,7 @@
 
                   // 拼接房间数据
                   str += `
-                  <div class="rt-item">
+                  <div class="rt-item flex">
                     <div class="rt-name">${room.roomName}</div>
                     ${str_order}
                   </div>
