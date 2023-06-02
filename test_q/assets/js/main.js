@@ -44,6 +44,45 @@ function getRequest(){
   return theRequest;
 };
 
+// 输入框增加清除事件
+function bindInputClear({ dom, onBlur, onInput}) {
+  if (!dom) return;
+  const input = dom.getElementsByClassName('ciw-input')[0];
+  const clear = dom.getElementsByClassName('ciw-clear')[0];
+  let value = '';
+  if (!input) return;
+  input.addEventListener('blur', function(event){
+    let val = input.value || '';
+    val = val.trim();
+    if (value != val) {
+      value = val;
+      onBlur && onBlur(val);
+      dom.classList[val.length ? 'add' : 'remove']('has-value');
+    };
+    setTimeout(function(){
+      $(window).scrollTop($(window).scrollTop())
+    },10)
+  })
+  input.addEventListener('input', function(event){
+    let val = input.value || '';
+    val = val.trim();
+    dom.classList[val.length ? 'add' : 'remove']('has-value')
+    onInput && onInput(val);
+  })
+  if (clear) {
+    clear.addEventListener('click', function(){
+      if (value && onInput) {
+        onInput('');
+      } else if (value && onBlur) {
+        onBlur('');
+      }
+      value = '';
+      input.value = '';
+      dom.classList.remove('has-value')
+    })
+  }
+}
+
 $(function(){
   $('#J_logout').click(function(){
     Eui.dialog({

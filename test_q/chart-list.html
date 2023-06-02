@@ -32,10 +32,10 @@
     .count-tab .ct-num { font-size: .18rem;}
     .count-tab .ct-ao { color: #999; margin-right: .02rem; margin-left: -.06rem;}
   
-    .cate-tab { text-align: center; line-height: .4rem;}
+    .cate-tab { text-align: center; line-height: .4rem; border-bottom: 1px solid #eee;}
     .cate-tab .ct-item { position: relative; flex: 1;}
     .cate-tab .ct-item.active { color: #58b586;}
-    .cate-tab .ct-item.active::after { content: ""; position: absolute; left: 50%; bottom: .04rem; width: .28rem; height: 3px; margin-left: -.14rem; background:linear-gradient(90deg, #58b586 0%,rgb(88, 181, 134, 0) 100%);}
+    .cate-tab .ct-item.active::after { content: ""; position: absolute; left: 50%; bottom: 0; width: .28rem; height: 3px; margin-left: -.14rem; background:linear-gradient(90deg, #58b586 0%,rgb(88, 181, 134, 0) 100%);}
 
     /* .cell-wa { flex: 0 0 .32rem!important;} */
     .cell-auto { flex: 1;}
@@ -43,12 +43,13 @@
     .cell-wb { flex: 0 0 1rem;}
     .cell-wc { flex: 0 0 .5rem;}
     .cell-wd { flex: 0 0 .8rem;}
+    .cell-ao { font-size: .12rem; color: #333; margin-left: .03rem;}
 
     .stickywrap { background: #fff;}
 
     .head-line { display: none; padding: 0 .14rem; text-align: center; font-size: .12rem; color: #666; line-height: .32rem;}
     .head-line.active { display: flex; display: -webkit-flex;}
-    .pglist { padding: 0 .14rem; text-align: center;}
+    .pglist { padding: .24rem .14rem .1rem; text-align: center;}
     .pglist .pl-item { line-height: .4rem;}
 
   </style>
@@ -85,23 +86,6 @@
         <div class="J_count_type ct-item" data-type="room">房间统计</div>
         <div class="J_count_type ct-item" data-type="product">商品统计</div>
         <div class="J_count_type ct-item" data-type="channel">收款渠道</div>
-      </div>
-      <div class="J_head_line head-line flex" data-type="room">
-        <div class="cell-auto">房间</div>
-        <div class="cell-wa">收入</div>
-        <div class="cell-wa">订单场次数</div>
-      </div>
-      <div class="J_head_line head-line flex" data-type="product">
-        <div class="cell-auto">商品</div>
-        <div class="cell-wc">数量</div>
-        <div class="cell-wd">金额</div>
-        <div class="cell-wc">比例</div>
-      </div>
-      <div class="J_head_line head-line flex" data-type="channel">
-        <div class="cell-auto">渠道</div>
-        <div class="cell-wd">金额</div>
-        <div class="cell-wc">笔数</div>
-        <div class="cell-wc">比例</div>
       </div>
     </div>
 
@@ -180,14 +164,10 @@
 
       // 统计类型
       const J_count_type = $('.J_count_type');
-      const J_head_line = $('.J_head_line')
       function resetCountType(type){
         params.countType = type;
         J_count_type.each(function(index){
           J_count_type.eq(index)[J_count_type.eq(index).attr('data-type') === type ? 'addClass' : 'removeClass']('active')
-        })
-        J_head_line.each(function(index){
-          J_head_line.eq(index)[J_head_line.eq(index).attr('data-type') === type ? 'addClass' : 'removeClass']('active')
         })
       }
       // 高亮房间统计
@@ -253,14 +233,14 @@
                     <div class="pl-item flex">
                       <div class="cell-auto">${item.roomName}</div>
                       <div class="cell-wa">￥${item.money}</div>
-                      <div class="cell-wa">${item.quantity}</div>
+                      <div class="cell-wa">${item.quantity}<span class="cell-ao">场</span></div>
                     </div>
                     `
                   } else if (params.countType === 'product') {
                     str += `
                     <div class="pl-item flex">
                       <div class="cell-auto">${item.roomName}</div>
-                      <div class="cell-wc">${item.quantity}</div>
+                      <div class="cell-wc">${item.quantity}<span class="cell-ao">包</span></div>
                       <div class="cell-wd">￥${item.money}</div>
                       <div class="cell-wc">${item.rate}%</div>
                     </div>
@@ -270,7 +250,7 @@
                     <div class="pl-item flex">
                       <div class="cell-auto">${item.roomName}</div>
                       <div class="cell-wd">￥${item.money}</div>
-                      <div class="cell-wc">${item.quantity}</div>
+                      <div class="cell-wc">${item.quantity}<span class="cell-ao">笔</span></div>
                       <div class="cell-wc">${item.rate}%</div>
                     </div>
                     `

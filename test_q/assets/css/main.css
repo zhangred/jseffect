@@ -77,7 +77,7 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .cm-input-wrap.has-value .ciw-input { padding-right: .32rem;}
 .cm-input-wrap.has-value .ciw-clear { opacity: .4; pointer-events: all;}
 
-.cm-form { background: #fff;}
+.cm-form { background: #fff; font-size: .14rem; line-height: .20rem;}
 .cm-form.nobd .cfm-line { border-bottom: none;}
 .cm-form.lastnobd .cfm-line:nth-last-child(1) { border-bottom: none;}
 .cm-form .cfm-line { display: flex; display: -webkit-flex; align-items: center; line-height: .24rem; padding: .12rem 0; border-bottom: 1px solid #eee;}

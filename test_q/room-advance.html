@@ -20,12 +20,12 @@
     .left-bar .lb-time { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff;}
     .left-bar .lb-time::after { position: relative; top: 2px; display: inline-block; content: ""; border: 4px solid #fff; border-color: #fff transparent transparent transparent; vertical-align: middle; margin-left: .02rem;}
     .left-bar .lb-part { border-bottom: 1px solid #fff; height: 1.3rem; color: #666; padding: .2rem 0 0 .06rem;}
-    .left-bar .lb-part-nm { font-size: .16rem; color: #111; padding-bottom: .14rem;}
+    .left-bar .lb-part-nm { font-size: .14rem; color: #111; padding-bottom: .14rem;}
     .left-bar .lb-part-sp { line-height: .1rem;}
     .right-table { position: fixed; left: .56rem; top: 0; right: 0; bottom: .56rem; overflow: auto; -webkit-overflow-scrolling: touch; padding-bottom: .48rem;}
     .right-table .rt-item { white-space: nowrap;}
     .right-table .rt-item:nth-last-child(1) .rt-name { border: none;}
-    .right-table .rt-name { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff; padding: 0 .14rem; font-size: .16rem;}
+    .right-table .rt-name { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff; padding: 0 .14rem; font-size: .14rem;}
     .right-table .rt-part { position: relative; border-right: 1px solid #eee; border-bottom: 1px solid #eee; height: 1.3rem; display: flex; display: -webkit-flex; align-items: center; justify-content: center; padding: .12rem;}
     .right-table .rt-part > div { position: relative; z-index: 2;}
     .right-table .rt-part.advanced::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #def4e8; border-radius: .06rem;}
@@ -86,23 +86,23 @@
     <div class="cm-form alri">
       <div class="cfm-line cfm-lineselect" id="J_form_vip">
         <div class="cfm-ao">客户类型</div>
-        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择客户类型" /></div>
+        <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择客户类型" /></div>
       </div>
       <div class="cfm-line cfm-lineselect" id="J_form_user">
         <div class="cfm-ao">相关会员</div>
-        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择相关会员" /></div>
+        <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择相关会员" /></div>
       </div>
       <div class="cfm-line cfm-lineselect" id="J_form_room">
         <div class="cfm-ao">使用包房</div>
-        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择使用包房" /></div>
+        <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择使用包房" /></div>
       </div>
       <div class="cfm-line cfm-lineselect" id="J_form_date">
         <div class="cfm-ao">使用日期</div>
-        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择使用日期" /></div>
+        <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择使用日期" /></div>
       </div>
       <div class="cfm-line cfm-lineselect" id="J_form_time">
         <div class="cfm-ao">场次时间</div>
-        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择场次时间" /></div>
+        <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择场次时间" /></div>
       </div>
       <div class="cfm-line" id="J_form_action">
         <div class="cfm-ao">费用价格</div>
@@ -110,7 +110,7 @@
       </div>
       <div class="cfm-line cfm-lineselect" id="J_form_cut">
         <div class="cfm-ao">权益抵扣</div>
-        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择协作动作" /></div>
+        <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择权益抵扣" /></div>
       </div>
       <div class="cfm-line">
         <div class="cfm-ao">余额抵扣</div>
@@ -127,7 +127,7 @@
       </div>
       <div class="cfm-line cfm-lineselect" id="J_form_pay">
         <div class="cfm-ao">支付途径</div>
-        <div class="cfm-inputline"><input class="cfm-input" placeholder="必填，请选择支付途径" /></div>
+        <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择支付途径" /></div>
       </div>
     </div>
     <div class="pe-btn cm-btn block primary" id="J_create">创建</div>
@@ -191,12 +191,18 @@
   <!-- 相关会员弹框 -->
   <div class="cm-popup-screen" id="J_popup_user">
     <div class="cm-user-select">
+      <div class="cus-search">
+        <div class="cm-input-wrap" id="J_userSearch">
+          <input class="ciw-input" placeholder="姓名或手机号" />
+          <div class="ciw-clear"></div>
+        </div>
+      </div>
       <div class="cus-list">
-        <div class="cus-list-item" data-name="相关会员名称001" data-id="1">相关会员名称001</div>
-        <div class="cus-list-item" data-name="相关会员名称002" data-id="2">相关会员名称002</div>
-        <div class="cus-list-item" data-name="相关会员名称003" data-id="3">相关会员名称003</div>
-        <div class="cus-list-item" data-name="相关会员名称004" data-id="4">相关会员名称004</div>
-        <div class="cus-list-item" data-name="相关会员名称005" data-id="5">相关会员名称005</div>
+        <div class="cus-list-item" data-name="相关会员名称001(15899998888)" data-id="1">相关会员名称001(15899998888)</div>
+        <div class="cus-list-item" data-name="相关会员名称002(15899998888)" data-id="2">相关会员名称002(15899998888)</div>
+        <div class="cus-list-item" data-name="相关会员名称003(15899998888)" data-id="3">相关会员名称003(15899998888)</div>
+        <div class="cus-list-item" data-name="相关会员名称004(15899998888)" data-id="4">相关会员名称004(15899998888)</div>
+        <div class="cus-list-item" data-name="相关会员名称005(15899998888)" data-id="5">相关会员名称005(15899998888)</div>
       </div>
     </div>
   </div>
@@ -474,6 +480,23 @@
         className: 'cm-popup-right-pop',
       });
       const userlist = $('#J_popup_user .cus-list-item');
+      // 搜索匹配
+      bindInputClear({
+        dom: document.getElementById('J_userSearch'),
+        onBlur: function(value){
+          if (!value) {
+            userlist.show();
+          } else {
+            userlist.each((index, dom) => {
+              if (userlist.eq(index).attr('data-name').indexOf(value) > -1) {
+                userlist.eq(index).show();
+              } else {
+                userlist.eq(index).hide();
+              }
+            })
+          }
+        },
+      });
       userlist.click(function(){
         let dom = $(this);
         userlist.removeClass('active');
