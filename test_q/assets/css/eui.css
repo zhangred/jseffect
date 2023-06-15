@@ -14,10 +14,10 @@
     position: relative;
     font-size: 14px;
     line-height: 24px;
-    --eui-primary: #58b586;
-    --eui-primary-light: #c8efce;
-    --eui-primary-gradient-start: #58b586;
-    --eui-primary-gradient-end: #81dfb0;
+    --eui-primary: #C79855;
+    --eui-primary-light: #efe5d8;
+    --eui-primary-gradient-start: #C79855;
+    --eui-primary-gradient-end: #E7C28F;
 }
 
 @keyframes euiFadeIn {

@@ -41,10 +41,10 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 
 .dinfont { font-family: 'numberFont';}
 
-.cm-btn { height: .36rem; border: 1px solid #58b586; color:#58b586; border-radius: 100px; padding: 0 .22rem; font-size: .14rem; text-align: center; justify-content: center; display: inline-flex; display: -webkit-inline-flex; align-items: center; white-space: nowrap;}
+.cm-btn { height: .36rem; border: 1px solid #C79855; color:#C79855; border-radius: 100px; padding: 0 .22rem; font-size: .14rem; text-align: center; justify-content: center; display: inline-flex; display: -webkit-inline-flex; align-items: center; white-space: nowrap;}
 .cm-btn.sm { height: .24rem; font-size: .12rem; padding: 0 .12rem;}
 .cm-btn.lg { height: .4rem; font-size: .16rem; padding: 0 .2rem;}
-.cm-btn.primary { background: #58b586; color: #fff; border: none;}
+.cm-btn.primary { background: #C79855; color: #fff; border: none;}
 .cm-btn.ash { border: 1px solid #999; color: #444; }
 .cm-btn.primary.disabled { background-color: #ccc; color: #fff;}
 .cm-btn.block { display: flex; display: -webkit-flex;}
@@ -111,7 +111,7 @@ textarea::-webkit-input-placeholder { color: #ccc;}
 .cm-botnav .cbt-icon-chart { background-position: -.2rem 0;}
 .cm-botnav .cbt-icon-log {background-position: -.4rem 0;}
 .cm-botnav .cbt-tx { padding-top: .08rem;}
-.cm-botnav .cbt-item.active { color: #58b586;}
+.cm-botnav .cbt-item.active { color: #B58747;}
 .cm-botnav .cbt-item.active .cbt-icon { background-position-y: -.16rem;}
 
 .eui-pop-content .cm-user-select { background: #fff; position: relative; height: 100%; overflow: hidden; display: flex; display: -webkit-flex; flex-direction: column;}

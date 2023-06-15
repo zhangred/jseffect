@@ -17,7 +17,7 @@
   <style>
     body { background-color: #fff;}
     .left-bar { position: fixed; left: 0; top: 0; bottom: .56rem; width: .56rem; flex-direction: column; padding-bottom: .68rem; overflow-y: auto; -webkit-overflow-scrolling: touch; background-color: #eee;}
-    .left-bar .lb-time { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff;}
+    .left-bar .lb-time { line-height: .48rem; text-align: center; background: #B58747; color: #fff; border-right: 1px solid #fff;}
     .left-bar .lb-time::after { position: relative; top: 2px; display: inline-block; content: ""; border: 4px solid #fff; border-color: #fff transparent transparent transparent; vertical-align: middle; margin-left: .02rem;}
     .left-bar .lb-part { flex: 1; align-items: center; border-bottom: 1px solid #fff; height: 1.3rem; color: #666; padding: 0 0 0 .06rem;}
     .left-bar .lb-part-nm { font-size: .14rem; color: #111; padding-bottom: .14rem;}
@@ -25,12 +25,12 @@
     .right-table { position: fixed; left: .56rem; top: 0; right: 0; bottom: .56rem; overflow: auto; -webkit-overflow-scrolling: touch; padding-bottom: .68rem;}
     .right-table .rt-item { white-space: nowrap; flex-direction: column;}
     .right-table .rt-item:nth-last-child(1) .rt-name { border: none;}
-    .right-table .rt-name { line-height: .48rem; text-align: center; background: #58b586; color: #fff; border-right: 1px solid #fff; padding: 0 .14rem; font-size: .14rem;}
+    .right-table .rt-name { line-height: .48rem; text-align: center; background: #B58747; color: #fff; border-right: 1px solid #fff; padding: 0 .14rem; font-size: .14rem;}
     .right-table .rt-part { position: relative; flex: 1; border-right: 1px solid #eee; border-bottom: 1px solid #eee; height: 1.3rem; display: flex; display: -webkit-flex; align-items: center; justify-content: center; padding: .12rem; line-height: .24rem;}
     .right-table .rt-part > div { position: relative; z-index: 2;}
-    .right-table .rt-part.advanced::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #def4e8; border-radius: .06rem;}
-    .right-table .rt-part.choosed::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #def4e8; border: 1px dashed #58b586; border-radius: .06rem;}
-    .right-table .rt-user-name { color: #58b586; font-weight: bold; padding-bottom: .04rem; align-items: center;}
+    .right-table .rt-part.advanced::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #fbf6ed; border-radius: .06rem;}
+    .right-table .rt-part.choosed::after { content: ""; position: absolute; left: .02rem; top: .02rem; bottom: .02rem; right: .02rem; background: #fbf6ed; border: 1px dashed #B58747; border-radius: .06rem;}
+    .right-table .rt-user-name { color: #B58747; font-weight: bold; padding-bottom: .04rem; align-items: center;}
     .right-table .rt-user-name img { width: .12rem; margin-right: .04rem;}
     .right-table .rt-user-plat { color: #999;}
     .bookline { position: fixed; left: 0; bottom: .56rem; right: 0; height: .48rem; background: rgba(0,0,0,.8); align-items: center; padding: 0 .14rem; color: #fff; transform: translateY(100%); opacity: 1; transition: all .2s;}
@@ -38,16 +38,30 @@
     .bookline .bl-left { flex: 1; overflow: hidden;}
     .bookline .bl-time { padding: 0 .1rem; font-size: .12rem; color: #aaa;}
 
-    .pop-edit-wrap .eui-pop-content {border-radius: .12rem; padding: .2rem 0; top: 50%!important;}
-    .pop-edit .pe-title { font-size: .16rem; font-weight: bold; text-align: center; padding-bottom: .2rem;}
-    .pop-edit .cm-form { padding: 0 .2rem; max-height: 60vh; overflow-y: scroll; -webkit-overflow-scrolling: touch;}
-    .pop-edit .pe-close { position: absolute; right: .05rem; top: .05rem; width: .24rem; opacity: .5;}
-    .pop-edit .pe-btn { margin: .2rem .2rem 0;}
+    .pop-edit-wrap .eui-pop-content {position: relative; top: 50%!important; width: 100%!important; height: 100%!important;}
+    .pop-edit { flex-direction: column; overflow: hidden; position: relative; height: 100%;}
+    .pop-edit .pe-title { position: relative; z-index: 2; font-size: .16rem; font-weight: bold; text-align: center; padding-bottom: .2rem; line-height: .24rem; padding: .16rem 0; flex: 0 0 .56rem; box-shadow: 0 0 .04rem rgba(0,0,0,.2);}
+    .pop-edit .cm-form { padding: 0 .2rem .2rem; flex: 1; overflow-y: scroll; -webkit-overflow-scrolling: touch;}
+    .pop-edit .pe-close { position: absolute; right: .14rem; top: .16rem; z-index: 3; width: .24rem; opacity: .5;}
+    .pop-edit .pe-btn { padding: .14rem .2rem; background: linear-gradient(270deg, #C79855 0%, #E7C28F 100%); width: 1.2rem;}
     .pop-edit .pe-mao { font-size: .12rem; color: #999; margin-left: .02rem;}
     .pop-edit .hastip { padding-bottom: .2rem; position: relative;}
     .pop-edit .cut-tip { display: none; position: absolute; right: 0; bottom: 0; font-size: .12rem; color: #ec5f5f;}
     .pop-edit .hastip .cut-tip { display: block;}
-    .pop-edit .pe-cancel-tip {font-size: .12rem; color: #ec5f5f; text-align: center; padding-top: .1rem;}
+    .pop-edit .pe-cancel-tip {font-size: .12rem; color: #ec5f5f; padding-top: .1rem; line-height: .18rem; padding-right: .3rem;}
+    .pop-edit .pe-bot { position: relative; z-index: 2; background: #fff; box-shadow: 0 0 .04rem rgba(0,0,0,.2); padding: .12rem .16rem;}
+    .pop-edit .pe-bot-money { color: #FB5343; font-size: .16rem; font-weight: bold;}
+    .pop-edit .pe-bot-ao { font-size: .12rem; color: #333; font-weight: normal;}
+    .pop-edit .pe-bot-num { font-size: .16rem;}
+    .pop-edit .time-line { border-bottom: none;}
+    .pop-edit .tpart-list {text-align: center; padding-bottom: .14rem;}
+    .pop-edit .tpart-item { border: 1px solid #eee; border-radius: .04rem; width: 1rem; height: .9rem; padding-top: .1rem;}
+    .pop-edit .tpart-item.active { background: rgb(181, 135, 71, .05); border-color: #B58747;}
+    .pop-edit .tpart-item.disabled { background: #F6F6F6; border-color: #eee;}
+    .pop-edit .tpart-item.disabled div { color: #ccc;}
+    .pop-edit .tpart-item-tx { color: #B58747;}
+    .pop-edit .tpart-item-tm { font-size: .12rem; color: #666;}
+    .pop-edit .tpart-item-num { color: #666; padding-top: .08rem;}
 
   </style>
   <div class="html">
@@ -67,7 +81,7 @@
         <div class="bl-name ellipsis"></div>
         <div class="bl-time"></div>
       </div>
-      <div class="bl-btn cm-btn primary" id="J_advance">预定/开房</div>
+      <div class="cm-btn primary" id="J_advance">预定/开房</div>
     </div>
 
     <!-- 底部导航 -->
@@ -80,7 +94,7 @@
 
 
   <!-- 编辑-新增-弹框 -->
-  <div class="pop-edit" id="J_popup_edit">
+  <div class="pop-edit flex" id="J_popup_edit">
     <img src="./assets/images/close01.png" class="pe-close" id="J_pe_close" />
     <div class="pe-title">预订/开房</div>
     <div class="cm-form alri">
@@ -100,9 +114,26 @@
         <div class="cfm-ao">使用日期</div>
         <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择使用日期" /></div>
       </div>
-      <div class="cfm-line cfm-lineselect" id="J_form_time">
+      <div class="cfm-line cfm-lineselect time-line" id="J_form_time">
         <div class="cfm-ao">场次时间</div>
         <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择场次时间" /></div>
+      </div>
+      <div class="tpart-list flex-aic-jcsb">
+        <div class="J_time_part tpart-item" data-value="morning">
+          <div class="tpart-item-tx">上午场</div>
+          <div class="tpart-item-tm">09:00 ~ 12:00</div>
+          <div class="tpart-item-num">￥500</div>
+        </div>
+        <div class="J_time_part tpart-item" data-value="afternoon">
+          <div class="tpart-item-tx">下午场</div>
+          <div class="tpart-item-tm">13:00 ~ 17:00</div>
+          <div class="tpart-item-num">￥600</div>
+        </div>
+        <div class="J_time_part tpart-item disabled" data-value="night">
+          <div class="tpart-item-tx">晚场</div>
+          <div class="tpart-item-tm">18:00 ~ 21:00</div>
+          <div class="tpart-item-num">￥500</div>
+        </div>
       </div>
       <div class="cfm-line" id="J_form_action">
         <div class="cfm-ao">费用价格</div>
@@ -130,11 +161,14 @@
         <div class="cfm-inputline"><input class="cfm-input" readonly placeholder="必填，请选择支付途径" /></div>
       </div>
     </div>
-    <div class="pe-btn cm-btn block primary" id="J_create">创建</div>
+    <div class="pe-bot flex-aic-jcsb">
+      <div class="pe-bot-money"><span class="pe-bot-ao">实付款：</span>￥<span class="pe-bot-num">5465</span></div>
+      <div class="pe-btn cm-btn block primary" id="J_create">提交预订</div>
+    </div>
   </div>
 
   <!-- 查看-弹框 -->
-  <div class="pop-edit" id="J_popup_detail">
+  <div class="pop-edit flex" id="J_popup_detail">
     <img src="./assets/images/close01.png" class="pe-close" id="J_pe_detail_close" />
     <div class="pe-title">查看预订/开房信息</div>
     <div class="cm-form alri">
@@ -184,8 +218,11 @@
         <div class="cfm-linetext">支付宝</div>
       </div>
     </div>
-    <div class="pe-btn cm-btn block primary" id="J_cancel">取消订单</div>
-    <div class="pe-cancel-tip">取消后，系统自动退还款项至客户的微信支付和余额</div>
+    <div class="pe-bot flex-aic-jcsb">
+      <div class="pe-cancel-tip">取消后，系统自动退还款项至客户的微信支付和余额</div>
+      <div class="pe-btn cm-btn block primary" id="J_cancel">取消订单</div>
+    </div>
+    
   </div>
 
   <!-- 相关会员弹框 -->
@@ -351,7 +388,7 @@
                   `;
                 }
                 J_table.html(str);
-              }, 1000);
+              }, 100);
             }
           }
         });
@@ -435,6 +472,12 @@
         $('#J_form_cut input').val('');
         cutPop.resetPicker({defaultValue: ''})
 
+        $('.J_time_part').each(function(index, elm){
+          let dom = $(elm);
+          let value = dom.attr('data-value');
+          dom[value === params.timeType ? 'addClass' : 'removeClass']('active');
+        })
+
 
         popEdit.show();
       })
@@ -445,7 +488,7 @@
         containerId: 'J_popup_edit',
         position: 'center',
         className: 'pop-edit-wrap',
-        closeOnMask: false
+        closeOnMask: false,
       });
 
       // 查看弹框
@@ -454,7 +497,7 @@
         containerId: 'J_popup_detail',
         position: 'center',
         className: 'pop-edit-wrap',
-        closeOnMask: false
+        closeOnMask: false,
       });
 
       // 客户类型
@@ -528,15 +571,13 @@
         },
       })
 
-      // 场次时间
-      let timePop = new Eui.picker({
-        trigger: document.getElementById('J_form_time'),
-        options: timeTypeList,
-        title: '选择场次时间',
-        onConfirm: function(rs){
-          params.timeType = rs.value;
-          $('#J_form_time input').val(rs.data.name);
-        },
+      $('.J_time_part').click(function(){
+        let self = $(this);
+        if (self.hasClass('disabled')) return;
+        let value = self.attr('data-value');
+        params.timeType = value;
+        $('#J_form_time input').val(timeTypeMap[value]);
+        self.addClass('active').siblings().removeClass('active');
       })
 
       // 权益抵扣
