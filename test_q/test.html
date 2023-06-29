@@ -32,13 +32,16 @@
 
    <div class="recta"></div>
    <div class="rectb"></div>
+
+   <div>屏幕宽度：<span id="width"></span></div>
   </div>
 
   <script language="javascript" type="text/javascript" src="./assets/js/jquery-2.1.4.min.js"></script>
   <script  language="javascript" type="text/javascript" src="./assets/js/eui.js"></script>
   <script  language="javascript" type="text/javascript" src="./assets/js/main.js"></script>
   <script>
-    
+    let dom = document.getElementById('width');
+    dom.innerHTML = window.innerWidth
   </script>
 </body>
 </html>
