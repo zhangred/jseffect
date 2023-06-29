@@ -22,101 +22,44 @@
 </head>
 <body>
 	<div class="page">
-		<div class="a" id="a">
-			<div class="c" id="c">
-				<!-- <div  style="height: 2000px; width: 100px; background-color: #ccc;"></div> -->
-			</div>
-			<div style="height: 2000px; width: 1000px; background-color: #ddd;"></div>
-		</div>
+		<div id="a">btn</div>
 	</div>
 	<script src="./js/jquery-2.1.4.min.js"></script>
 	<script>
+
+		function t(n){
+			return new Promise((resolve, reject) => {
+				if (n==1) {
+					resolve(true);
+				}
+				if (n==2) {
+					resolve(false);
+				}
+				if (n==3) {
+					reject();
+				}
+				if (n==4) {
+					reject({a: 4});
+				}
+			}).then(res => {
+				console.log(12, res);
+				return res;
+			}).then(res => {
+				console.log(13, res);
+				return res;
+			}).catch(() => {})
+		}
 		$(function(){
-
-			// $('#a').on('mousewheel',function(e){
-			// 	console.log(e)
-			// })
-			// $('#c').on('mousewheel',function(e){
-			// 	console.log(3)
-			// 	e.stopPropagation()
-			// 	e.preventDefault()
-			// })
-			let a = document.getElementById('a')
-			a.addEventListener('mousewheel',function(e){
-				console.log(e)
-			},false)
-			
-			// let c =document.getElementById('c')
-			// c.addEventListener('mousewheel', function(e){
-			// 	e.stopPropagation()
-			// 	e.preventDefault()
-			// 	console.log(34)
-			// })
-			// let prev = $('#J_prev')
-			// let next = $('#J_next')
-			// let jump = $('#J_jump')
-			
-
-			// prev.click(function(){
-				
-			// 	if(cur-1>=0) {
-			// 		content.eq(cur).addClass('right or')
-			// 		content.eq(cur-1).removeClass('left ol')
-			// 		cur--
-			// 	}
-			// })
-
-			// next.click(function(){
-			// 	if(cur+1<content.length) {
-			// 		content.eq(cur).addClass('left ol')
-			// 		content.eq(cur+1).removeClass('right or')
-			// 		cur++
-			// 	}
-			// })
-
-			// jump.click(function(){
-			// 	content.eq(4).prevAll().removeClass('right or').addClass('left ol')
-			// 	content.eq(4).removeClass('right or')
-			// 	cur = 4
-			// })
-
-			// let content = $('.content')
-			// let cur = 0
-
-			// function goNext() {
-			// 	if(cur+1<content.length) {
-			// 		content.eq(cur).addClass('left ol')
-			// 		content.eq(cur+1).removeClass('right or')
-			// 		cur++
-			// 	}
-			// }
-
-			// function goPrev() {
-			// 	if(cur-1>=0) {
-			// 		content.eq(cur).addClass('right or')
-			// 		content.eq(cur-1).removeClass('left ol')
-			// 		cur--
-			// 	}
-			// }
-
-			// $("#J_begin").click(function(){
-			// 	goNext()
-			// })
-
-			// $('.J_gonext').click(function(){
-			// 	goNext()
-			// })
-			// $('.J_goprev').click(function(){
-			// 	goPrev()
-			// })
-
-			// $('#J_save_answer').click(function(){
-			// 	goNext()
-			// })
-
-			// $('#J_save_coupon').click(function(){
-			// 	goNext()
-			// })
+			$('#a').click(function(){
+				t(1).then((rs) => {
+					console.log(1, rs)
+				})
+				t(2).then((rs) => {
+					console.log(2, rs)
+				})
+				t(3)
+				t(4)
+			})
 		})
 	</script>
 </body>
