@@ -15,40 +15,41 @@
     </style>
 </head>
 <body>
-    <a href="javascript:;" class="btn" id="J_btn">4唤起app，无参数</a>
-    <a href="javascript:;" class="btn" id="J_btna">4唤起app，带参数 key=1</a>
-    <a href="https://www.fir.im/pjry" class="btn btna" id="J_btnb">2s没有唤起，展示下载按钮</a>
 
-    <a href="secheme://duanxiaoli" class="btn" id="J_btnd">5-Scheme打开app</a>
-
-    <a href="weixin://"  class="btn">Scheme打开微信</a>
 	<script>
-        var down = document.getElementById('J_btnb');
-        
-        var btn = document.getElementById('J_btn');
-        btn.addEventListener('click',function(){
-            window.location = 'secheme://duanxiaoli';
-            setTimeout(function() {
-                down.classList.remove('btna')
-            },2000)
-        })
+
+        class Getname {
+            constructor(props = {}) {
+                this.name = props.name || '232';
+            }
+            getnamea() {
+                return this.name;
+            }
+        }
+
+        function funName(props) {
+            this.name = props.name || '23232';
+            // Getname.prototype.constructor.call(this);
+            let f = new Getname();
+            f.nmmm = () => {
+                return '23232323'
+            }
+            return f;
+            // console.log(5, Object.keys(f));
+
+        }
+        // funName.prototype = new Getname();
+        // funName.prototype.constructor = funName;
+        funName.prototype = {
+            getname:function getname() {
+                return this.name
+            }
+        }
 
 
-        var btna = document.getElementById('J_btna');
-        btna.addEventListener('click',function(){
-            window.location = 'secheme://duanxiaoli?key=1';
-            setTimeout(function() {
-                down.classList.remove('btna')
-            },2000)
-        })
-        var btnd = document.getElementById('J_btnd');
-        btna.addEventListener('click',function(){
-            setTimeout(function() {
-                down.classList.remove('btna')
-            },2000)
-        })
-        
-
+        // const nm = new Getname({ name: 88});
+        const nma = new funName({name: 'xxxx'})
+        console.log(nma);
         
 	</script>
 </body>
