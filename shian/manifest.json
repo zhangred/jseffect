@@ -14,13 +14,13 @@
   "background_color": "#ffffff",
   "js": [
     {
-      "value": "/static/js/main.d6c182a2.js",
+      "value": "./static/js/main.1448125f.js",
       "type": "entry"
     }
   ],
   "css": [
     {
-      "value": "/static/css/main.9116a956.css",
+      "value": "./static/css/main.9116a956.css",
       "type": "entry"
     }
   ]
