@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkreact_alive_router=self.webpackChunkreact_alive_router||[]).push([[866],{866:(e,d,r)=>{r.r(d),r.d(d,{default:()=>u});var s=r(55),a=r(43),t=r(579);function c(e){return console.log("dddd-props",e),(0,t.jsxs)("div",{className:s.A.a,children:[(0,t.jsx)("input",{}),"ddddd-xxxxxxx"]})}const u=a.memo(c)}}]);
-//# sourceMappingURL=866.aed16053.chunk.js.map

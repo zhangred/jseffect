@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkreact_alive_router=self.webpackChunkreact_alive_router||[]).push([[81],{81:(e,r,a)=>{a.r(r),a.d(r,{default:()=>s});var t=a(55),c=a(579);const s=function(){return(0,c.jsx)("div",{className:t.A.a,children:"eeeeee-xxxxxxx"})}}}]);
-//# sourceMappingURL=81.c229bc17.chunk.js.map
